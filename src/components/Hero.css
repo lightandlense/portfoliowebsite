@@ -1,0 +1,139 @@
+/* ═══════════════════════════════════════════
+   HERO SECTION
+   (3D background via SplineBackground, no center placeholder)
+   ═══════════════════════════════════════════ */
+
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 3rem;
+    overflow: hidden;
+    z-index: 1;
+    /* Above the fixed SplineBackground */
+    /* Pass pointer events through to the Spline canvas below */
+    pointer-events: none;
+}
+
+/* --- Massive Typography --- */
+.hero__headline {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.hero__headline-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.hero__headline-row--top {
+    margin-bottom: 1rem;
+}
+
+.hero__headline-row--bottom {
+    margin-top: 1rem;
+}
+
+.hero__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 0.85;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+}
+
+.hero__title--massive {
+    font-size: clamp(5rem, 15vw, 16rem);
+}
+
+/* --- Side Text (between headline rows) --- */
+.hero__side-text {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 5%;
+}
+
+.hero__side-text p {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.8;
+    color: var(--color-text);
+    text-align: right;
+}
+
+/* --- Description Text --- */
+.hero__description {
+    position: absolute;
+    bottom: 12%;
+    left: 3rem;
+    max-width: 380px;
+    z-index: 3;
+}
+
+.hero__description-label {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.hero__description-text {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+    .hero {
+        padding: 0 2rem;
+    }
+
+    .hero__title--massive {
+        font-size: clamp(3.5rem, 12vw, 10rem);
+    }
+
+    .hero__description {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 6rem 1.5rem 3rem;
+        min-height: auto;
+    }
+
+    .hero__headline-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero__title--massive {
+        font-size: clamp(3rem, 14vw, 6rem);
+    }
+
+    .hero__side-text {
+        justify-content: flex-start;
+    }
+
+    .hero__side-text p {
+        text-align: left;
+    }
+}
