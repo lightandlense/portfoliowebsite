@@ -30,6 +30,42 @@ const projects = [
         image: '/images/casestudyimages/butterflies.png',
         slug: 'projection-mapping-colorado-springs',
     },
+    {
+        id: 4,
+        category: 'AI Automation — Job Search',
+        title: 'Job Hunter',
+        description: 'A fully autonomous job search agent — configure your target roles once, then let it scrape boards, score matches, tailor your resume with Claude, and deliver a digest to your inbox overnight.',
+        tags: ['Claude API', 'Automation', 'Python'],
+        image: '/images/casestudyimages/Job Hunter/Screenshot 2026-04-13 113812.png',
+        slug: 'job-hunter',
+    },
+    {
+        id: 5,
+        category: 'Mobile App — Freelance Tools',
+        title: 'Callitin',
+        description: 'A mobile-first invoicing app for freelancers. Create professional PDF invoices with speech-to-text input, manage clients, and track payments — all from your phone in under a minute.',
+        tags: ['React Native', 'Expo', 'Supabase'],
+        image: '/images/casestudyimages/callitin/feature-graphic.png',
+        slug: 'callitin',
+    },
+    {
+        id: 6,
+        category: 'Mobile App — Accessibility',
+        title: 'Spoonable',
+        description: 'A recipe app built for the chronic illness community. Every recipe is rated by real energy cost — spoon tiers based on active steps, pans to wash, and standing time. Offline-first. $4.99 lifetime.',
+        tags: ['React Native', 'Expo', 'Offline-First'],
+        image: '/images/casestudyimages/Spoonable/spoonable-brand-card.jpg',
+        slug: 'spoonable',
+    },
+    {
+        id: 7,
+        category: 'Creative Technology — Google Fellowship',
+        title: 'Wonder Machine',
+        description: 'A portfolio you play with. An illustrated retro machine with four physical controls — each unlocking a different creative discipline via real-time MediaPipe ML, Web Audio theremin, and GSAP-animated machine transformations.',
+        tags: ['MediaPipe', 'Three.js', 'GSAP'],
+        image: '/images/work/wonder-machine/machine-front.jpeg',
+        slug: 'wonder-machine',
+    },
 ];
 
 function WorkCard({ project, index }) {
