@@ -94,7 +94,7 @@ export default function AiHairExtensions() {
             <CsImage
                 src="/images/work/hair-extensions/hair extension example.png"
                 alt="AI-generated hair extension output examples"
-                caption="Sample output — commercially ready assets generated from a single source image"
+                caption="Real hair extensions (top) with AI-generated models wearing each style applied (bottom)"
                 bleed
             />
 

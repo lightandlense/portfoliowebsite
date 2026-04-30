@@ -3,6 +3,7 @@ import './Navbar.css';
 
 const navLinks = [
     { label: 'Work', href: '#work' },
+    { label: 'Video', href: '#video' },
     { label: 'About', href: '#about' },
     { label: 'Contact', href: '#contact' },
 ];

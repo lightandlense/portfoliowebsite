@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Work from '../components/Work';
+import VideoWork from '../components/VideoWork';
 import TrustedBy from '../components/TrustedBy';
 import About from '../components/About';
 import Contact from '../components/Contact';
@@ -14,6 +15,7 @@ export default function Home() {
             <main>
                 <Hero />
                 <Work />
+                <VideoWork />
                 <TrustedBy />
                 <About />
                 <Contact />

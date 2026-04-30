@@ -45,9 +45,9 @@
 .about__bio {
     font-family: var(--font-body);
     font-size: 0.9rem;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 1.85;
-    color: var(--color-text-muted);
+    color: var(--color-text);
     margin-bottom: 1.25rem;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .about__tools-label {
-    color: var(--color-text-muted);
+    color: var(--color-text);
     letter-spacing: 0.18em;
     font-size: 0.65rem;
     margin-bottom: 1rem;
@@ -76,7 +76,7 @@
     font-size: 0.7rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-text-muted);
+    color: var(--color-text);
     border: 1px solid rgba(0, 229, 255, 0.15);
     padding: 5px 12px;
     border-radius: var(--radius-full);

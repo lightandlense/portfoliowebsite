@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Original uncompressed video sources — compressed versions ship in public/videos/
+public/videos/raw/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
