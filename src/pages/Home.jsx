@@ -14,9 +14,9 @@ export default function Home() {
             <Navbar />
             <main>
                 <Hero />
+                <TrustedBy />
                 <Work />
                 <VideoWork />
-                <TrustedBy />
                 <About />
                 <Contact />
             </main>
