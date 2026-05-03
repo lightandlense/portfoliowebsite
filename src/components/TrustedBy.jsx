@@ -2,12 +2,12 @@ import { motion } from 'framer-motion';
 import './TrustedBy.css';
 
 const logos = [
-    { src: '/images/logos/olympics%20logo%20trans.png', alt: 'Olympics' },
-    { src: '/images/logos/saudi%20arabia%20flag%20trans.png', alt: 'Saudi Arabia' },
-    { src: '/images/logos/adobe%20transaprent.png', alt: 'Adobe' },
-    { src: '/images/logos/lumecube%20logo%20trans.png', alt: 'LumeCube' },
+    { src: '/images/logos/olympics-logo-trans.png', alt: 'Olympics' },
+    { src: '/images/logos/saudi-arabia-flag-trans.png', alt: 'Saudi Arabia' },
+    { src: '/images/logos/adobe-transparent.png', alt: 'Adobe' },
+    { src: '/images/logos/lumecube-logo-trans.png', alt: 'LumeCube' },
     { src: '/images/logos/nanlite-logo_brandlogos.net_jey7u.png', alt: 'Nanlite' },
-    { src: '/images/logos/pubg%20logo%20trans.png', alt: 'PUBG' },
+    { src: '/images/logos/pubg-logo-trans.png', alt: 'PUBG' },
 ];
 
 export default function TrustedBy() {
