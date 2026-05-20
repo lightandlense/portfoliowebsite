@@ -7,6 +7,7 @@ import JobHunter from './pages/work/JobHunter';
 import Callitin from './pages/work/Callitin';
 import Spoonable from './pages/work/Spoonable';
 import WonderMachine from './pages/work/WonderMachine';
+import BallFall from './pages/work/BallFall';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <Route path="/work/callitin" element={<Callitin />} />
       <Route path="/work/spoonable" element={<Spoonable />} />
       <Route path="/work/wonder-machine" element={<WonderMachine />} />
+      <Route path="/work/ball-fall" element={<BallFall />} />
     </Routes>
   );
 }

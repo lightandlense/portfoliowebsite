@@ -66,6 +66,15 @@ const projects = [
         image: '/images/work/wonder-machine/machine-front.jpeg',
         slug: 'wonder-machine',
     },
+    {
+        id: 8,
+        category: 'Creative Technology — Physical-Digital Installation',
+        title: 'Ball Fall',
+        description: 'A physical-digital puzzle wall where cardboard becomes physics. Players arrange real blocks in front of a projection. A camera reads each block. The simulation responds within one frame. Twenty-five mechanics, two block types, vanilla JavaScript.',
+        tags: ['Computer Vision', 'Matter.js', 'Projection Mapping'],
+        image: '/images/casestudyimages/BallFall/mechanic-grid.jpg',
+        slug: 'ball-fall',
+    },
 ];
 
 function WorkCard({ project, index }) {
