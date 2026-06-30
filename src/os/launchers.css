@@ -1,8 +1,54 @@
 .os-icons { position: absolute; top: 56px; left: 22px; display: flex; flex-direction: column; gap: 18px; z-index: 5; }
 .os-icon { background: none; border: none; cursor: pointer; width: 92px; text-align: center; color: var(--os-ink); font-family: var(--os-mono); }
-.os-icon__glyph { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; margin: 0 auto 6px; font-size: 28px; background: #fff; border: var(--os-border); box-shadow: 5px 5px 0 var(--os-ink); }
+.os-icon__glyph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 6px;
+  font-size: 28px;
+  background: #fff;
+  border: var(--os-border);
+  box-shadow: var(--os-shadow);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.os-icon:hover .os-icon__glyph {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--os-ink);
+}
+.os-icon:active .os-icon__glyph {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+.os-icon:focus-visible .os-icon__glyph {
+  outline: 3px solid var(--os-red);
+  outline-offset: 3px;
+}
 .os-icon__label { font-size: 12px; font-weight: 700; }
 
 .os-dock { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; gap: 10px; padding: 8px 12px; background: var(--os-ink); border: var(--os-border); }
-.os-dock__item { width: 48px; height: 48px; font-size: 22px; background: #fff; border: 2px solid #fff; cursor: pointer; position: relative; }
+.os-dock__item {
+  width: 48px;
+  height: 48px;
+  font-size: 22px;
+  background: #fff;
+  border: 2px solid #fff;
+  cursor: pointer;
+  position: relative;
+  box-shadow: var(--os-shadow);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.os-dock__item:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--os-ink);
+}
+.os-dock__item:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+.os-dock__item:focus-visible {
+  outline: 3px solid var(--os-red);
+  outline-offset: 3px;
+}
 .os-dock__item[data-running='true']::after { content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; background: var(--os-accent); }
