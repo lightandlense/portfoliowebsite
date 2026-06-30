@@ -1,7 +1,8 @@
-import { motion } from 'framer-motion';
+import { motion, useDragControls } from 'framer-motion';
 import './Window.css';
 
 export function Window({ window: win, isFocused, onClose, onMinimize, onFocus, onMove, reducedMotion, children }) {
+  const controls = useDragControls();
   if (win.minimized) return null;
   return (
     <motion.section
@@ -11,6 +12,7 @@ export function Window({ window: win, isFocused, onClose, onMinimize, onFocus, o
       animate={{ x: win.x, y: win.y }}
       transition={reducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 600, damping: 40 }}
       drag
+      dragControls={controls}
       dragMomentum={!reducedMotion}
       dragListener={false}
       onMouseDown={() => onFocus?.(win.id)}
@@ -18,7 +20,7 @@ export function Window({ window: win, isFocused, onClose, onMinimize, onFocus, o
     >
       <header
         className="os-window__bar"
-        onPointerDown={() => { onFocus?.(win.id); }}
+        onPointerDown={(e) => { controls.start(e); onFocus?.(win.id); }}
       >
         <span className="os-window__lights" aria-hidden="true"><i /><i /><i /></span>
         <span className="os-window__title">{win.title}</span>

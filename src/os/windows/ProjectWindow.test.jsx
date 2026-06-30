@@ -12,9 +12,10 @@ describe('ProjectWindow', () => {
     const video = screen.getByTestId('project-hero-video');
     expect(video.querySelector('source')).toHaveAttribute('src', '/images/casestudyimages/Chromotion/demo.mp4');
   });
-  it('renders an image hero project', () => {
+  it('renders a video hero project', () => {
     render(<ProjectWindow projectId="gizmo-factory" />);
-    expect(screen.getByRole('img')).toHaveAttribute('src', '/images/casestudyimages/GizmoFactory/title-card.jpg');
+    const video = screen.getByTestId('project-hero-video');
+    expect(video.querySelector('source')).toHaveAttribute('src', '/images/casestudyimages/GizmoFactory/process-1.mp4');
   });
   it('renders nothing for unknown id', () => {
     const { container } = render(<ProjectWindow projectId="nope" />);

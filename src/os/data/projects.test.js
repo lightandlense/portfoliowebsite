@@ -12,9 +12,9 @@ describe('projects data', () => {
   it('every project has all required fields', () => {
     for (const p of PROJECTS) for (const f of REQUIRED) expect(p, p.id).toHaveProperty(f);
   });
-  it('every media path is absolute (starts with /)', () => {
+  it('every local media path is absolute (starts with /)', () => {
     for (const p of PROJECTS) {
-      expect(p.hero.src.startsWith('/')).toBe(true);
+      if (p.hero.type !== 'iframe') expect(p.hero.src.startsWith('/')).toBe(true);
       if (p.hero.poster) expect(p.hero.poster.startsWith('/')).toBe(true);
     }
   });

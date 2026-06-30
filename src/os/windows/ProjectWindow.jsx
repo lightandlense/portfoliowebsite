@@ -11,6 +11,8 @@ export function ProjectWindow({ projectId }) {
           <video data-testid="project-hero-video" poster={p.hero.poster} preload="metadata" muted loop autoPlay playsInline>
             <source src={p.hero.src} type="video/mp4" />
           </video>
+        ) : p.hero.type === 'iframe' ? (
+          <iframe src={p.hero.src} title={p.title} allowFullScreen className="pw__iframe" />
         ) : (
           <img src={p.hero.src} alt={p.title} loading="lazy" />
         )}

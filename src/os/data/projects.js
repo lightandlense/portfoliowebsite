@@ -10,11 +10,11 @@ export const PROJECTS = [
       { value: 'Real-World', label: 'Deployment' },
       { value: 'Feasibility', label: 'Study' },
     ],
-    hero: { type: 'video', src: '/videos/CqS9h_bpvSJ.mp4', poster: '/images/reels/CqS9h_bpvSJ.jpg' },
+    hero: { type: 'iframe', src: 'https://www.youtube.com/embed/UVEOhV4b6XM' },
     body: [
       { type: 'p', text: 'Large-scale projection mapping onto urban architecture — a feasibility study for a Colorado Springs activation.' },
     ],
-    links: [{ kind: 'watch', label: 'Watch', url: '/videos/CqS9h_bpvSJ.mp4' }],
+    links: [{ kind: 'watch', label: 'Watch on YouTube', url: 'https://www.youtube.com/watch?v=UVEOhV4b6XM' }],
     accent: '#ff8a00',
     icon: { glyph: '🎯', color: '#ff8a00' },
   },
@@ -29,7 +29,7 @@ export const PROJECTS = [
       { value: 'Physics', label: 'Matter.js' },
       { value: 'Projected', label: 'Surface' },
     ],
-    hero: { type: 'image', src: '/images/casestudyimages/GizmoFactory/title-card.jpg' },
+    hero: { type: 'video', src: '/images/casestudyimages/GizmoFactory/process-1.mp4' },
     body: [
       { type: 'p', text: 'A physical-digital installation: computer-vision-tracked objects drive a projected, physics-simulated factory world.' },
     ],
