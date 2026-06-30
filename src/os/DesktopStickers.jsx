@@ -4,18 +4,12 @@ import { findMatchingZone, SNAP_ZONES } from './snapZones';
 import { SpecialStickerIcon, SPECIAL_STICKERS } from './zones/SpecialStickerIcon';
 import './DesktopStickers.css';
 
-const STAMPS = [
-  '⭐','💥','🔥','✨','🎨','🎮','📷','🚀',
-  '💡','🎯','💫','⚡','🌈','🎲','👾','🌀',
-  '🌸','🦋','🎪','🎭','🌟','💎','🎬','🏆',
-];
-
 let nextId = 0;
 
 export function DesktopStickers({ completedZones = {}, onSnap = () => {} }) {
   const [stickers, setStickers] = useState([]);
   const [open, setOpen] = useState(false);
-  const dragging = useRef(null); // { kind: 'emoji'|'special', emoji?, stickerId? }
+  const dragging = useRef(null); // { stickerId: string }
 
   useEffect(() => {
     function onDragOver(e) {
@@ -28,23 +22,16 @@ export function DesktopStickers({ completedZones = {}, onSnap = () => {} }) {
       if (e.target.closest('.os-window') || e.target.closest('.sticker-dock')) return;
       e.preventDefault();
 
-      if (d.kind === 'special') {
-        const match = findMatchingZone(e.clientX, e.clientY, d.stickerId, completedZones);
-        if (match) {
-          onSnap(match.id);
-          setOpen(false);
-          return;
-        }
-        setStickers((prev) => [
-          ...prev,
-          { id: nextId++, kind: 'special', stickerId: d.stickerId, x: e.clientX - 18, y: e.clientY - 18 },
-        ]);
-      } else {
-        setStickers((prev) => [
-          ...prev,
-          { id: nextId++, kind: 'emoji', emoji: d.emoji, x: e.clientX - 18, y: e.clientY - 18 },
-        ]);
+      const match = findMatchingZone(e.clientX, e.clientY, d.stickerId, completedZones);
+      if (match) {
+        onSnap(match.id);
+        setOpen(false);
+        return;
       }
+      setStickers((prev) => [
+        ...prev,
+        { id: nextId++, stickerId: d.stickerId, x: e.clientX - 18, y: e.clientY - 18 },
+      ]);
       setOpen(false);
     }
     document.addEventListener('dragover', onDragOver);
@@ -55,18 +42,9 @@ export function DesktopStickers({ completedZones = {}, onSnap = () => {} }) {
     };
   }, [completedZones, onSnap]);
 
-  const onDragStartEmoji = useCallback((emoji, e) => {
-    dragging.current = { kind: 'emoji', emoji };
-    const ghost = document.createElement('span');
-    ghost.textContent = emoji;
-    ghost.style.cssText = 'position:fixed;top:-999px;font-size:28px;pointer-events:none';
-    document.body.appendChild(ghost);
-    e.dataTransfer.setDragImage(ghost, 16, 16);
-    setTimeout(() => ghost.remove(), 0);
-  }, []);
-
   const onDragStartSpecial = useCallback((stickerId, e) => {
-    dragging.current = { kind: 'special', stickerId };
+    dragging.current = { stickerId };
+    e.dataTransfer.setData('text/plain', stickerId);
     const ghost = document.createElement('div');
     ghost.style.cssText = 'position:fixed;top:-999px;width:32px;height:32px;background:#FFD400;border:2px solid #111';
     document.body.appendChild(ghost);
@@ -82,10 +60,7 @@ export function DesktopStickers({ completedZones = {}, onSnap = () => {} }) {
     <>
       {stickers.map((s) => (
         <motion.div key={s.id} className="desktop-sticker" drag dragMomentum={false} style={{ x: s.x, y: s.y }}>
-          {s.kind === 'emoji'
-            ? <span className="desktop-sticker__emoji">{s.emoji}</span>
-            : <div className="desktop-sticker__svg"><SpecialStickerIcon stickerId={s.stickerId} /></div>
-          }
+          <div className="desktop-sticker__svg"><SpecialStickerIcon stickerId={s.stickerId} /></div>
           <button className="desktop-sticker__remove" aria-label="Remove sticker" onClick={() => removeSticker(s.id)}>×</button>
         </motion.div>
       ))}
@@ -93,16 +68,6 @@ export function DesktopStickers({ completedZones = {}, onSnap = () => {} }) {
       <div className="sticker-dock">
         {open && (
           <div className="sticker-tray">
-            <p className="sticker-tray__hint">drag to desktop</p>
-            <div className="sticker-tray__grid">
-              {STAMPS.map((emoji) => (
-                <span key={emoji} className="sticker-tray__stamp" draggable
-                  onDragStart={(e) => onDragStartEmoji(emoji, e)}
-                  aria-label={emoji} role="img">
-                  {emoji}
-                </span>
-              ))}
-            </div>
             <p className="sticker-tray__hint sticker-tray__hint--special">find their spot ✦</p>
             <div className="sticker-tray__grid sticker-tray__grid--special">
               {SPECIAL_STICKERS.map(({ stickerId, label }) => {

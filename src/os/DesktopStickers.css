@@ -10,13 +10,6 @@
   filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.25));
 }
 .desktop-sticker:active { cursor: grabbing; }
-.desktop-sticker__emoji {
-  font-size: 30px;
-  line-height: 1;
-  transition: transform 0.1s ease;
-  display: block;
-}
-.desktop-sticker:hover .desktop-sticker__emoji { transform: scale(1.15) rotate(-4deg); }
 .desktop-sticker__remove {
   display: none;
   background: #111;
