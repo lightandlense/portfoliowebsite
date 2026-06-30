@@ -1,0 +1,25 @@
+.garden-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ground strip — bottom 25% */
+.garden-ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25%;
+  background: #4a8c40;
+  border-top: 3px solid #111;
+}
+
+/* each zone is absolutely positioned at its % coords */
+.garden-zone {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
