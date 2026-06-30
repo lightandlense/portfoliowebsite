@@ -56,8 +56,16 @@ export function ArtScene() {
 
   const pendingZones = ART_SCENE_ZONES.filter((z) => !state.completedZones[z.id]);
 
+  useEffect(() => {
+    const prev = document.body.style.cssText;
+    document.body.style.background = `url('/art-scene/background.svg') center / 100% 100% no-repeat #7bc9ef`;
+    document.body.style.margin = '0';
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.cssText = prev; };
+  }, []);
+
   return (
-    <div className="art-scene">
+    <div className="art-scene" style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
       <Link to="/" className="art-scene__back">← OS</Link>
 
       {ART_SCENE_ZONES.map((zone) =>

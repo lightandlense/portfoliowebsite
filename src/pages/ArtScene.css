@@ -1,8 +1,8 @@
 .art-scene {
-  position: fixed;
-  inset: 0;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  background: url('/art-scene/background.svg') center / 100% 100% no-repeat #7bc9ef;
   cursor: default;
 }
 
