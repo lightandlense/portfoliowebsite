@@ -14,6 +14,11 @@ export function AboutWindow() {
         <li>91M+ combined reel views · 4.6M+ likes</li>
         <li>Google Creative Fellowship 2026</li>
       </ul>
+      <iframe
+        className="about__resume-viewer"
+        src="/images/Russell Klimas AI Resume 2026.pdf"
+        title="Russell Klimas résumé"
+      />
       <a className="about__resume" href="/images/Russell Klimas AI Resume 2026.pdf" target="_blank" rel="noreferrer">Download résumé ↗</a>
     </div>
   );

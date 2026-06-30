@@ -12,8 +12,9 @@
 .reels__play { color: #fff; font-size: 22px; text-shadow: 0 1px 4px #000; }
 
 .about { padding: 16px; }
-.about__photo { width: 100%; height: 200px; object-fit: cover; border: var(--os-border); }
+.about__photo { width: 100%; height: 200px; object-fit: cover; object-position: top center; border: var(--os-border); }
 .about__bio { font-size: 13px; line-height: 1.6; margin: 12px 0; }
 .about__rec { font-size: 12px; padding-left: 18px; }
-.about__resume, .contact__link { display: inline-block; margin-top: 12px; margin-right: 10px; font-weight: 700; font-size: 12px; border: 2px solid var(--os-ink); padding: 6px 12px; text-decoration: none; color: var(--os-ink); }
+.about__resume-viewer { width: 100%; height: 480px; border: var(--os-border); display: block; margin-top: 16px; }
+.about__resume, .contact__link { display: inline-block; margin-top: 10px; margin-right: 10px; font-weight: 700; font-size: 12px; border: 2px solid var(--os-ink); padding: 6px 12px; text-decoration: none; color: var(--os-ink); }
 .contact { padding: 16px; font-size: 14px; }

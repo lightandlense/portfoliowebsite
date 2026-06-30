@@ -33,7 +33,56 @@ export function ProjectWindow({ projectId }) {
             </div>
           ))}
         </div>
-        {p.body.map((b, i) => (b.type === 'h' ? <h3 key={i}>{b.text}</h3> : <p key={i} className="pw__p">{b.text}</p>))}
+        {p.body.map((b, i) => {
+          if (b.type === 'h') return <h3 key={i} className="pw__section-h">{b.text}</h3>;
+          if (b.type === 'image') return (
+            <figure key={i} className="pw__figure">
+              <img src={b.src} alt={b.alt} loading="lazy" />
+              {b.caption && <figcaption className="pw__caption">{b.caption}</figcaption>}
+            </figure>
+          );
+          if (b.type === 'pillars') return (
+            <div key={i} className="pw__pillars">
+              {b.items.map((it, j) => (
+                <div key={j} className="pw__pillar">
+                  <b>{it.title}</b>
+                  <p>{it.text}</p>
+                </div>
+              ))}
+            </div>
+          );
+          if (b.type === 'video-grid') return (
+            <div key={i} className="pw__vgrid">
+              {b.items.map((v, j) => (
+                <div key={j} className="pw__vgrid-item">
+                  <video src={v.src} autoPlay loop muted playsInline preload="metadata" style={{ objectPosition: v.objectPosition }} />
+                  <p className="pw__caption"><strong>{v.label}</strong> {v.caption}</p>
+                </div>
+              ))}
+            </div>
+          );
+          if (b.type === 'specs') return (
+            <dl key={i} className="pw__specs">
+              {b.items.map((s, j) => (
+                <div key={j} className="pw__spec">
+                  <dt>{s.label}</dt>
+                  <dd>{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+          );
+          if (b.type === 'takeaways') return (
+            <div key={i} className="pw__takeaways">
+              {b.items.map((t, j) => (
+                <div key={j} className="pw__takeaway">
+                  <span className="pw__takeaway-num">{t.num}</span>
+                  <div><b>{t.title}</b><p>{t.text}</p></div>
+                </div>
+              ))}
+            </div>
+          );
+          return <p key={i} className="pw__p">{b.text}</p>;
+        })}
         <div className="pw__tags">{p.tags.map((t) => <span key={t} className="pw__tag">{t}</span>)}</div>
         <div className="pw__links">
           {p.links.map((l) => (
