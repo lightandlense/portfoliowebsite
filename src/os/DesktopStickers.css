@@ -140,6 +140,7 @@
   opacity: 0.4;
   cursor: default;
   border-color: #4a8c40;
+  pointer-events: none;    /* ← add this line */
 }
 
 .sticker-tray__check {

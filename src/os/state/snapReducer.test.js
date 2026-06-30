@@ -24,6 +24,13 @@ describe('snapReducer', () => {
     const s = snapReducer(initialSnapState, { type: 'NOOP' });
     expect(s).toBe(initialSnapState);
   });
+
+  it('completing an already-done zone is idempotent', () => {
+    const s1 = snapReducer(initialSnapState, completeZone('sun'));
+    const s2 = snapReducer(s1, completeZone('sun'));
+    expect(s2.completedZones.sun).toBe(true);
+    expect(Object.values(s2.completedZones).filter(Boolean).length).toBe(1);
+  });
 });
 
 describe('loadSnapState', () => {

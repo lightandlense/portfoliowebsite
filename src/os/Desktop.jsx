@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useCallback, useEffect, useReducer, useState } from 'react';
 import './os.css';
 import { TopBar } from './TopBar';
 import { DesktopIcons } from './DesktopIcons';
@@ -66,6 +66,7 @@ export function Desktop() {
   const [state, dispatch] = useReducer(windowReducer, undefined, lazyInit);
   const [snapState, snapDispatch] = useReducer(snapReducer, undefined, loadSnapState);
   const reducedMotion = useReducedMotion();
+  const handleSnap = useCallback((zoneId) => snapDispatch(completeZone(zoneId)), []);
 
   useEffect(() => {
     const ids = state.windows.filter((w) => !w.minimized).map((w) => w.id);
@@ -116,7 +117,7 @@ export function Desktop() {
       ))}
       <DesktopStickers
         completedZones={snapState.completedZones}
-        onSnap={(zoneId) => snapDispatch(completeZone(zoneId))}
+        onSnap={handleSnap}
       />
       <IdleToast />
     </div>

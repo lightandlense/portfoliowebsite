@@ -35,7 +35,8 @@ export function RainbowZone({ completed }) {
       {!completed && <Arc r={MISSING_BAND.r} color="rgba(17,17,17,0.1)" />}
       <AnimatePresence>
         {completed && (
-          <motion.g initial={{ opacity: 0 }} animate={{ opacity: [0, 1.2, 1] }}
+          <motion.g initial={{ opacity: 0, filter: 'brightness(1)' }}
+            animate={{ opacity: [0, 1, 1], filter: ['brightness(1)', 'brightness(1.5)', 'brightness(1)'] }}
             transition={{ duration: 0.4, times: [0, 0.6, 1] }}>
             <Arc r={MISSING_BAND.r} color={MISSING_BAND.color} />
           </motion.g>
