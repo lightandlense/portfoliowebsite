@@ -1,0 +1,2 @@
+.os-boot { position: fixed; inset: 0; z-index: 2000; background: var(--os-ink); color: var(--os-accent); display: flex; align-items: center; justify-content: center; }
+.os-boot__text { font-family: var(--os-mono); font-size: 20px; text-align: center; }
