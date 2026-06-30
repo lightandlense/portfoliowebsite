@@ -1,0 +1,11 @@
+.os-topbar {
+  position: absolute; top: 0; left: 0; right: 0; height: 38px; z-index: 1000;
+  display: flex; align-items: center; gap: 16px; padding: 0 14px;
+  background: var(--os-ink); color: var(--os-base); font-size: 13px;
+}
+.os-topbar__brand {
+  font-family: var(--os-display); font-weight: 800; letter-spacing: 1px;
+  background: var(--os-accent); color: #fff; padding: 4px 10px;
+}
+.os-topbar__nav { display: flex; gap: 14px; opacity: 0.85; }
+.os-topbar__clock { margin-left: auto; }
