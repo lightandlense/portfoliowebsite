@@ -1,0 +1,155 @@
+.art-scene {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: url('/art-scene/background.svg') center / 100% 100% no-repeat #7bc9ef;
+  cursor: default;
+}
+
+/* Completed piece — wrapper positions center at zone %, inner img gets animation */
+.art-scene__piece-wrap {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.art-scene__piece-wrap img {
+  display: block;
+}
+
+/* Animations */
+@keyframes spin-rays {
+  to { transform: rotate(360deg); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes windmill-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes shimmer {
+  0%, 100% { filter: brightness(1) saturate(1); }
+  50%       { filter: brightness(1.35) saturate(1.3); }
+}
+@keyframes sway {
+  0%, 100% { transform: rotate(-6deg); }
+  50%       { transform: rotate(6deg); }
+}
+
+.art-scene__piece--sun-rays img     { animation: spin-rays 10s linear infinite; transform-origin: center center; }
+.art-scene__piece--balloon-basket img { animation: bob 3s ease-in-out infinite; }
+.art-scene__piece--windmill-sails img { animation: windmill-spin 4s linear infinite; transform-origin: center center; }
+.art-scene__piece--rainbow-orange-band img { animation: shimmer 2.5s ease-in-out infinite; }
+.art-scene__piece--yellow-flower img { animation: sway 2.2s ease-in-out infinite; transform-origin: center bottom; }
+
+/* Sticker tray */
+.art-scene__tray {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  background: #fff;
+  border: 3px solid #111;
+  box-shadow: 5px 5px 0 #111;
+  padding: 12px 16px;
+  border-radius: 0;
+  z-index: 20;
+}
+
+.art-scene__sticker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-drag: element;
+  flex: 0 0 auto;
+}
+
+.art-scene__sticker:active { cursor: grabbing; }
+
+.art-scene__sticker-img-wrap {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.art-scene__sticker img {
+  max-width: 36px;
+  max-height: 36px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+.art-scene__sticker span {
+  font-family: 'Archivo', monospace, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Back button */
+.art-scene__back {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 30;
+  background: #fff;
+  border: 3px solid #111;
+  box-shadow: 3px 3px 0 #111;
+  padding: 6px 14px;
+  font-family: 'Archivo', monospace, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.art-scene__back:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #111;
+}
+
+.art-scene__back:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #111;
+}
+
+/* All done celebration */
+.art-scene__done {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #FFD400;
+  border: 3px solid #111;
+  box-shadow: 5px 5px 0 #111;
+  padding: 12px 24px;
+  font-family: 'Archivo', monospace, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 20;
+  white-space: nowrap;
+}

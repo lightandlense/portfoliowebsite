@@ -10,11 +10,13 @@ import GizmoFactory from './pages/work/GizmoFactory';
 import Chromotion from './pages/work/Chromotion';
 import RealTimeExperiments from './pages/work/RealTimeExperiments';
 import { OSApp } from './os/OSApp';
+import { ArtScene } from './pages/ArtScene';
 
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<OSApp />} />
+      <Route path="/art-scene" element={<ArtScene />} />
       <Route path="/classic" element={<Home />} />
       <Route path="/classic/work/ai-hair-extensions" element={<AiHairExtensions />} />
       <Route path="/classic/work/ai-voice-assistant" element={<AiVoiceAssistant />} />
