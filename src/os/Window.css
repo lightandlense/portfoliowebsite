@@ -1,0 +1,21 @@
+.os-window {
+  position: absolute; top: 0; left: 0;
+  width: 460px; max-width: 90vw;
+  background: #fff; border: var(--os-border); box-shadow: var(--os-shadow);
+}
+.os-window.is-focused { box-shadow: 10px 10px 0 var(--os-ink); }
+.os-window__bar {
+  display: flex; align-items: center; gap: 10px; height: 38px; padding: 0 10px;
+  background: var(--os-ink); color: #fff; cursor: grab; font-weight: 700; font-size: 13px;
+}
+.os-window__lights { display: flex; gap: 6px; }
+.os-window__lights i { width: 12px; height: 12px; display: block; border: 2px solid #fff; }
+.os-window__lights i:nth-child(1) { background: var(--os-accent); }
+.os-window__lights i:nth-child(2) { background: var(--os-yellow); }
+.os-window__lights i:nth-child(3) { background: var(--os-green); }
+.os-window__title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.os-window__actions button {
+  width: 24px; height: 24px; margin-left: 4px; background: #fff; color: var(--os-ink);
+  border: 2px solid #fff; font-weight: 700; cursor: pointer;
+}
+.os-window__body { max-height: 70vh; overflow: auto; }
