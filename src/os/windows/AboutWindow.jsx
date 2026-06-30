@@ -12,7 +12,6 @@ export function AboutWindow() {
       <ul className="about__rec">
         <li>Olympics — Milano Cortina 2026 reel commission</li>
         <li>91M+ combined reel views · 4.6M+ likes</li>
-        <li>Google Creative Fellowship 2026</li>
       </ul>
       <iframe
         className="about__resume-viewer"
