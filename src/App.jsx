@@ -6,21 +6,25 @@ import ProjectionMapping from './pages/work/ProjectionMapping';
 import JobHunter from './pages/work/JobHunter';
 import Callitin from './pages/work/Callitin';
 import Spoonable from './pages/work/Spoonable';
-import WonderMachine from './pages/work/WonderMachine';
-import BallFall from './pages/work/BallFall';
+import GizmoFactory from './pages/work/GizmoFactory';
+import Chromotion from './pages/work/Chromotion';
+import RealTimeExperiments from './pages/work/RealTimeExperiments';
+import { OSApp } from './os/OSApp';
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/work/ai-hair-extensions" element={<AiHairExtensions />} />
-      <Route path="/work/ai-voice-assistant" element={<AiVoiceAssistant />} />
-      <Route path="/work/projection-mapping-colorado-springs" element={<ProjectionMapping />} />
-      <Route path="/work/job-hunter" element={<JobHunter />} />
-      <Route path="/work/callitin" element={<Callitin />} />
-      <Route path="/work/spoonable" element={<Spoonable />} />
-      <Route path="/work/wonder-machine" element={<WonderMachine />} />
-      <Route path="/work/ball-fall" element={<BallFall />} />
+      <Route path="/" element={<OSApp />} />
+      <Route path="/classic" element={<Home />} />
+      <Route path="/classic/work/ai-hair-extensions" element={<AiHairExtensions />} />
+      <Route path="/classic/work/ai-voice-assistant" element={<AiVoiceAssistant />} />
+      <Route path="/classic/work/projection-mapping-colorado-springs" element={<ProjectionMapping />} />
+      <Route path="/classic/work/job-hunter" element={<JobHunter />} />
+      <Route path="/classic/work/callitin" element={<Callitin />} />
+      <Route path="/classic/work/spoonable" element={<Spoonable />} />
+      <Route path="/classic/work/gizmo-factory" element={<GizmoFactory />} />
+      <Route path="/classic/work/chromotion" element={<Chromotion />} />
+      <Route path="/classic/work/real-time-experiments" element={<RealTimeExperiments />} />
     </Routes>
   );
 }
