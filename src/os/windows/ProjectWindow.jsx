@@ -1,4 +1,5 @@
 import { getProject } from '../data/projects';
+import { ParticleSketch } from './ParticleSketch';
 import './ProjectWindow.css';
 
 export function ProjectWindow({ projectId }) {
@@ -7,7 +8,11 @@ export function ProjectWindow({ projectId }) {
   return (
     <article className="pw">
       <div className="pw__hero" style={{ background: p.accent }}>
-        {p.hero.type === 'video' ? (
+        {p.hero.type === 'interactive' ? (
+          <div data-testid="project-hero-interactive" style={{ width: '100%', height: '100%' }}>
+            <ParticleSketch />
+          </div>
+        ) : p.hero.type === 'video' ? (
           <video data-testid="project-hero-video" poster={p.hero.poster} preload="metadata" muted loop autoPlay playsInline>
             <source src={p.hero.src} type="video/mp4" />
           </video>

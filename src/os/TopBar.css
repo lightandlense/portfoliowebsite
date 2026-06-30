@@ -8,4 +8,9 @@
   background: var(--os-accent); color: #fff; padding: 4px 10px;
 }
 .os-topbar__nav { display: flex; gap: 14px; opacity: 0.85; }
+.os-topbar__nav-btn {
+  background: none; border: none; color: inherit; font: inherit; font-size: 13px;
+  cursor: pointer; padding: 0; letter-spacing: inherit;
+}
+.os-topbar__nav-btn:hover { opacity: 0.7; }
 .os-topbar__clock { margin-left: auto; }

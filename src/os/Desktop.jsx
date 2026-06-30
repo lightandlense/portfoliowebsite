@@ -59,7 +59,7 @@ export function Desktop() {
   return (
     <div className="os-root">
       {booting && <BootScreen onDone={() => setBooting(false)} />}
-      <TopBar />
+      <TopBar onOpen={onOpen} />
       <DesktopIcons onOpen={onOpen} />
       {state.windows.map((win) => (
         <Window

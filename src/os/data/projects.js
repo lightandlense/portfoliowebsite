@@ -10,7 +10,7 @@ export const PROJECTS = [
       { value: 'Real-World', label: 'Deployment' },
       { value: 'Feasibility', label: 'Study' },
     ],
-    hero: { type: 'iframe', src: 'https://www.youtube.com/embed/UVEOhV4b6XM' },
+    hero: { type: 'image', src: '/images/casestudyimages/butterflies.png' },
     body: [
       { type: 'p', text: 'Large-scale projection mapping onto urban architecture — a feasibility study for a Colorado Springs activation.' },
     ],
@@ -29,7 +29,7 @@ export const PROJECTS = [
       { value: 'Physics', label: 'Matter.js' },
       { value: 'Projected', label: 'Surface' },
     ],
-    hero: { type: 'video', src: '/images/casestudyimages/GizmoFactory/process-1.mp4' },
+    hero: { type: 'video', src: '/images/casestudyimages/GizmoFactory/Viral.mov' },
     body: [
       { type: 'p', text: 'A physical-digital installation: computer-vision-tracked objects drive a projected, physics-simulated factory world.' },
     ],
@@ -67,7 +67,7 @@ export const PROJECTS = [
       { value: 'WebGL', label: 'Real-Time' },
       { value: 'Many', label: 'Experiments' },
     ],
-    hero: { type: 'image', src: '/images/experiments/interactive-particles.png' },
+    hero: { type: 'interactive' },
     body: [
       { type: 'p', text: 'A running series of real-time interactive sketches — hand-tracking, particle systems, and TouchDesigner/WebGL experiments.' },
     ],

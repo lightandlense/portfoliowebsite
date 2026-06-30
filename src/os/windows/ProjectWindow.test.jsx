@@ -15,7 +15,11 @@ describe('ProjectWindow', () => {
   it('renders a video hero project', () => {
     render(<ProjectWindow projectId="gizmo-factory" />);
     const video = screen.getByTestId('project-hero-video');
-    expect(video.querySelector('source')).toHaveAttribute('src', '/images/casestudyimages/GizmoFactory/process-1.mp4');
+    expect(video.querySelector('source')).toHaveAttribute('src', '/images/casestudyimages/GizmoFactory/Viral.mov');
+  });
+  it('renders an interactive hero for real-time-experiments', () => {
+    render(<ProjectWindow projectId="real-time-experiments" />);
+    expect(screen.getByTestId('project-hero-interactive')).toBeInTheDocument();
   });
   it('renders nothing for unknown id', () => {
     const { container } = render(<ProjectWindow projectId="nope" />);

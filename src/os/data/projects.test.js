@@ -13,8 +13,9 @@ describe('projects data', () => {
     for (const p of PROJECTS) for (const f of REQUIRED) expect(p, p.id).toHaveProperty(f);
   });
   it('every local media path is absolute (starts with /)', () => {
+    const withSrc = ['video', 'image'];
     for (const p of PROJECTS) {
-      if (p.hero.type !== 'iframe') expect(p.hero.src.startsWith('/')).toBe(true);
+      if (withSrc.includes(p.hero.type)) expect(p.hero.src.startsWith('/')).toBe(true);
       if (p.hero.poster) expect(p.hero.poster.startsWith('/')).toBe(true);
     }
   });

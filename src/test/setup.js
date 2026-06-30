@@ -1,5 +1,14 @@
 import '@testing-library/jest-dom';
 
+// jsdom lacks ResizeObserver
+if (!window.ResizeObserver) {
+  window.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}
+
 // jsdom lacks matchMedia; default to "no reduced motion".
 if (!window.matchMedia) {
   window.matchMedia = (query) => ({
