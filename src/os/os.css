@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo:wght@600;700;800&display=swap');
 
 .os-root {
   --os-base: #e9e6dd;
@@ -12,7 +12,7 @@
   --os-shadow:    5px 5px 0 var(--os-ink);
   --os-shadow-lg: 8px 8px 0 var(--os-ink);
   --os-mono:      'Space Mono', monospace;
-  --os-display:   'Syne', sans-serif;
+  --os-display:   'Archivo', sans-serif;
 
   position: fixed;
   inset: 0;
