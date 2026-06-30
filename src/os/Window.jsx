@@ -1,13 +1,33 @@
+import { useRef } from 'react';
 import { motion, useDragControls } from 'framer-motion';
 import './Window.css';
 
-export function Window({ window: win, isFocused, onClose, onMinimize, onFocus, onMove, reducedMotion, children }) {
+export function Window({ window: win, isFocused, onClose, onMinimize, onFocus, onMove, onResize, reducedMotion, children }) {
   const controls = useDragControls();
+  const resizeStart = useRef(null);
+
+  function startResize(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    onFocus?.(win.id);
+    resizeStart.current = { mx: e.clientX, my: e.clientY, w: win.w, h: win.h };
+    function onMove(e) {
+      const { mx, my, w, h } = resizeStart.current;
+      onResize?.(win.id, Math.max(280, w + e.clientX - mx), Math.max(200, h + e.clientY - my));
+    }
+    function onUp() {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+    }
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+  }
+
   if (win.minimized) return null;
   return (
     <motion.section
       className={`os-window${isFocused ? ' is-focused' : ''}`}
-      style={{ zIndex: win.z }}
+      style={{ zIndex: win.z, width: win.w, height: win.h }}
       initial={false}
       animate={{ x: win.x, y: win.y }}
       transition={reducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 600, damping: 40 }}
@@ -30,6 +50,7 @@ export function Window({ window: win, isFocused, onClose, onMinimize, onFocus, o
         </span>
       </header>
       <div className="os-window__body">{children}</div>
+      <div className="os-window__resize-handle" onPointerDown={startResize} aria-hidden="true" />
     </motion.section>
   );
 }

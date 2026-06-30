@@ -1,7 +1,7 @@
 .os-window {
   position: absolute; top: 0; left: 0;
-  width: 460px; max-width: 90vw;
   background: #fff; border: var(--os-border); box-shadow: var(--os-shadow);
+  display: flex; flex-direction: column;
 }
 .os-window.is-focused { box-shadow: 10px 10px 0 var(--os-ink); }
 .os-window__bar {
@@ -18,4 +18,9 @@
   width: 24px; height: 24px; margin-left: 4px; background: #fff; color: var(--os-ink);
   border: 2px solid #fff; font-weight: 700; cursor: pointer;
 }
-.os-window__body { max-height: 70vh; overflow: auto; }
+.os-window__body { flex: 1; overflow: auto; min-height: 0; }
+.os-window__resize-handle {
+  position: absolute; right: 0; bottom: 0; width: 18px; height: 18px;
+  cursor: se-resize;
+  background: linear-gradient(135deg, transparent 50%, var(--os-ink) 50%, var(--os-ink) 60%, transparent 60%, transparent 70%, var(--os-ink) 70%, var(--os-ink) 80%, transparent 80%);
+}

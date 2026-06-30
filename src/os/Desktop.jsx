@@ -2,12 +2,11 @@ import { useEffect, useReducer, useState } from 'react';
 import './os.css';
 import { TopBar } from './TopBar';
 import { DesktopIcons } from './DesktopIcons';
-import { Dock } from './Dock';
 import { Window } from './Window';
 import { BootScreen } from './BootScreen';
 import { LAUNCHERS, buildOpenAction } from './launchers';
 import {
-  initialState, windowReducer, openWindow, closeWindow, focusWindow, moveWindow, minimizeWindow,
+  initialState, windowReducer, openWindow, closeWindow, focusWindow, moveWindow, minimizeWindow, resizeWindow,
 } from './state/windowManager';
 import { ProjectWindow } from './windows/ProjectWindow';
 import { ProjectsFinder } from './windows/ProjectsFinder';
@@ -56,7 +55,6 @@ export function Desktop() {
 
   const onOpen = (launcher) => dispatch(openWindow(buildOpenAction(launcher)));
   const topZ = Math.max(0, ...state.windows.map((w) => w.z));
-  const openIds = new Set(state.windows.map((w) => w.id));
 
   return (
     <div className="os-root">
@@ -73,11 +71,11 @@ export function Desktop() {
           onMinimize={(id) => dispatch(minimizeWindow(id))}
           onFocus={(id) => dispatch(focusWindow(id))}
           onMove={(id, x, y) => dispatch(moveWindow(id, x, y))}
+          onResize={(id, w, h) => dispatch(resizeWindow(id, w, h))}
         >
           {renderContent(win, dispatch)}
         </Window>
       ))}
-      <Dock openIds={openIds} onOpen={onOpen} />
     </div>
   );
 }
