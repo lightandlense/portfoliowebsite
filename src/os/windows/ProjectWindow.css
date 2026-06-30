@@ -67,24 +67,3 @@
 .pw__takeaway-num { font-family: var(--os-display); font-weight: 800; font-size: 22px; opacity: 0.25; flex: 0 0 auto; line-height: 1; }
 .pw__takeaway b { font-size: 12px; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
 .pw__takeaway p { font-size: 12px; line-height: 1.5; margin: 0; }
-.pw__quote { border-left: 4px solid var(--os-ink); margin: 14px 0; padding: 10px 14px; background: rgba(0,0,0,0.04); }
-.pw__quote p { font-family: var(--os-display); font-weight: 800; font-size: 13px; line-height: 1.4; margin: 0 0 4px; }
-.pw__quote footer { font-size: 11px; opacity: 0.6; font-style: italic; }
-.pw__ba { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
-.pw__ba-item { display: flex; flex-direction: column; gap: 4px; }
-.pw__ba-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; }
-.pw__ba-item img { width: 100%; display: block; border: var(--os-border); aspect-ratio: 4/3; object-fit: cover; }
-.pw__figure--video video { width: 100%; display: block; border: var(--os-border); }
-.pw__exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
-.pw__exp-card { border: 2px solid var(--os-ink); display: flex; flex-direction: column; overflow: hidden; }
-.pw__exp-thumb img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
-.pw__exp-info { padding: 8px 8px 0; flex: 1; }
-.pw__exp-info b { font-size: 11px; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 3px; }
-.pw__exp-info p { font-size: 11px; line-height: 1.4; margin: 0; opacity: 0.8; }
-.pw__exp-btn { margin: 8px; padding: 5px 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: var(--os-ink); color: var(--os-bg); border: none; cursor: pointer; font-family: inherit; }
-.pw__exp-btn:disabled { opacity: 0.35; cursor: default; }
-.pw__yt { margin: 10px 0; }
-.pw__yt-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border: var(--os-border); }
-.pw__yt-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-.pw__yt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
-.pw__yt-grid-item .pw__yt-wrap { margin-bottom: 4px; }
