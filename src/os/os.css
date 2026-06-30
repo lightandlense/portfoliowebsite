@@ -1,15 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@800&display=swap');
 
 .os-root {
   --os-base: #e9e6dd;
   --os-ink: #111111;
-  --os-accent: #ff3b00;
-  --os-yellow: #ffd400;
-  --os-green: #00d26a;
-  --os-border: 3px solid #111111;
-  --os-shadow: 8px 8px 0 #111111;
-  --os-mono: 'Space Mono', monospace;
-  --os-display: 'Archivo', sans-serif;
+  --os-red:       #E2243B;
+  --os-orange:    #FF6B35;
+  --os-yellow:    #FFD400;
+  --os-accent:    var(--os-red);
+  --os-border:    3px solid #111111;
+  --os-shadow-sm: 3px 3px 0 var(--os-ink);
+  --os-shadow:    5px 5px 0 var(--os-ink);
+  --os-shadow-lg: 8px 8px 0 var(--os-ink);
+  --os-mono:      'Space Mono', monospace;
+  --os-display:   'Syne', sans-serif;
 
   position: fixed;
   inset: 0;
