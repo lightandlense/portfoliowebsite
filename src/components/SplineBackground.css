@@ -11,6 +11,10 @@
     overflow: hidden;
 }
 
+.spline-bg--static {
+    background: var(--color-bg);
+}
+
 /* Spline canvas fills viewport — do NOT force !important on canvas;
    Spline sets its own inline dimensions for correct mouse-coordinate mapping */
 .spline-bg__canvas {
