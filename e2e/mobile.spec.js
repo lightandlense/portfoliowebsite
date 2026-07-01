@@ -27,6 +27,7 @@ test('tapping a project card opens its full case study', async ({ page }) => {
   await link.scrollIntoViewIfNeeded();
   await link.click();
   await expect(page).toHaveURL(/\/classic\/work\//);
+  await expect(page.locator('h1').first()).toBeVisible();
 });
 
 test('tapping a reel opens the lightbox without autoplaying first', async ({ page }) => {
