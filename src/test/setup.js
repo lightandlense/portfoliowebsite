@@ -9,6 +9,16 @@ if (!window.ResizeObserver) {
   };
 }
 
+// jsdom lacks IntersectionObserver
+if (!window.IntersectionObserver) {
+  window.IntersectionObserver = class {
+    constructor() {}
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}
+
 // jsdom lacks matchMedia; default to "no reduced motion".
 if (!window.matchMedia) {
   window.matchMedia = (query) => ({

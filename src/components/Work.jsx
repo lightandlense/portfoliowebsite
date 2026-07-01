@@ -116,7 +116,7 @@ function WorkCard({ project, index }) {
                             <span key={tag} className="work-card__tag">{tag}</span>
                         ))}
                     </div>
-                    <Link to={`/work/${project.slug}`} className="work-card__link">
+                    <Link to={`/classic/work/${project.slug}`} className="work-card__link">
                         View Case Study ↗
                     </Link>
                 </div>
