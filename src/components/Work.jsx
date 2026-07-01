@@ -4,6 +4,42 @@ import './Work.css';
 
 const projects = [
     {
+        id: 3,
+        category: 'Projection Mapping — Urban Activation',
+        title: 'Urban Projection',
+        description: 'Five projection mapping installations across downtown Colorado Springs murals — deployed by a 2-person team in a single 6-hour window. Zero structural modification. A feasibility study that built the proof of concept for city-scale programmable public art.',
+        tags: ['Projection Mapping', 'Urban', 'Feasibility Study'],
+        image: '/images/casestudyimages/butterflies.png',
+        slug: 'projection-mapping-colorado-springs',
+    },
+    {
+        id: 8,
+        category: 'Creative Technology — Physical-Digital Installation',
+        title: 'Gizmo Factory',
+        description: 'A physical-digital puzzle wall where cardboard becomes physics. Players arrange real blocks in front of a projection. A camera reads each block. The simulation responds within one frame. Twenty-five mechanics, two block types, vanilla JavaScript.',
+        tags: ['Computer Vision', 'Matter.js', 'Projection Mapping'],
+        image: '/images/casestudyimages/GizmoFactory/mechanic-grid.jpg',
+        slug: 'gizmo-factory',
+    },
+    {
+        id: 9,
+        category: 'Creative Technology — Interactive Installation',
+        title: 'Chromotion',
+        description: 'Color a printed car template with crayons. Hold it up to the kiosk camera. A computer vision pipeline reads each body panel, extracts the exact crayon colors, and applies them to a classic car sprite driving across an animated highway scene.',
+        tags: ['Computer Vision', 'Pixi.js', 'Python'],
+        image: '/images/casestudyimages/Chromotion/animated-result.jpg',
+        slug: 'chromotion',
+    },
+    {
+        id: 10,
+        category: 'Creative Technology — Real-Time & Interactive',
+        title: 'Real-Time Experiments',
+        description: 'A collection of camera-driven, hands-on browser experiences and real-time TouchDesigner interaction studies. Hand-tracking particle fields, an infinity mirror, gesture Tetris, generative weather, and more — all running live in the browser.',
+        tags: ['Hand Tracking', 'TouchDesigner', 'WebGL'],
+        image: '/images/experiments/interactive-particles.png',
+        slug: 'real-time-experiments',
+    },
+    {
         id: 1,
         category: 'Generative Art — AI Workflow',
         title: 'AI Hair Extensions',
@@ -20,15 +56,6 @@ const projects = [
         tags: ['Voice AI', 'MCP', 'Automation'],
         image: '/images/casestudyimages/ai assistant.jpg',
         slug: 'ai-voice-assistant',
-    },
-    {
-        id: 3,
-        category: 'Projection Mapping — Urban Activation',
-        title: 'Urban Projection',
-        description: 'Five projection mapping installations across downtown Colorado Springs murals — deployed by a 2-person team in a single 6-hour window. Zero structural modification. A feasibility study that built the proof of concept for city-scale programmable public art.',
-        tags: ['Projection Mapping', 'Urban', 'Feasibility Study'],
-        image: '/images/casestudyimages/butterflies.png',
-        slug: 'projection-mapping-colorado-springs',
     },
     {
         id: 4,
@@ -56,24 +83,6 @@ const projects = [
         tags: ['React Native', 'Expo', 'Offline-First'],
         image: '/images/casestudyimages/Spoonable/spoonable-brand-card.jpg',
         slug: 'spoonable',
-    },
-    {
-        id: 7,
-        category: 'Creative Technology — Google Fellowship',
-        title: 'Wonder Machine',
-        description: 'A portfolio you play with. An illustrated retro machine with four physical controls — each unlocking a different creative discipline via real-time MediaPipe ML, Web Audio theremin, and GSAP-animated machine transformations.',
-        tags: ['MediaPipe', 'Three.js', 'GSAP'],
-        image: '/images/work/wonder-machine/machine-front.jpeg',
-        slug: 'wonder-machine',
-    },
-    {
-        id: 8,
-        category: 'Creative Technology — Physical-Digital Installation',
-        title: 'Ball Fall',
-        description: 'A physical-digital puzzle wall where cardboard becomes physics. Players arrange real blocks in front of a projection. A camera reads each block. The simulation responds within one frame. Twenty-five mechanics, two block types, vanilla JavaScript.',
-        tags: ['Computer Vision', 'Matter.js', 'Projection Mapping'],
-        image: '/images/casestudyimages/BallFall/mechanic-grid.jpg',
-        slug: 'ball-fall',
     },
 ];
 
