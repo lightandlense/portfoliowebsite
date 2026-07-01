@@ -105,5 +105,11 @@
 @media (max-width: 768px) {
     .contact {
         padding: var(--space-lg) 1.5rem var(--space-md);
+        min-height: auto;
+        justify-content: flex-start;
+    }
+
+    .contact__footer {
+        margin-top: var(--space-lg);
     }
 }
