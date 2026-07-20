@@ -1,28 +1,39 @@
-import { useCallback, useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import './os.css';
 import { TopBar } from './TopBar';
 import { DesktopIcons } from './DesktopIcons';
 import { Window } from './Window';
 import { BootScreen } from './BootScreen';
 import { IdleToast } from './IdleToast';
-import { DesktopStickers } from './DesktopStickers';
 import { PetalBackground } from './PetalBackground';
-import { GardenBackground } from './GardenBackground';
-import { snapReducer, loadSnapState, completeZone } from './state/snapReducer';
+import { ArtSceneCanvas } from '../pages/ArtSceneCanvas';
 import { ProjectWindow } from './windows/ProjectWindow';
 import { ProjectsFinder } from './windows/ProjectsFinder';
 import { ReelsApp } from './windows/ReelsApp';
 import { AboutWindow } from './windows/AboutWindow';
+import { ResumeWindow } from './windows/ResumeWindow';
 import { ContactWindow } from './windows/ContactWindow';
 import { LAUNCHERS, buildOpenAction } from './launchers';
 import { useReducedMotion } from './hooks/useReducedMotion';
 import {
   initialState, windowReducer, openWindow, closeWindow, focusWindow,
-  moveWindow, minimizeWindow, resizeWindow, bumpWindows,
+  moveWindow, minimizeWindow, resizeWindow, bumpWindows, cascade, DEFAULT_W, DEFAULT_H,
 } from './state/windowManager';
 
 function overlaps(a, b) {
   return !(a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y);
+}
+
+const TOPBAR_H = 38;
+
+function clampPos(x, y, w, h) {
+  const maxX = Math.max(0, window.innerWidth - w);
+  const maxY = Math.max(TOPBAR_H, window.innerHeight - h);
+  return { x: Math.min(Math.max(0, x), maxX), y: Math.min(Math.max(TOPBAR_H, y), maxY) };
+}
+
+function clampSize(w, h) {
+  return { w: Math.min(w, window.innerWidth), h: Math.min(h, window.innerHeight - TOPBAR_H) };
 }
 
 function readOpenParam() {
@@ -34,7 +45,12 @@ function lazyInit() {
   const ids = readOpenParam();
   return ids.reduce((state, id) => {
     const l = LAUNCHERS.find((x) => x.id === id);
-    return l ? windowReducer(state, openWindow(buildOpenAction(l))) : state;
+    if (!l) return state;
+    const action = buildOpenAction(l);
+    const { w, h } = clampSize(action.w ?? DEFAULT_W, action.h ?? DEFAULT_H);
+    const pos = cascade(state.windows.length);
+    const { x, y } = clampPos(pos.x, pos.y, w, h);
+    return windowReducer(state, openWindow({ ...action, w, h, x, y }));
   }, initialState);
 }
 
@@ -55,7 +71,11 @@ function renderContent(win, dispatch) {
       if (l) dispatch(openWindow(buildOpenAction(l)));
     }} />;
     case 'reels': return <ReelsApp />;
-    case 'about': return <AboutWindow />;
+    case 'about': return <AboutWindow onOpenResume={() => {
+      const l = LAUNCHERS.find((x) => x.id === 'resume');
+      if (l) dispatch(openWindow(buildOpenAction(l)));
+    }} />;
+    case 'resume': return <ResumeWindow />;
     case 'contact': return <ContactWindow />;
     default: return null;
   }
@@ -64,9 +84,8 @@ function renderContent(win, dispatch) {
 export function Desktop() {
   const [booting, setBooting] = useState(true);
   const [state, dispatch] = useReducer(windowReducer, undefined, lazyInit);
-  const [snapState, snapDispatch] = useReducer(snapReducer, undefined, loadSnapState);
+  const [sceneResetTick, setSceneResetTick] = useState(0);
   const reducedMotion = useReducedMotion();
-  const handleSnap = useCallback((zoneId) => snapDispatch(completeZone(zoneId)), []);
 
   useEffect(() => {
     const ids = state.windows.filter((w) => !w.minimized).map((w) => w.id);
@@ -74,13 +93,20 @@ export function Desktop() {
     window.history.replaceState({}, '', `${window.location.pathname}${qs}`);
   }, [state.windows]);
 
-  const onOpen = (launcher) => dispatch(openWindow(buildOpenAction(launcher)));
+  const onOpen = (launcher) => {
+    const action = buildOpenAction(launcher);
+    const { w, h } = clampSize(action.w ?? DEFAULT_W, action.h ?? DEFAULT_H);
+    const pos = cascade(state.windows.length);
+    const { x, y } = clampPos(pos.x, pos.y, w, h);
+    dispatch(openWindow({ ...action, w, h, x, y }));
+  };
   const topZ = Math.max(0, ...state.windows.map((w) => w.z));
 
-  function handleMove(id, x, y) {
-    dispatch(moveWindow(id, x, y));
+  function handleMove(id, rawX, rawY) {
     const movedWin = state.windows.find((w) => w.id === id);
     if (!movedWin) return;
+    const { x, y } = clampPos(rawX, rawY, movedWin.w, movedWin.h);
+    dispatch(moveWindow(id, x, y));
     const moved = { ...movedWin, x, y };
     const bumps = state.windows
       .filter((w) => w.id !== id && !w.minimized && overlaps(moved, w))
@@ -88,18 +114,26 @@ export function Desktop() {
         const dx = (w.x + w.w / 2) - (x + moved.w / 2);
         const dy = (w.y + w.h / 2) - (y + moved.h / 2);
         const mag = Math.sqrt(dx * dx + dy * dy) || 1;
-        return { id: w.id, x: w.x + (dx / mag) * 40, y: w.y + (dy / mag) * 40 };
+        return { id: w.id, ...clampPos(w.x + (dx / mag) * 40, w.y + (dy / mag) * 40, w.w, w.h) };
       });
     if (bumps.length) dispatch(bumpWindows(bumps));
+  }
+
+  function handleResize(id, w, h) {
+    const win = state.windows.find((win) => win.id === id);
+    if (!win) return;
+    const maxW = Math.max(280, window.innerWidth - win.x);
+    const maxH = Math.max(200, window.innerHeight - win.y);
+    dispatch(resizeWindow(id, Math.min(w, maxW), Math.min(h, maxH)));
   }
 
   return (
     <div className="os-root">
       {booting && <BootScreen onDone={() => setBooting(false)} />}
       <PetalBackground reducedMotion={reducedMotion} />
-      <GardenBackground completedZones={snapState.completedZones} />
-      <TopBar onOpen={onOpen} />
-      <DesktopIcons onOpen={onOpen} />
+      {!booting && <ArtSceneCanvas resetTrigger={sceneResetTick} />}
+      <TopBar onOpen={onOpen} onResetScene={() => setSceneResetTick((t) => t + 1)} />
+      {!booting && <DesktopIcons onOpen={onOpen} />}
       {state.windows.map((win) => (
         <Window
           key={win.id}
@@ -110,15 +144,11 @@ export function Desktop() {
           onMinimize={(id) => dispatch(minimizeWindow(id))}
           onFocus={(id) => dispatch(focusWindow(id))}
           onMove={handleMove}
-          onResize={(id, w, h) => dispatch(resizeWindow(id, w, h))}
+          onResize={handleResize}
         >
           {renderContent(win, dispatch)}
         </Window>
       ))}
-      <DesktopStickers
-        completedZones={snapState.completedZones}
-        onSnap={handleSnap}
-      />
       <IdleToast />
     </div>
   );
