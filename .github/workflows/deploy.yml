@@ -31,7 +31,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps   # coverage-v8 4.x peers vitest 4; local install used the same flag
       - run: npx vitest run
       - run: npm run build
       # ponytail: FTPS upload of dist/, only changed files after the first run (state file on server). Never deletes unknown server files.
