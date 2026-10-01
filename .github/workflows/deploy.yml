@@ -1,0 +1,45 @@
+name: Deploy to Springs Hosting
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      probe:
+        description: "Only list the FTP folder, upload nothing"
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    if: github.event_name == 'workflow_dispatch' && inputs.probe
+    runs-on: ubuntu-latest
+    steps:
+      - name: List FTP root (confirms the login lands in the portfolio folder)
+        run: curl -sS --ssl-reqd --list-only "ftp://triton.springshosting.net/" --user "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+
+  deploy:
+    if: github.event_name == 'push' || !inputs.probe
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx vitest run
+      - run: npm run build
+      # ponytail: FTPS upload of dist/, only changed files after the first run (state file on server). Never deletes unknown server files.
+      - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: triton.springshosting.net   # cert host; ftp.lightandlense.com is the same box but fails TLS name check
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ./
