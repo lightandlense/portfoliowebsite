@@ -488,7 +488,7 @@ export const PROJECTS = [
       { value: '13.1 → 3.2', label: 'Worst Color Error (ΔE)' },
       { value: '1 hex', label: 'Brand Color Spec' },
     ],
-    hero: { type: 'image', src: '/work/ai-email/images/welcome_after.jpg' },
+    hero: { type: 'image', src: '/work/ai-email/images/hero_strip.jpg' },
     body: [
       { type: 'p', text: 'A spec project: three lifecycle emails (welcome, new arrival, win-back) for Aritzia, built end to end with an AI image pipeline that holds the product to one exact brand color. Spec work for a portfolio. Not affiliated with or endorsed by Aritzia.' },
       { type: 'h', text: 'The Problem' },
