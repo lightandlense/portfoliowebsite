@@ -476,6 +476,68 @@ export const PROJECTS = [
     accent: '#eab308',
     icon: { glyph: '📞', color: '#eab308' },
   },
+  {
+    id: 'ai-email-creative',
+    slug: 'ai-email-creative',
+    title: 'On-Brand AI Email',
+    hideFromRail: true,
+    category: 'Generative AI: Lifecycle Email Creative (Spec)',
+    tags: ['Generative AI', 'ComfyUI', 'Email Design', 'HTML Email', 'Brand Guardrails'],
+    stats: [
+      { value: '3', label: 'Lifecycle Emails' },
+      { value: '13.1 → 3.2', label: 'Worst Color Error (ΔE)' },
+      { value: '1 hex', label: 'Brand Color Spec' },
+    ],
+    hero: { type: 'image', src: '/work/ai-email/images/welcome_after.jpg' },
+    body: [
+      { type: 'p', text: 'A spec project: three lifecycle emails (welcome, new arrival, win-back) for Aritzia, built end to end with an AI image pipeline that holds the product to one exact brand color. Spec work for a portfolio. Not affiliated with or endorsed by Aritzia.' },
+      { type: 'h', text: 'The Problem' },
+      { type: 'p', text: 'Most AI-generated emails still look AI-generated. For fashion, the most visible failure is color: ask a model for a camel coat and you get tan, caramel, or orange depending on the light. A brand that sells a specific colorway cannot send an email where the coat is the wrong color.' },
+      { type: 'quote', text: 'Spec: camel wool coat, #B58D63. Raw renders missed it by 11.5 to 26.8 ΔE.', sub: 'Anything above about 5 ΔE reads as a different color to a shopper.' },
+      { type: 'h', text: 'The Workflow' },
+      { type: 'pillars', items: [
+        { title: 'Brand Guardrails', text: 'Before any image, a written rule set: black on white, garment color is the only color, uppercase tracked labels, flat rectangular buttons, 3 to 9 word subject lines, no emoji, no prices or fake promotions.' },
+        { title: 'Generate, Then Mask', text: 'SDXL renders each scene. GroundingDINO and SAM find the coat by text prompt ("camel coat"), so the black turtleneck, trousers, skin and background are left alone.' },
+        { title: 'Lock and Check', text: 'My open-source ProductColorLock node moves the coat to the spec hex in Lab space while keeping the fabric texture. ProductColorCheck then fails any image over 5 ΔE before it can reach a template.' },
+      ]},
+      { type: 'image', src: '/work/ai-email/images/pipeline_triptych.jpg', alt: 'Raw render, coat mask, and color-locked result', caption: 'Raw render (ΔE 11.5), the coat-only mask, the locked result (ΔE 2.7)' },
+      { type: 'before-after', items: [
+        { label: 'Raw render', src: '/work/ai-email/images/studio_before.jpg', alt: 'Studio shot before color lock', caption: 'ΔE 13.1 from spec' },
+        { label: 'Color locked', src: '/work/ai-email/images/studio_after.jpg', alt: 'Studio shot after color lock', caption: 'ΔE 3.2, passes the gate' },
+      ]},
+      { type: 'h', text: 'When the Gate Said No' },
+      { type: 'p', text: 'The first win-back image was shot from behind, against a bright window. After the lock it still measured 8.0 ΔE and the check failed it. Pushing the color harder made the backlit fabric glow and look pasted on. The fix was creative, not numeric: turn her toward the light and re-render. The new image went from 20.1 to 4.6 ΔE and looks like a photograph.' },
+      { type: 'before-after', items: [
+        { label: 'Rejected', src: '/work/ai-email/images/gatefail_after.jpg', alt: 'Backlit win-back image that failed the color check', caption: 'Locked but still 8.0 ΔE: failed' },
+        { label: 'Shipped', src: '/work/ai-email/images/winback_after.jpg', alt: 'Front-lit win-back image that passed', caption: 'Re-lit and re-rendered: 4.6 ΔE' },
+      ]},
+      { type: 'h', text: 'The Emails' },
+      { type: 'p', text: 'Hand-coded HTML: table layout, inline styles, 600px, web fonts with Helvetica and Arial fallbacks for Outlook, a hidden preheader, and a single-column stack on phones.' },
+      { type: 'image', src: '/work/ai-email/images/phones.jpg', alt: 'Welcome, new arrival and win-back emails on a phone', caption: 'Welcome: "Start with the good stuff". New arrival: "The coat for the next six months". Win-back: "Still thinking about it?"' },
+      { type: 'h', text: 'Build' },
+      { type: 'specs', items: [
+        { label: 'Image Model', value: 'SDXL (JuggernautXL) in ComfyUI on a local RTX 4090' },
+        { label: 'Segmentation', value: 'GroundingDINO + SAM-HQ, text prompt "camel coat"' },
+        { label: 'Color', value: 'ProductColorLock + ProductColorCheck (CIEDE2000, 5.0 limit)' },
+        { label: 'Email', value: 'Hand-coded HTML, generated from one Python template' },
+        { label: 'Tested', value: 'Desktop and 375px phone in Chromium. Not yet run through Litmus or Email on Acid' },
+      ]},
+      { type: 'h', text: 'What I Would A/B Test Next' },
+      { type: 'takeaways', items: [
+        { num: '01', title: 'Hero Crop', text: 'Full-length outfit versus fabric close-up as the welcome hero, measured on click-through to the product page.' },
+        { num: '02', title: 'Win-Back Personalization', text: 'A generic "new this week" grid versus the coat the customer actually viewed, pulled from browse data.' },
+        { num: '03', title: 'Subject Line Tone', text: 'A question ("Still thinking about it?") versus a plain statement, on open rate, with the same body.' },
+      ]},
+    ],
+    links: [
+      { kind: 'view', label: 'Open the welcome email', url: '/work/ai-email/emails/welcome.html' },
+      { kind: 'view', label: 'Open the new arrival email', url: '/work/ai-email/emails/new-arrival.html' },
+      { kind: 'view', label: 'Open the win-back email', url: '/work/ai-email/emails/win-back.html' },
+      { kind: 'source', label: 'Color lock nodes on GitHub', url: 'https://github.com/lightandlense/comfyui-product-color-lock' },
+    ],
+    accent: '#B58D63',
+    icon: { glyph: '✉️', color: '#B58D63' },
+  },
 ];
 
 export const REELS = [
