@@ -485,7 +485,7 @@ export const PROJECTS = [
     tags: ['Generative AI', 'ComfyUI', 'Email Design', 'HTML Email', 'Brand Guardrails'],
     stats: [
       { value: '3', label: 'Lifecycle Emails' },
-      { value: '13.1 → 3.2', label: 'Worst Color Error (ΔE)' },
+      { value: '20.1 → 4.6', label: 'Worst Shot, Color Error (ΔE)' },
       { value: '1 hex', label: 'Brand Color Spec' },
     ],
     hero: { type: 'image', src: '/work/ai-email/images/hero_strip.jpg' },
@@ -493,7 +493,7 @@ export const PROJECTS = [
       { type: 'p', text: 'A spec project: three lifecycle emails (welcome, new arrival, win-back) for Aritzia, built end to end with an AI image pipeline that holds the product to one exact brand color. Spec work for a portfolio. Not affiliated with or endorsed by Aritzia.' },
       { type: 'h', text: 'The Problem' },
       { type: 'p', text: 'Most AI-generated emails still look AI-generated. For fashion, the most visible failure is color: ask a model for a camel coat and you get tan, caramel, or orange depending on the light. A brand that sells a specific colorway cannot send an email where the coat is the wrong color.' },
-      { type: 'quote', text: 'Spec: camel wool coat, #B58D63. Raw renders missed it by 11.5 to 26.8 ΔE.', sub: 'Anything above about 5 ΔE reads as a different color to a shopper.' },
+      { type: 'quote', text: 'Spec: camel wool coat, #B58D63. The four shipped renders missed it by 11.5 to 20.1 ΔE before the lock.', sub: 'Anything above about 5 ΔE reads as a different color to a shopper.' },
       { type: 'h', text: 'The Workflow' },
       { type: 'pillars', items: [
         { title: 'Brand Guardrails', text: 'Before any image, a written rule set: black on white, garment color is the only color, uppercase tracked labels, flat rectangular buttons, 3 to 9 word subject lines, no emoji, no prices or fake promotions.' },
