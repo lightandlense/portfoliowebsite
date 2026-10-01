@@ -1,5 +1,6 @@
 import './GardenBackground.css';
 import { SNAP_ZONES } from './snapZones';
+import { GardenScene } from './GardenScene';
 import { SunZone } from './zones/SunZone';
 import { RainbowZone } from './zones/RainbowZone';
 import { ButterflyZone } from './zones/ButterflyZone';
@@ -27,7 +28,7 @@ const ZONE_COMPONENTS = {
 export function GardenBackground({ completedZones }) {
   return (
     <div className="garden-bg" aria-hidden="true">
-      <div className="garden-ground" />
+      <GardenScene />
       {SNAP_ZONES.map((zone) => {
         const Component = ZONE_COMPONENTS[zone.id];
         return (

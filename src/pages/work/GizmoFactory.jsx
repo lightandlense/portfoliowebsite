@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './AiHairExtensions.css';
-import './BallFall.css';
+import './GizmoFactory.css';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -21,25 +21,25 @@ const fadeUp = {
 // First two clips have the action in the lower half, so we nudge the crop
 // window upward (Y=70) to keep the cup visible.
 const processVideos = [
-    { src: '/images/casestudyimages/BallFall/process-1.mp4',
+    { src: '/images/casestudyimages/GizmoFactory/process-1.mp4',
       objectPosition: '50% 30%',
       label: 'First prototype. Color only.',
       caption: 'Red cardboard blocks divert white balls into a cup. A hidden number seven sits inside the cup as the win reveal. No fiducial markers on the blocks yet.' },
-    { src: '/images/casestudyimages/BallFall/process-2.mp4',
+    { src: '/images/casestudyimages/GizmoFactory/process-2.mp4',
       objectPosition: '50% 40%',
       label: 'First digital mechanic.',
       caption: 'Same red blocks, same white balls, but now a digital bumper joins the simulation. The physical and the digital are starting to talk.' },
-    { src: '/images/casestudyimages/BallFall/process-3.mp4',
+    { src: '/images/casestudyimages/GizmoFactory/process-3.mp4',
       objectPosition: '50% 50%',
       label: 'ArUco markers arrive.',
       caption: 'Each block gets a printed ArUco marker. Placing one over a fan turns the fan off. The blocks become tools for removing obstacles, not only adding them.' },
-    { src: '/images/casestudyimages/BallFall/process-4.mp4',
+    { src: '/images/casestudyimages/GizmoFactory/process-4.mp4',
       objectPosition: '50% 50%',
       label: 'The current build.',
       caption: 'Sprites redrawn in Adobe Firefly so every mechanic scales cleanly. Pipes, spikes, and a full set of new traps. A yellow spring block bounces balls in a new direction.' },
 ];
 
-export default function BallFall() {
+export default function GizmoFactory() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -65,7 +65,7 @@ export default function BallFall() {
                     className="cs__title text-display"
                     variants={fadeUp} initial="hidden" animate="visible" custom={0.2}
                 >
-                    Ball Fall
+                    Gizmo Factory
                 </motion.h1>
 
                 <motion.p
@@ -105,8 +105,8 @@ export default function BallFall() {
             >
                 <div className="cs__image cs__image--bleed">
                     <img
-                        src="/images/casestudyimages/BallFall/install-layout-diagram.jpg"
-                        alt="Ball Fall install layout. Ceiling-mounted camera and projector facing a wall, with a player and block shelf in front."
+                        src="/images/casestudyimages/GizmoFactory/install-layout-diagram.jpg"
+                        alt="Gizmo Factory install layout. Ceiling-mounted camera and projector facing a wall, with a player and block shelf in front."
                     />
                     <p className="cs__image-caption">
                         System layout. The camera reads the wall. The projector writes to the wall. The player closes the loop.
@@ -124,7 +124,7 @@ export default function BallFall() {
                 >
                     <h2 className="cs__section-title">Project Overview</h2>
                     <p className="cs__text">
-                        Ball Fall is an interactive installation built for a wall. A projector
+                        Gizmo Factory is an interactive installation built for a wall. A projector
                         beams a physics sandbox onto a flat surface. Players place real cardboard
                         blocks in front of it. A camera reads each block's color and printed ArUco
                         marker. The simulation spawns the matching ramp, spring, or bumper at the
@@ -227,7 +227,7 @@ export default function BallFall() {
                                         muted
                                         playsInline
                                         preload="metadata"
-                                        aria-label={`Ball Fall — ${v.label}`}
+                                        aria-label={`Gizmo Factory — ${v.label}`}
                                         style={{ objectPosition: v.objectPosition || '50% 50%' }}
                                     />
                                 </div>
@@ -253,8 +253,8 @@ export default function BallFall() {
                     </p>
                     <div className="cs__image">
                         <img
-                            src="/images/casestudyimages/BallFall/toolkit-edit.png"
-                            alt="The Ball Fall level editor showing the toolkit palette with all twenty-five mechanics."
+                            src="/images/casestudyimages/GizmoFactory/toolkit-edit.png"
+                            alt="The Gizmo Factory level editor showing the toolkit palette with all twenty-five mechanics."
                         />
                         <p className="cs__image-caption">
                             The browser-based level editor. Every mechanic in the toolkit lives one drag away.
@@ -276,7 +276,7 @@ export default function BallFall() {
                     </p>
                     <div className="cs__image">
                         <img
-                            src="/images/casestudyimages/BallFall/architecture-diagram.jpg"
+                            src="/images/casestudyimages/GizmoFactory/architecture-diagram.jpg"
                             alt="System architecture diagram showing the closed loop between wall, camera, browser pipeline, and projector."
                         />
                         <p className="cs__image-caption">
@@ -301,7 +301,7 @@ export default function BallFall() {
                     </p>
                     <div className="cs__image">
                         <img
-                            src="/images/casestudyimages/BallFall/calibration-diagram.jpg"
+                            src="/images/casestudyimages/GizmoFactory/calibration-diagram.jpg"
                             alt="Calibration diagram showing four corner points mapped between a tilted webcam view and a clean projection canvas."
                         />
                         <p className="cs__image-caption">

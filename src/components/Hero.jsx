@@ -29,7 +29,18 @@ export default function Hero() {
         <section className="hero">
             {/* Headline */}
             <div className="hero__headline">
-                {/* Top Row */}
+                {/* Eyebrow — personal intro */}
+                <motion.p
+                    className="hero__eyebrow"
+                    variants={fadeIn}
+                    initial="hidden"
+                    animate="visible"
+                    custom={0.2}
+                >
+                    // HI, I&apos;M
+                </motion.p>
+
+                {/* Top Row — first name */}
                 <div className="hero__headline-row hero__headline-row--top">
                     <motion.h1
                         className="hero__title hero__title--massive"
@@ -38,11 +49,11 @@ export default function Hero() {
                         animate="visible"
                         custom={0}
                     >
-                        THE FUTURE
+                        RUSSELL
                     </motion.h1>
                 </div>
 
-                {/* Side text — sits between the two headline rows */}
+                {/* Side text — role, sits between the two headline rows */}
                 <motion.div
                     className="hero__side-text"
                     variants={fadeIn}
@@ -50,10 +61,10 @@ export default function Hero() {
                     animate="visible"
                     custom={1.0}
                 >
-                    <p>// AI THAT<br />TRANSFORMS<br />YOUR VISION</p>
+                    <p>CREATIVE<br />TECHNOLOGIST<br />PROJECTION &amp; AI</p>
                 </motion.div>
 
-                {/* Bottom Row */}
+                {/* Bottom Row — last name */}
                 <div className="hero__headline-row hero__headline-row--bottom">
                     <motion.h1
                         className="hero__title hero__title--massive"
@@ -63,7 +74,7 @@ export default function Hero() {
                         custom={1}
                         style={{ marginLeft: 'auto' }}
                     >
-                        IS LUMINOUS
+                        KLIMAS
                     </motion.h1>
                 </div>
             </div>
@@ -77,12 +88,12 @@ export default function Hero() {
                 custom={1.5}
             >
                 <p className="hero__description-label">
-          // WE ARE LIGHT & LENSE
+          // WHAT I DO
                 </p>
                 <p className="hero__description-text">
-                    An AI solutions and experimental art agency crafting
-                    immersive digital experiences, generative visuals, and
-                    intelligent systems that push the boundaries of what's possible.
+                    I turn walls and architecture into moving image, and build
+                    the AI tools and automated workflows that make ambitious
+                    creative work actually ship.
                 </p>
             </motion.div>
         </section>

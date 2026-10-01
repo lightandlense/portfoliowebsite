@@ -13,4 +13,12 @@
   cursor: pointer; padding: 0; letter-spacing: inherit;
 }
 .os-topbar__nav-btn:hover { opacity: 0.7; }
+.os-topbar__reset-scene {
+  border: 1px solid var(--os-base) !important;
+  padding: 3px 8px !important;
+  font-size: 11px !important;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+.os-topbar__reset-scene:hover { opacity: 1; background: var(--os-base); color: var(--os-ink); }
 .os-topbar__clock { margin-left: auto; }

@@ -4,6 +4,23 @@
   height: 100vh;
   overflow: hidden;
   cursor: default;
+  background: url('/art-scene/background.svg?v=5') center / auto 100% no-repeat #7bc9ef;
+}
+
+/* Embedded mode (e.g. OS desktop background) — fills its container instead
+   of forcing viewport size, sits behind foreground UI, and only the tray
+   stays interactive. */
+.art-scene--embedded {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.art-scene--embedded .art-scene__tray {
+  pointer-events: auto;
 }
 
 /* Completed piece — wrapper positions center at zone %, inner img gets animation */
@@ -11,6 +28,29 @@
   position: absolute;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  animation: scene-piece-pop 0.2s ease-out;
+}
+
+/* Left-to-right entrance for scene pieces (delay set per-zone inline) — a
+   plain fade + slide in from the left, same idea as the balloon's own
+   drift-in below, just as a one-shot instead of an infinite loop. Keeps the
+   -50%/-50% centering baked into every keyframe so the piece doesn't jump
+   position while it animates in. Balloon overrides this below with its own
+   drift animation instead. */
+@keyframes scene-piece-in {
+  from { opacity: 0; transform: translate(-50%, -50%) translateX(-24vw); }
+  to   { opacity: 1; transform: translate(-50%, -50%) translateX(0); }
+}
+
+/* A sticker snapped live during this session already traveled to its spot
+   under the cursor — no need to fly it in from off-screen too. It just pops
+   into place. (Never applied to the balloon, which keeps its own drift.) */
+.art-scene__piece-wrap--placed {
+  animation: scene-piece-pop 0.2s ease-out;
+}
+@keyframes scene-piece-pop {
+  from { transform: translate(-50%, -50%) scale(0.8); }
+  to   { transform: translate(-50%, -50%) scale(1); }
 }
 
 .art-scene__piece-wrap img {
@@ -25,12 +65,12 @@
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-10px); }
 }
+@keyframes balloon-drift {
+  from { transform: translate(-25vw, -50%); }
+  to   { transform: translate(115vw, -50%); }
+}
 @keyframes windmill-spin {
   to { transform: rotate(360deg); }
-}
-@keyframes shimmer {
-  0%, 100% { filter: brightness(1) saturate(1); }
-  50%       { filter: brightness(1.35) saturate(1.3); }
 }
 @keyframes sway {
   0%, 100% { transform: rotate(-6deg); }
@@ -38,10 +78,39 @@
 }
 
 .art-scene__piece--sun-rays img     { animation: spin-rays 10s linear infinite; transform-origin: center center; }
+.art-scene__piece--balloon-basket { animation: balloon-drift 28s linear infinite; }
 .art-scene__piece--balloon-basket img { animation: bob 3s ease-in-out infinite; }
 .art-scene__piece--windmill-sails img { animation: windmill-spin 4s linear infinite; transform-origin: center center; }
-.art-scene__piece--rainbow-orange-band img { animation: shimmer 2.5s ease-in-out infinite; }
+.art-scene__piece--pink-flower img,
+.art-scene__piece--blue-flower img,
 .art-scene__piece--yellow-flower img { animation: sway 2.2s ease-in-out infinite; transform-origin: center bottom; }
+
+/* Falling cherry blossom petals */
+@keyframes petal-fall {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  8%   { opacity: 0.85; }
+  70%  { opacity: 0.55; }
+  100% { transform: translate(var(--petal-drift, 15px), 26vh) rotate(220deg); opacity: 0; }
+}
+
+.art-scene__petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.art-scene__petal {
+  position: absolute;
+  top: 18%;
+  width: 7px;
+  height: 7px;
+  background: #f6a9c4;
+  border-radius: 60% 40% 55% 45%;
+  opacity: 0;
+  animation-name: petal-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
 
 /* Sticker tray */
 .art-scene__tray {
@@ -67,11 +136,30 @@
   gap: 3px;
   cursor: grab;
   user-select: none;
-  -webkit-user-drag: element;
+  touch-action: none;
   flex: 0 0 auto;
 }
 
 .art-scene__sticker:active { cursor: grabbing; }
+
+/* Dim the tray slot while its sticker is being carried by the cursor/finger */
+.art-scene__sticker[data-dragging='true'] { opacity: 0.35; }
+
+/* Follows the pointer during a drag — see onStickerPointerDown/Move in
+   ArtSceneCanvas.jsx. Lifted above and slightly rotated so it visibly reads
+   as "picked up" rather than just sitting under the cursor. */
+.art-scene__drag-ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  transform: translate(-50%, -85%) rotate(-8deg) scale(1.15);
+  pointer-events: none;
+  z-index: 999;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+}
 
 .art-scene__sticker-img-wrap {
   width: 36px;
@@ -130,6 +218,156 @@
 }
 
 .art-scene__back:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #111;
+}
+
+/* Snap zone ghost hints */
+.art-scene__hint {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0.18;
+  animation: hint-pulse 2.5s ease-in-out infinite;
+  filter: grayscale(0.4);
+}
+
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.12; }
+  50%       { opacity: 0.28; }
+}
+
+/* Debug positioning overlay */
+.art-scene__debug-dot {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 68, 68, 0.85);
+  border: 2px solid #111;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Archivo', monospace, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  cursor: grab;
+  pointer-events: all;
+  touch-action: none;
+}
+
+.art-scene__debug-dot:active {
+  cursor: grabbing;
+}
+
+.art-scene__debug-dot[data-selected='true'] {
+  background: #FFD400;
+  color: #111;
+  width: 30px;
+  height: 30px;
+  font-size: 13px;
+}
+
+.art-scene__debug-panel {
+  position: fixed;
+  top: 60px;
+  left: 16px;
+  z-index: 50;
+  background: #fff;
+  border: 3px solid #111;
+  box-shadow: 4px 4px 0 #111;
+  padding: 10px 14px;
+  font-family: 'Archivo', monospace, sans-serif;
+  font-size: 12px;
+  min-width: 220px;
+}
+
+.art-scene__debug-title {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #111;
+}
+
+.art-scene__debug-hint {
+  margin-top: 6px;
+  font-size: 10px;
+  color: #666;
+}
+
+.art-scene__debug-copy {
+  margin-top: 8px;
+  padding: 4px 10px;
+  font-family: 'Archivo', monospace, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  background: #FFD400;
+  border: 2px solid #111;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.art-scene__debug-copy:hover { background: #ffc700; }
+
+/* Reset button */
+.art-scene__reset {
+  position: fixed;
+  top: 16px;
+  left: 96px;
+  z-index: 30;
+  background: #fff;
+  border: 3px solid #111;
+  box-shadow: 3px 3px 0 #111;
+  padding: 6px 14px;
+  font-family: 'Archivo', monospace, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.art-scene__reset:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #111;
+}
+
+.art-scene__reset:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #111;
+}
+
+.art-scene__edit-positions {
+  position: fixed;
+  top: 16px;
+  left: 182px;
+  z-index: 30;
+  background: #fff;
+  border: 3px solid #111;
+  box-shadow: 3px 3px 0 #111;
+  padding: 6px 14px;
+  font-family: 'Archivo', monospace, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.art-scene__edit-positions:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #111;
+}
+
+.art-scene__edit-positions:active {
   transform: translate(2px, 2px);
   box-shadow: 1px 1px 0 #111;
 }

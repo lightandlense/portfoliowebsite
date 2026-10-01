@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gesture Tetris</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f172a; overflow: hidden; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; font-family: sans-serif; color: white; }
+</style>
+</head>
+<body>
+<div id="gesture-tetris-wp-root" style="all: initial; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; background: #0f172a; padding: 15px; color: white; width: 100%; height: 100vh; overflow: auto; box-sizing: border-box;">
+  <style>
+    #gesture-tetris-wp-root * { box-sizing: border-box; }
+    #gesture-tetris-wp-root canvas { border: 4px solid #334155; border-radius: 8px; background: #020617; width: 100% !important; height: auto !important; max-width: 300px; }
+    #gesture-tetris-wp-root .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    #gesture-tetris-wp-root .game-container { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; width: 100%; }
+    #gesture-tetris-wp-root .sidebar { width: 100%; max-width: 250px; display: flex; flex-direction: column; gap: 10px; }
+    #gesture-tetris-wp-root .panel { background: #1e293b; padding: 12px; border-radius: 10px; border: 1px solid #334155; }
+    #gesture-tetris-wp-root button { cursor: pointer; background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 30px; font-weight: bold; transition: 0.2s; font-size: 14px; }
+    #gesture-tetris-wp-root #webcam { width: 100%; border-radius: 5px; background: #000; transform: scaleX(-1); }
+  </style>
+
+  <div class="game-container">
+    <div style="position: relative; flex-shrink: 0;">
+      <canvas id="tetris-canvas" width="240" height="400"></canvas>
+      <div id="game-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10px; border-radius: 8px; z-index: 10;">
+        <h2 style="color: #60a5fa; margin: 0 0 5px 0; font-size: 20px;">GESTURE TETRIS</h2>
+        <p style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">Right hand moves | Left pinch rotates | Left fist drops</p>
+        <p style="font-size: 10px; color: #64748b; margin-bottom: 15px;">Requires camera access</p>
+        <button id="wp-start-btn">START GAME</button>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="panel">
+        <video id="webcam" autoplay playsinline></video>
+        <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px;">
+          <div id="wp-status-dot" class="status-dot" style="background: #ef4444;"></div>
+          <span id="wp-gesture-hint" style="font-size: 10px; color: #cbd5e1; font-family: monospace;">Awaiting Hands...</span>
+        </div>
+      </div>
+      <div class="panel">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div><small style="color: #64748b; font-size: 9px; text-transform: uppercase;">Score</small><div id="wp-score" style="font-size: 20px; color: #38bdf8; font-family: monospace;">0000</div></div>
+          <div style="text-align: right;"><small style="color: #64748b; font-size: 9px; text-transform: uppercase;">Level</small><div id="wp-level" style="font-size: 20px; color: #4ade80; font-family: monospace;">1</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('tetris-canvas'), ctx = canvas.getContext('2d');
+      const scoreEl = document.getElementById('wp-score'), levelEl = document.getElementById('wp-level');
+      const hint = document.getElementById('wp-gesture-hint'), statusDot = document.getElementById('wp-status-dot');
+      const overlay = document.getElementById('game-overlay'), startBtn = document.getElementById('wp-start-btn');
+
+      let audioCtx, current, board, score = 0, level = 1, totalLines = 0, dropCounter = 0, dropInterval = 1000, lastTime = 0, canRotate = true, lastDrop = 0;
+      const ROWS = 20, COLS = 12, SIZE = 20;
+      const COLORS = [null, '#22d3ee', '#facc15', '#a855f7', '#4ade80', '#ef4444', '#3b82f6', '#f97316'];
+      const PIECES = [
+        { m: [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]], c: 1 },
+        { m: [[1,1],[1,1]], c: 2 },
+        { m: [[0,1,0],[1,1,1],[0,0,0]], c: 3 },
+        { m: [[0,1,1],[1,1,0],[0,0,0]], c: 4 },
+        { m: [[1,1,0],[0,1,1],[0,0,0]], c: 5 },
+        { m: [[1,0,0],[1,1,1],[0,0,0]], c: 6 },
+        { m: [[0,0,1],[1,1,1],[0,0,0]], c: 7 },
+      ];
+
+      function playSound(f, t, d) { if (!audioCtx) return; const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.type = t; o.frequency.setValueAtTime(f, audioCtx.currentTime); g.gain.setValueAtTime(0.05, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + d); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + d); }
+      function rotate(m) { return m[0].map((_, i) => m.map(row => row[i]).reverse()); }
+      function collide(b, p) { for (let y = 0; y < p.matrix.length; ++y) { for (let x = 0; x < p.matrix[y].length; ++x) { if (p.matrix[y][x] !== 0 && (b[y + p.pos.y] && b[y + p.pos.y][x + p.pos.x]) !== 0) return true; } } return false; }
+
+      function resetPlayer() {
+        const p = PIECES[Math.floor(Math.random() * PIECES.length)];
+        current = { pos: { x: 4, y: 0 }, matrix: p.m, color: COLORS[p.c] };
+        if (collide(board, current)) { board.forEach(r => r.fill(0)); score = 0; level = 1; updateUI(); }
+      }
+
+      function playerDrop() {
+        current.pos.y++;
+        if (collide(board, current)) {
+          current.pos.y--;
+          current.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) board[y + current.pos.y][x + current.pos.x] = COLORS.indexOf(current.color); }));
+          playSound(150, 'square', 0.1); resetPlayer(); clearLines();
+        }
+        dropCounter = 0;
+      }
+
+      function clearLines() {
+        let count = 0;
+        outer: for (let y = ROWS - 1; y >= 0; --y) {
+          for (let x = 0; x < COLS; ++x) if (board[y][x] === 0) continue outer;
+          board.splice(y, 1); board.unshift(Array(COLS).fill(0)); count++; y++;
+        }
+        if (count > 0) {
+          totalLines += count; score += count * 10 * level;
+          playSound(500, 'triangle', 0.2);
+          level = Math.floor(totalLines / 5) + 1;
+          dropInterval = Math.max(100, 1000 * Math.pow(0.85, level - 1));
+          updateUI();
+        }
+      }
+
+      function updateUI() { scoreEl.innerText = score.toString().padStart(4, '0'); levelEl.innerText = level; }
+
+      function draw() {
+        ctx.fillStyle = '#020617'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        board.forEach((row, y) => row.forEach((v, x) => { ctx.fillStyle = v ? COLORS[v] : '#1e293b'; ctx.fillRect(x * SIZE, y * SIZE, SIZE - 1, SIZE - 1); }));
+        if (current) {
+          let gy = current.pos.y;
+          while (!collide(board, { pos: { x: current.pos.x, y: gy + 1 }, matrix: current.matrix })) gy++;
+          ctx.globalAlpha = 0.2; ctx.fillStyle = current.color;
+          current.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) ctx.fillRect((current.pos.x + x) * SIZE, (gy + y) * SIZE, SIZE - 1, SIZE - 1); }));
+          ctx.globalAlpha = 1;
+          current.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) ctx.fillRect((current.pos.x + x) * SIZE, (current.pos.y + y) * SIZE, SIZE - 1, SIZE - 1); }));
+        }
+      }
+
+      function update(time = 0) { const delta = time - lastTime; lastTime = time; dropCounter += delta; if (dropCounter > dropInterval) playerDrop(); draw(); requestAnimationFrame(update); }
+
+      const hands = new Hands({ locateFile: (file) => 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/' + file });
+      hands.setOptions({ maxNumHands: 2, modelComplexity: 1, minDetectionConfidence: 0.7, minTrackingConfidence: 0.7 });
+
+      hands.onResults((res) => {
+        if (!res.multiHandLandmarks) { statusDot.style.background = '#ef4444'; return; }
+        statusDot.style.background = '#22c55e';
+        res.multiHandLandmarks.forEach((h, index) => {
+          const label = res.multiHandedness[index].label;
+          const now = Date.now();
+          if (label === 'Right') {
+            let nx = (h[0].x - 0.15) / 0.7;
+            nx = Math.max(0, Math.min(1, nx));
+            let tx = Math.floor((1 - nx) * (COLS - current.matrix[0].length + 1));
+            if (tx !== current.pos.x) {
+              let old = current.pos.x; current.pos.x = tx;
+              if (collide(board, current)) current.pos.x = old;
+            }
+          }
+          if (label === 'Left') {
+            const isPinching = Math.sqrt(Math.pow(h[8].x - h[4].x, 2) + Math.pow(h[8].y - h[4].y, 2)) < 0.04;
+            const fingersClosed = [8, 12, 16, 20].every(tip => h[tip].y > h[tip - 2].y);
+            const thumbIn = Math.abs(h[4].x - h[2].x) < 0.07;
+            const isFist = fingersClosed && thumbIn;
+            if (isPinching && canRotate && !isFist) {
+              const oldM = current.matrix;
+              current.matrix = rotate(oldM);
+              if (collide(board, current)) current.matrix = oldM; else playSound(300, 'sine', 0.05);
+              canRotate = false;
+            }
+            if (!isPinching) canRotate = true;
+            const cooldown = Math.max(0, 1000 - (now - lastDrop));
+            if (isFist && cooldown === 0) {
+              let gy = current.pos.y;
+              while (!collide(board, { pos: { x: current.pos.x, y: gy + 1 }, matrix: current.matrix })) gy++;
+              current.pos.y = gy; playSound(200, 'square', 0.15); playerDrop(); lastDrop = now;
+              hint.innerText = 'FIST DROP!';
+            } else {
+              hint.innerText = isPinching ? 'PINCH ROTATE' : (cooldown === 0 ? 'READY' : 'RECHARGING');
+            }
+          }
+        });
+      });
+
+      startBtn.onclick = async () => {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        startBtn.disabled = true;
+        try {
+          const v = document.getElementById('webcam');
+          const cam = new Camera(v, { onFrame: async () => { await hands.send({ image: v }); }, width: 640, height: 480 });
+          overlay.style.display = 'none';
+          board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+          resetPlayer(); cam.start(); update();
+        } catch (e) { startBtn.disabled = false; }
+      };
+    })();
+  </script>
+</div>
+</body>
+</html>

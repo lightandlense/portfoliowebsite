@@ -4,7 +4,7 @@ import './TopBar.css';
 
 const fmt = (d) => `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
 
-export function TopBar({ onOpen }) {
+export function TopBar({ onOpen, onResetScene }) {
   const [now, setNow] = useState(() => fmt(new Date()));
   useEffect(() => {
     const t = setInterval(() => setNow(fmt(new Date())), 10000);
@@ -24,6 +24,16 @@ export function TopBar({ onOpen }) {
         <button type="button" className="os-topbar__nav-btn" onClick={() => open('about')}>ABOUT</button>
         <button type="button" className="os-topbar__nav-btn" onClick={() => open('contact')}>CONTACT</button>
       </nav>
+      {onResetScene && (
+        <button
+          type="button"
+          className="os-topbar__nav-btn os-topbar__reset-scene"
+          onClick={onResetScene}
+          title="Reset the sun/balloon/windmill/flowers/tree stickers back to unplaced"
+        >
+          RESET SCENE
+        </button>
+      )}
       <span className="os-topbar__clock" data-testid="os-clock">{now}</span>
     </header>
   );

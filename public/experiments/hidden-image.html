@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hidden Image</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; overflow: hidden; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; font-family: sans-serif; }
+  #wp-lighthouse-reveal-wrapper { position: relative; width: 100%; height: 100vh; background-color: #0a0a0a; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+  #wp-art-container { position: relative; background-color: #222; background-repeat: no-repeat; background-position: center; background-size: contain; cursor: crosshair; }
+  #wp-coverCanvas { position: absolute; top: 0; left: 0; z-index: 2; display: block; touch-action: none; }
+  #wp-cursor-follower { position: absolute; width: 40px; height: 40px; border: 2px solid white; background: rgba(255,255,255,0.2); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); display: none; }
+  #wp-webcam-feed { position: absolute; bottom: 15px; left: 15px; width: 140px; transform: scaleX(-1); border-radius: 8px; z-index: 10; border: 1px solid rgba(255,255,255,0.2); opacity: 0.6; background: #000; }
+  #wp-instructions { position: absolute; z-index: 1000; background: rgba(0,0,0,0.85); color: white; padding: 25px; text-align: center; border-radius: 12px; max-width: 300px; }
+  #wp-instructions h3 { margin: 0 0 10px 0; color: white; }
+  #wp-instructions p { font-size: 14px; color: #ccc; }
+  .wp-reveal-btn { padding: 12px 25px; cursor: pointer; font-size: 14px; font-weight: bold; background: #fff; color: #000; border: none; border-radius: 25px; margin-top: 10px; }
+  #wp-reset-btn { position: absolute; top: 15px; right: 15px; z-index: 100; padding: 8px 15px; background: rgba(255,255,255,0.2); color: white; border: 1px solid white; border-radius: 5px; cursor: pointer; font-size: 12px; display: none; }
+</style>
+</head>
+<body>
+<div id="wp-lighthouse-reveal-wrapper">
+  <div id="wp-art-container">
+    <div id="wp-cursor-follower"></div>
+    <canvas id="wp-coverCanvas"></canvas>
+    <video id="wp-webcam-feed" playsinline muted></video>
+  </div>
+  <button id="wp-reset-btn">Reset Image</button>
+  <div id="wp-instructions">
+    <h3>Hidden Image</h3>
+    <p>Pinch your index finger and thumb to reveal the painting beneath.</p>
+    <p style="font-size: 12px; color: #888; margin-top: 6px;">Requires camera access.</p>
+    <button id="wp-startButton" class="wp-reveal-btn">Start Experience</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4/hands.min.js"></script>
+
+<script>
+(function () {
+  const container = document.getElementById('wp-art-container');
+  const canvas = document.getElementById('wp-coverCanvas');
+  const ctx = canvas.getContext('2d');
+  const cursor = document.getElementById('wp-cursor-follower');
+  const video = document.getElementById('wp-webcam-feed');
+  const startBtn = document.getElementById('wp-startButton');
+  const resetBtn = document.getElementById('wp-reset-btn');
+  const instr = document.getElementById('wp-instructions');
+
+  const coverURL = './cover.jpg';
+  const revealURL = './reveal.png';
+
+  let lastPos = null;
+  let handTracker = null;
+  const coverImg = new Image();
+  coverImg.crossOrigin = 'anonymous';
+  coverImg.src = coverURL;
+
+  function resize() {
+    const wrapper = document.getElementById('wp-lighthouse-reveal-wrapper');
+    const maxW = wrapper.offsetWidth * 0.95;
+    const maxH = wrapper.offsetHeight * 0.95;
+    let imgRatio = coverImg.width > 0 ? coverImg.width / coverImg.height : 0.6;
+    let finalH = maxH;
+    let finalW = maxH * imgRatio;
+    if (finalW > maxW) { finalW = maxW; finalH = maxW / imgRatio; }
+    container.style.width = finalW + 'px';
+    container.style.height = finalH + 'px';
+    canvas.width = finalW;
+    canvas.height = finalH;
+    if (coverImg.complete && coverImg.width > 0) { ctx.drawImage(coverImg, 0, 0, finalW, finalH); }
+    container.style.backgroundImage = 'url(' + revealURL + ')';
+  }
+
+  function drawBrush(x, y, size) {
+    ctx.globalCompositeOperation = 'destination-out';
+    const grad = ctx.createRadialGradient(x, y, 0, x, y, size / 2);
+    grad.addColorStop(0, 'rgba(0,0,0,1)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    if (lastPos) {
+      const d = Math.hypot(x - lastPos.x, y - lastPos.y);
+      const a = Math.atan2(y - lastPos.y, x - lastPos.x);
+      for (let i = 0; i < d; i += 5) {
+        ctx.beginPath();
+        ctx.arc(lastPos.x + Math.cos(a) * i, lastPos.y + Math.sin(a) * i, size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else {
+      ctx.beginPath();
+      ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function onResults(results) {
+    if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+      const lm = results.multiHandLandmarks[0];
+      const indexTip = lm[8];
+      const thumbTip = lm[4];
+      const x = (1 - indexTip.x) * canvas.width;
+      const y = indexTip.y * canvas.height;
+      const dist = Math.hypot(indexTip.x - thumbTip.x, indexTip.y - thumbTip.y);
+      cursor.style.display = 'block';
+      cursor.style.left = x + 'px';
+      cursor.style.top = y + 'px';
+      if (dist < 0.12) {
+        cursor.style.borderColor = '#00ff00';
+        const bSize = 60 + (dist * 600);
+        drawBrush(x, y, bSize);
+        lastPos = { x, y };
+      } else {
+        cursor.style.borderColor = 'white';
+        lastPos = null;
+      }
+    } else {
+      cursor.style.display = 'none';
+    }
+  }
+
+  startBtn.onclick = async () => {
+    instr.style.display = 'none';
+    resetBtn.style.display = 'block';
+    resize();
+    handTracker = new window.Hands({
+      locateFile: (file) => 'https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4/' + file
+    });
+    handTracker.setOptions({ maxNumHands: 1, modelComplexity: 1, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
+    handTracker.onResults(onResults);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 } });
+      video.srcObject = stream;
+      video.style.display = 'block';
+      video.play();
+      const processVideo = async () => {
+        if (video.readyState >= 2) { await handTracker.send({ image: video }); }
+        requestAnimationFrame(processVideo);
+      };
+      processVideo();
+    } catch (err) {
+      alert('Camera access denied or not found.');
+      instr.style.display = 'block';
+    }
+  };
+
+  resetBtn.onclick = () => { resize(); };
+  coverImg.onload = resize;
+  window.addEventListener('resize', resize);
+})();
+</script>
+</body>
+</html>

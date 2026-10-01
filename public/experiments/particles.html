@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Particle Field</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #080612; overflow: hidden; width: 100vw; height: 100vh; }
+  canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const COUNT = 120;
+const LINK_DIST = 90;
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const mouse = { x: -999, y: -999 };
+
+function resize() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const particles = Array.from({ length: COUNT }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  vx: (Math.random() - 0.5) * 0.6,
+  vy: (Math.random() - 0.5) * 0.6,
+  r: Math.random() * 2.5 + 1,
+  hue: Math.floor(Math.random() * 80 + 260),
+}));
+
+canvas.addEventListener('mousemove', (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+canvas.addEventListener('click', (e) => {
+  for (const p of particles) {
+    const dx = p.x - e.clientX, dy = p.y - e.clientY;
+    const d = Math.sqrt(dx * dx + dy * dy) || 1;
+    const f = Math.min(200 / d, 10);
+    p.vx += (dx / d) * f;
+    p.vy += (dy / d) * f;
+  }
+});
+
+function draw() {
+  ctx.fillStyle = 'rgba(8, 6, 18, 0.18)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+    const dx = mouse.x - p.x, dy = mouse.y - p.y;
+    const d = Math.sqrt(dx * dx + dy * dy);
+    if (d < 120) {
+      const f = (120 - d) / 120 * 0.04;
+      p.vx += dx * f;
+      p.vy += dy * f;
+    }
+    p.vx *= 0.97;
+    p.vy *= 0.97;
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0) p.x += canvas.width;
+    if (p.x > canvas.width) p.x -= canvas.width;
+    if (p.y < 0) p.y += canvas.height;
+    if (p.y > canvas.height) p.y -= canvas.height;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = 'hsl(' + p.hue + ', 80%, 70%)';
+    ctx.fill();
+
+    for (let j = i + 1; j < particles.length; j++) {
+      const q = particles[j];
+      const qx = q.x - p.x, qy = q.y - p.y;
+      const qd = Math.sqrt(qx * qx + qy * qy);
+      if (qd < LINK_DIST) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(q.x, q.y);
+        ctx.strokeStyle = 'hsla(' + p.hue + ', 80%, 70%, ' + (1 - qd / LINK_DIST) * 0.35 + ')';
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>

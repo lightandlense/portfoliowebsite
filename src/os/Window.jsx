@@ -1,10 +1,21 @@
-import { useRef } from 'react';
-import { motion, useDragControls } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { motion, useDragControls, useMotionValue, animate } from 'framer-motion';
 import './Window.css';
 
 export function Window({ window: win, isFocused, onClose, onMinimize, onFocus, onMove, onResize, reducedMotion, children }) {
   const controls = useDragControls();
   const resizeStart = useRef(null);
+  const x = useMotionValue(win.x);
+  const y = useMotionValue(win.y);
+
+  // drag writes directly to these same motion values; driving them via the
+  // `animate` prop instead (re-asserted every render) races with drag and can
+  // leave transform unset after a zero-movement click (only reproduces in prod builds)
+  useEffect(() => {
+    const transition = reducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 600, damping: 40 };
+    animate(x, win.x, transition);
+    animate(y, win.y, transition);
+  }, [win.x, win.y, reducedMotion]);
 
   function startResize(e) {
     e.stopPropagation();
@@ -27,16 +38,16 @@ export function Window({ window: win, isFocused, onClose, onMinimize, onFocus, o
   return (
     <motion.section
       className={`os-window${isFocused ? ' is-focused' : ''}`}
-      style={{ zIndex: win.z, width: win.w, height: win.h }}
-      initial={false}
-      animate={{ x: win.x, y: win.y }}
-      transition={reducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 600, damping: 40 }}
+      style={{ zIndex: win.z, width: win.w, height: win.h, x, y }}
       drag
       dragControls={controls}
       dragMomentum={!reducedMotion}
       dragListener={false}
       onMouseDown={() => onFocus?.(win.id)}
-      onDragEnd={(_, info) => onMove?.(win.id, win.x + info.offset.x, win.y + info.offset.y)}
+      onDragEnd={(_, info) => {
+        const fling = reducedMotion ? 0 : 0.1;
+        onMove?.(win.id, x.get() + info.offset.x + info.velocity.x * fling, y.get() + info.offset.y + info.velocity.y * fling);
+      }}
     >
       <header
         className="os-window__bar"

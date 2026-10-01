@@ -25,9 +25,9 @@ const projects = [
         id: 9,
         category: 'Creative Technology — Interactive Installation',
         title: 'Chromotion',
-        description: 'Color a printed car template with crayons. Hold it up to the kiosk camera. A computer vision pipeline reads each body panel, extracts the exact crayon colors, and applies them to a classic car sprite driving across an animated highway scene.',
+        description: 'Color a printed template with crayons. Hold it up to the camera. A computer vision pipeline reads each region, extracts the exact crayon colors, and brings the subject to life on screen. The same pipeline now powers three more installations.',
         tags: ['Computer Vision', 'Pixi.js', 'Python'],
-        image: '/images/casestudyimages/Chromotion/animated-result.jpg',
+        image: '/images/casestudyimages/Chromotion/plane-screenshot.jpg',
         slug: 'chromotion',
     },
     {

@@ -49,7 +49,7 @@
 .pw__iframe { border: none; }
 .pw__section-h { font-family: var(--os-display); font-weight: 800; font-size: 14px; text-transform: uppercase; border-bottom: 2px solid var(--os-ink); padding-bottom: 4px; margin: 18px 0 8px; }
 .pw__figure { margin: 10px 0; }
-.pw__figure img { width: 100%; display: block; border: var(--os-border); }
+.pw__figure img { width: 100%; display: block; border: var(--os-border); max-height: 480px; object-fit: contain; }
 .pw__caption { font-size: 11px; opacity: 0.7; margin-top: 4px; line-height: 1.4; }
 .pw__pillars { display: flex; flex-direction: column; gap: 10px; margin: 10px 0; }
 .pw__pillar { border: 2px solid var(--os-ink); padding: 10px; }
@@ -67,3 +67,47 @@
 .pw__takeaway-num { font-family: var(--os-display); font-weight: 800; font-size: 22px; opacity: 0.25; flex: 0 0 auto; line-height: 1; }
 .pw__takeaway b { font-size: 12px; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
 .pw__takeaway p { font-size: 12px; line-height: 1.5; margin: 0; }
+
+/* Experiment cards — 3-col grid */
+.pw__exp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; }
+.pw__exp-card { display: flex; flex-direction: column; border: 2px solid var(--os-ink); overflow: hidden; }
+.pw__exp-thumb { overflow: hidden; cursor: pointer; }
+.pw__exp-thumb img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform 0.15s ease; }
+.pw__exp-thumb:hover img { transform: scale(1.05); }
+.pw__exp-thumb--disabled { cursor: default; }
+.pw__exp-info { padding: 8px; flex: 1; border-top: 2px solid var(--os-ink); border-bottom: 2px solid var(--os-ink); }
+.pw__exp-info b { font-size: 10px; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 3px; }
+.pw__exp-info p { font-size: 10px; line-height: 1.4; margin: 0; opacity: 0.7; }
+.pw__exp-btn {
+  display: block; width: 100%; padding: 7px 6px;
+  background: var(--os-ink); color: #fff;
+  border: none; border-top: 2px solid var(--os-ink);
+  font-family: var(--os-mono); font-weight: 700; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 1px;
+  cursor: pointer; transition: background 0.1s ease;
+}
+.pw__exp-btn:hover:not(:disabled) { background: var(--os-accent); }
+.pw__exp-btn:active:not(:disabled) { transform: translateY(1px); }
+.pw__exp-btn:disabled { opacity: 0.45; cursor: default; }
+
+/* Quote and before-after body types */
+.pw__quote { border-left: 4px solid var(--os-ink); margin: 10px 0; padding: 8px 12px; background: var(--os-base, #e9e6dd); }
+.pw__quote p { font-size: 13px; line-height: 1.5; font-style: italic; margin: 0; }
+.pw__quote footer { font-size: 11px; opacity: 0.7; margin-top: 6px; }
+.pw__ba { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+.pw__ba-item img { display: block; width: 100%; border: var(--os-border); }
+.pw__ba-label { font-size: 10px; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; }
+/* Two images side by side (e.g. paired phone screenshots) — keeps tall/portrait
+   shots from stretching to full window width and blowing up in height when the
+   window is resized wider. */
+.pw__image-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+.pw__image-row .pw__figure { margin: 0; }
+.pw__image-row .pw__figure img { width: 100%; max-height: 420px; object-fit: contain; }
+.pw__yt { margin: 10px 0; }
+.pw__yt-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+.pw__yt-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.pw__yt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+.pw__yt-grid--portrait { grid-template-columns: repeat(3, 1fr); }
+.pw__yt-wrap--portrait { padding-bottom: 177.78%; }
+.pw__yt-grid-item { display: flex; flex-direction: column; gap: 4px; }
+.pw__figure--video video { width: 100%; display: block; border: var(--os-border); }

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dynamic Nebula</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; overflow: hidden; width: 100vw; height: 100vh; }
+  #nebula-container { position: relative; width: 100%; height: 100vh; background: #000; overflow: hidden; }
+</style>
+</head>
+<body>
+<div id="nebula-container">
+  <div id="overlay" style="position: absolute; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.95); color: white; font-family: sans-serif; text-align: center; padding: 40px;">
+    <h1 style="letter-spacing: 12px; color: #00f2ff; font-size: 1.5rem;">DYNAMIC NEBULA</h1>
+    <div style="margin: 20px 0; line-height: 1.8; color: #aaa; font-size: 13px;">
+      <span style="color: #00f2ff; font-weight: bold;">USES YOUR CAMERA</span><br>
+      <span style="color: #fff;">3 FINGERS:</span> SATURN &nbsp;|&nbsp; <span style="color: #fff;">4 FINGERS:</span> CUBE<br>
+      <span style="color: #fff;">5 or 2 FINGERS:</span> SPHERE<br>
+      <span style="color: #fff;">Rotate hand</span> to rotate shape<br>
+      <span style="color: #fff;">Pinch</span> to zoom in/out
+    </div>
+    <button id="start-btn" style="padding: 14px 40px; background: #00f2ff; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; color: #000; font-size: 14px;">
+      START ENGINE
+    </button>
+  </div>
+  <div id="hud" style="position: absolute; top: 20px; left: 20px; z-index: 50; color: #00f2ff; font-family: monospace; background: rgba(0,0,0,0.6); padding: 12px; border-radius: 8px; border-left: 3px solid #00f2ff; display: none;">
+    SHAPE: <span id="shape-name">SPHERE</span><br>
+    MODE: <span id="mode-text">NATURAL DRIFT</span>
+  </div>
+  <video id="video" style="display: none;" autoplay playsinline></video>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+<script>
+const container = document.getElementById('nebula-container');
+const shapeText = document.getElementById('shape-name');
+const modeText = document.getElementById('mode-text');
+const PARTICLE_COUNT = 15000;
+
+const springStrength = 0.12;
+const friction = 0.82;
+let autoRotateX = 0.002;
+let autoRotateY = 0.005;
+let isUserInteracting = false;
+let lastDetectedFingers = 0;
+let gestureCounter = 0;
+const requiredConsistency = 10;
+
+let currentShape = 'SPHERE';
+let targetZ = 45, currentZ = 45;
+let targetRotX = 0, targetRotY = 0;
+let scene, camera, renderer, points, positions, targets, velocities, colors;
+
+window.addEventListener('resize', onWindowResize, false);
+function onWindowResize() {
+  if (!camera || !renderer) return;
+  camera.aspect = container.clientWidth / container.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(container.clientWidth, container.clientHeight);
+}
+
+document.getElementById('start-btn').onclick = async () => {
+  document.getElementById('overlay').style.display = 'none';
+  document.getElementById('hud').style.display = 'block';
+  initApp();
+};
+
+function getShapePositions(type) {
+  const arr = new Float32Array(PARTICLE_COUNT * 3);
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const i3 = i * 3;
+    if (type === 'SQUARE') {
+      const size = 22;
+      const face = Math.floor(Math.random() * 6);
+      const a = (Math.random() - 0.5) * size;
+      const b = (Math.random() - 0.5) * size;
+      const fixed = size / 2 * (face % 2 === 0 ? 1 : -1);
+      if (face < 2) { arr[i3] = fixed; arr[i3+1] = a; arr[i3+2] = b; }
+      else if (face < 4) { arr[i3] = a; arr[i3+1] = fixed; arr[i3+2] = b; }
+      else { arr[i3] = a; arr[i3+1] = b; arr[i3+2] = fixed; }
+    } else if (type === 'SATURN') {
+      if (i < PARTICLE_COUNT * 0.4) {
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        arr[i3] = 7 * Math.sin(phi) * Math.cos(theta);
+        arr[i3+1] = 7 * Math.sin(phi) * Math.sin(theta);
+        arr[i3+2] = 7 * Math.cos(phi);
+      } else {
+        const r = 14 + Math.random() * 9;
+        const a = Math.random() * Math.PI * 2;
+        arr[i3] = r * Math.cos(a);
+        arr[i3+1] = (r * Math.sin(a)) * 0.2;
+        arr[i3+2] = r * Math.sin(a);
+      }
+    } else {
+      const r = 18;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      arr[i3] = r * Math.sin(phi) * Math.cos(theta);
+      arr[i3+1] = r * Math.sin(phi) * Math.sin(theta);
+      arr[i3+2] = r * Math.cos(phi);
+    }
+  }
+  return arr;
+}
+
+function initApp() {
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  container.appendChild(renderer.domElement);
+
+  const geometry = new THREE.BufferGeometry();
+  positions = getShapePositions('SPHERE');
+  targets = new Float32Array(positions);
+  velocities = new Float32Array(PARTICLE_COUNT * 3);
+  colors = new Float32Array(PARTICLE_COUNT * 3);
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+  const material = new THREE.PointsMaterial({ size: 0.15, vertexColors: true, transparent: true, blending: THREE.AdditiveBlending });
+  points = new THREE.Points(geometry, material);
+  scene.add(points);
+
+  const hands = new Hands({ locateFile: (file) => 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/' + file });
+  hands.setOptions({ maxNumHands: 2, modelComplexity: 1, minDetectionConfidence: 0.75 });
+
+  hands.onResults(results => {
+    let handFound = false;
+    if (results.multiHandLandmarks && results.multiHandedness) {
+      results.multiHandLandmarks.forEach((landmarks, index) => {
+        if (results.multiHandedness[index].label === 'Right') return;
+        handFound = true;
+        const isUp = (t) => landmarks[t].y < landmarks[t - 2].y;
+        const fCount = [isUp(8), isUp(12), isUp(16), isUp(20)].filter(Boolean).length;
+        if (fCount === lastDetectedFingers) gestureCounter++;
+        else { lastDetectedFingers = fCount; gestureCounter = 0; }
+        if (gestureCounter >= requiredConsistency) {
+          let ns = currentShape;
+          if (fCount === 2 || fCount === 5) ns = 'SPHERE';
+          else if (fCount === 4) ns = 'SQUARE';
+          else if (fCount === 3) ns = 'SATURN';
+          if (ns !== currentShape) {
+            currentShape = ns;
+            targets = getShapePositions(ns);
+            shapeText.innerText = ns;
+          }
+          if (fCount >= 2) {
+            isUserInteracting = true;
+            targetRotY = (landmarks[0].x - 0.5) * 4;
+            targetRotX = (landmarks[0].y - 0.5) * 4;
+            modeText.innerText = 'ACTIVE CONTROL';
+          } else {
+            isUserInteracting = false;
+          }
+        }
+        const pinch = Math.hypot(landmarks[4].x - landmarks[8].x, landmarks[4].y - landmarks[8].y);
+        targetZ = 18 + (pinch * 140);
+      });
+    }
+    if (!handFound) { isUserInteracting = false; modeText.innerText = 'NATURAL DRIFT'; }
+  });
+
+  new Camera(document.getElementById('video'), {
+    onFrame: async () => { await hands.send({ image: document.getElementById('video') }); },
+    width: 480, height: 360
+  }).start();
+
+  function animate(time) {
+    requestAnimationFrame(animate);
+    for (let i = 0; i < PARTICLE_COUNT * 3; i++) {
+      const force = (targets[i] - positions[i]) * springStrength;
+      velocities[i] = (velocities[i] + force) * friction;
+      positions[i] += velocities[i];
+      if (i % 3 === 0) {
+        const h = (Math.abs(positions[i]) * 4 + time * 0.04) % 360;
+        const color = new THREE.Color('hsl(' + h + ', 85%, 65%)');
+        colors[i] = color.r; colors[i+1] = color.g; colors[i+2] = color.b;
+      }
+    }
+    points.geometry.attributes.position.needsUpdate = true;
+    points.geometry.attributes.color.needsUpdate = true;
+    if (isUserInteracting) {
+      points.rotation.y += (targetRotY - points.rotation.y) * 0.08;
+      points.rotation.x += (targetRotX - points.rotation.x) * 0.08;
+    } else {
+      points.rotation.y += autoRotateY;
+      points.rotation.x += autoRotateX;
+      targetRotY = points.rotation.y;
+      targetRotX = points.rotation.x;
+    }
+    currentZ += (targetZ - currentZ) * 0.1;
+    camera.position.z = currentZ;
+    renderer.render(scene, camera);
+  }
+  animate(0);
+}
+</script>
+</body>
+</html>

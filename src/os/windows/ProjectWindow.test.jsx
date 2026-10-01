@@ -7,10 +7,10 @@ describe('ProjectWindow', () => {
     render(<ProjectWindow projectId="chromotion" />);
     expect(screen.getByText('Chromotion')).toBeInTheDocument();
     expect(screen.getByText('Real-Time')).toBeInTheDocument();
-    expect(screen.getByText('Color Extraction')).toBeInTheDocument();
+    expect(screen.getAllByText('Color Extraction').length).toBeGreaterThan(0);
     expect(screen.getByText('Pixi.js')).toBeInTheDocument();
     const video = screen.getByTestId('project-hero-video');
-    expect(video.querySelector('source')).toHaveAttribute('src', '/images/casestudyimages/Chromotion/demo.mp4');
+    expect(video.querySelector('source')).toHaveAttribute('src', '/images/casestudyimages/Chromotion/plane-demo.mp4');
   });
   it('renders a video hero project', () => {
     render(<ProjectWindow projectId="gizmo-factory" />);

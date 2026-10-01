@@ -29,7 +29,7 @@ describe('ReelsApp', () => {
 describe('AboutWindow', () => {
   it('renders the about photo and recognition', () => {
     render(<AboutWindow />);
-    expect(screen.getByRole('img')).toHaveAttribute('src', '/images/about me photo.jpg');
+    expect(screen.getByAltText('Russell Klimas')).toHaveAttribute('src', '/images/about me photo.jpg');
     expect(screen.getByText(/Olympics/i)).toBeInTheDocument();
   });
 });

@@ -4,9 +4,9 @@ import { PROJECTS, getProject, REELS } from './projects';
 const REQUIRED = ['id', 'slug', 'title', 'category', 'tags', 'stats', 'hero', 'body', 'links', 'accent', 'icon'];
 
 describe('projects data', () => {
-  it('has the four phase-1 projects', () => {
+  it('has the phase-1 projects plus ported classic case studies', () => {
     expect(PROJECTS.map((p) => p.id).sort()).toEqual(
-      ['chromotion', 'gizmo-factory', 'real-time-experiments', 'urban-projection'],
+      ['ai-hair-extensions', 'ai-voice-assistant', 'callitin', 'chromotion', 'gizmo-factory', 'real-time-experiments', 'spoonable', 'urban-projection'],
     );
   });
   it('every project has all required fields', () => {
