@@ -61,6 +61,11 @@ const IconScissors = (color) => sv(<>
   <line x1="8.5" y1="8.5" x2="20" y2="20"/>
 </>);
 
+const IconGoggles = (color) => sv(<>
+  <rect x="2" y="7" width="20" height="10" rx="4" fill={color}/>
+  <path d="M10 17l2-3 2 3"/>
+</>);
+
 // Each entry is a render function taking the launcher's accent color, so the
 // same bold-outline icon shape is reused across launchers but tinted to
 // match that launcher's color (see DesktopIcons.jsx).
@@ -71,6 +76,7 @@ export const ICONS = {
   'project:chromotion':        IconOverlap,
   'project:real-time-experiments': IconTarget,
   'project:ai-hair-extensions': IconScissors,
+  'project:vr-synesthesia':    IconGoggles,
   reels:                       IconPlay,
   resume:                      IconResume,
   about:                       IconPerson,
