@@ -225,10 +225,11 @@ export const PROJECTS = [
         { id: 'WEFQi-VK6-w', label: 'TD Experiment 03' },
       ]},
       { type: 'h', text: 'Audio-Reactive' },
-      { type: 'p', text: 'Visuals that listen. Each piece splits the music into its parts and hands them to the picture: in Ripple the pitch of each note picks the colour, low notes deep and dark, high notes bright. Black Hole is a ray-traced black hole where the bass flares the accretion disk and the highs make the stars twinkle.' },
+      { type: 'p', text: 'Visuals that listen. Each piece splits the music into its parts and hands them to the picture: in Ripple the pitch of each note picks the colour, low notes deep and dark, high notes bright. Black Hole is a ray-traced black hole where the bass flares the accretion disk and the highs make the stars twinkle. Particle Flower is a 3-million-point flower where the kick, snare and hi-hat each turn the camera to a new side of the bloom.' },
       { type: 'youtube-grid', items: [
         { id: 'IcFT468893I', label: 'Ripple: pitch to colour, Bach Cello Suite No. 1' },
         { id: '582kZgGzUmY', label: 'Black Hole: bass, mids and highs drive the disk, Jon Hopkins "Emerald Rush"' },
+        { id: 'FTlTjeB9B9o', label: 'Particle Flower: kick, snare and hi-hat turn the camera, "Night Drive Bloom"' },
       ]},
       { type: 'youtube-grid', portrait: true, items: [
         { id: 'NhmACqFarfM', label: 'Sonic Flowers' },
