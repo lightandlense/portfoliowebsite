@@ -43,7 +43,7 @@ export default function About() {
                             ))}
                         </div>
                         <a
-                            href="/images/Russell Klimas AI Resume 2026.pdf"
+                            href="/images/Russell Klimas - Creative Technology - Resume.pdf"
                             download
                             className="about__resume-link"
                         >

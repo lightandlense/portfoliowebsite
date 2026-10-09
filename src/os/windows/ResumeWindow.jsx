@@ -48,6 +48,11 @@ export function ResumeWindow() {
         </div>
       ))}
 
+      <h3 className="pw__section-h">Selected Projects</h3>
+      <ul className="resume-win__list">
+        {RESUME.projects.map((p) => <li key={p}>{p}</li>)}
+      </ul>
+
       <h3 className="pw__section-h">Education</h3>
       {RESUME.education.map((e) => (
         <p key={e.degree} className="pw__p">
@@ -57,7 +62,7 @@ export function ResumeWindow() {
 
       <a
         className="about-win__resume"
-        href="/images/Russell Klimas AI Resume 2026.pdf"
+        href={RESUME.pdf}
         target="_blank"
         rel="noreferrer"
       >

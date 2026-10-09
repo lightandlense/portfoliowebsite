@@ -35,7 +35,7 @@ export function AboutWindow({ onOpenResume }) {
       </button>
       <a
         className="about-win__resume"
-        href="/images/Russell Klimas AI Resume 2026.pdf"
+        href="/images/Russell Klimas - Creative Technology - Resume.pdf"
         target="_blank"
         rel="noreferrer"
       >
