@@ -69,7 +69,7 @@ function renderContent(win, dispatch) {
     case 'finder': return <ProjectsFinder onOpenProject={(pid) => {
       const l = LAUNCHERS.find((x) => x.id === `project:${pid}`);
       if (l) dispatch(openWindow(buildOpenAction(l)));
-    }} />;
+    }} ids={win.payload} />;
     case 'reels': return <ReelsApp />;
     case 'about': return <AboutWindow onOpenResume={() => {
       const l = LAUNCHERS.find((x) => x.id === 'resume');

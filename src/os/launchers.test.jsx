@@ -18,6 +18,15 @@ describe('launchers', () => {
   });
 });
 
+describe('Apps folder', () => {
+  it('lists only the four apps', () => {
+    const apps = LAUNCHERS.find((l) => l.id === 'apps');
+    expect(apps).toMatchObject({ type: 'finder' });
+    expect(apps.payload).toEqual(['callitin', 'spoonable', 'paintsong', 'mystify']);
+    for (const id of apps.payload) expect(LAUNCHERS.some((l) => l.id === `project:${id}`)).toBe(true);
+  });
+});
+
 describe('DesktopIcons', () => {
   it('fires onOpen with the launcher on click', async () => {
     const onOpen = vi.fn();

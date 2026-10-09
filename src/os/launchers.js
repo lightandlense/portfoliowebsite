@@ -14,6 +14,7 @@ const projectLaunchers = PROJECTS.map((p) => ({
 
 export const LAUNCHERS = [
   { id: 'finder', type: 'finder', title: 'Projects', glyph: '🗂️', color: '#FFD400', payload: null },
+  { id: 'apps', type: 'finder', title: 'Apps', glyph: '📱', color: '#a855f7', payload: ['callitin', 'spoonable', 'paintsong', 'mystify'] },
   ...projectLaunchers,
   { id: 'reels', type: 'reels', title: 'Reels', glyph: '🎬', color: '#ff3b00', payload: null },
   { id: 'resume', type: 'resume', title: 'Resume', glyph: '📄', color: '#38bdf8', payload: null },

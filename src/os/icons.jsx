@@ -71,6 +71,7 @@ const IconGoggles = (color) => sv(<>
 // match that launcher's color (see DesktopIcons.jsx).
 export const ICONS = {
   finder:                      IconFolder,
+  apps:                        IconFolder,
   'project:urban-projection':  IconProjector,
   'project:gizmo-factory':     IconBallStar,
   'project:chromotion':        IconOverlap,
