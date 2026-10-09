@@ -24,13 +24,13 @@ export const PROJECTS = [
       { type: 'h', text: 'Strategic Solution' },
       { type: 'p', text: 'A lightweight, software-first production model was developed to minimize physical infrastructure while maximizing scalability and documentation value.' },
       { type: 'pillars', items: [
-        { title: 'Creative Pipeline', text: '~4 weeks of creative development using After Effects-based animation with AI-assisted asset generation to accelerate visual experimentation and iteration across five distinct mural surfaces.' },
+        { title: 'Creative Pipeline', text: '~4 weeks of creative development using After Effects-based animation across five distinct mural surfaces. AI-assisted assets were used for one portion of Site 04 (We Are In This Together) only; the other four murals use no generative AI.' },
         { title: 'Lean Deployment', text: 'A portable projection system built for rapid setup and teardown, operated by two people across five unique locations — no fabrication, no staging crew, no structural modification to any site.' },
         { title: 'Digital Canvas', text: 'By leveraging existing murals as projection surfaces, static architecture was transformed into temporary programmable media — maximizing visual impact at near-zero infrastructure cost.' },
       ]},
       { type: 'h', text: 'Implementation' },
       { type: 'specs', items: [
-        { label: 'Creative', value: 'After Effects compositing + AI-assisted workflows for asset ideation and rapid iteration' },
+        { label: 'Creative', value: 'After Effects animation and compositing (AI-assisted assets in one portion of Site 04 only)' },
         { label: 'Operations', value: 'Portable projection system — rapid setup and teardown, 2-person execution team' },
         { label: 'Input', value: 'Existing architectural mural surfaces + original motion content' },
         { label: 'Output', value: '5 fully realized installations documented in vertical and horizontal formats for portfolio and civic presentation' },
