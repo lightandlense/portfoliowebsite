@@ -262,9 +262,7 @@ export const PROJECTS = [
     hero: { type: 'image', src: '/work/vr-synesthesia/images/sarah-hero.jpg' },
     body: [
       { type: 'p', text: 'My friend Sarah has synesthesia. When she hears a sound she sees a colour, a texture, a shape and a motion. A clap, a knock on a door, a room full of people talking: each one looks like something to her. I wanted to build a headset that lets everyone else see what she sees.' },
-      { type: 'youtube-grid', portrait: true, items: [
-        { id: 'TmSAa1l9u0I', label: 'What Sarah sees, recorded in the headset and composited in mixed reality' },
-      ]},
+      { type: 'youtube', id: '7nuBW7HdLs4', caption: 'The full story: how it works, what Sarah sees, and Sarah trying it' },
       { type: 'h', text: 'Starting With Her, Not With Me' },
       { type: 'p', text: 'Before writing any code I had Sarah fill out a survey: what does a clap look like? A snap? A piano? A whistle? Her answers became the spec. Every colour, position and shape in the app comes from what she wrote down, not from what I thought sound should look like.' },
       { type: 'h', text: 'How It Works' },
@@ -282,7 +280,7 @@ export const PROJECTS = [
       { type: 'quote', text: 'Whoa. What in the world?', sub: 'Sarah, the first time she saw her own synesthesia in the headset' },
       { type: 'p', text: 'It is a working prototype, running on a Quest 2. The next step is more of her shapes and a test in the place it matters most to her: a loud, busy room.' },
     ],
-    links: [{ kind: 'watch', label: 'Watch on YouTube', url: 'https://youtube.com/shorts/TmSAa1l9u0I' }],
+    links: [{ kind: 'watch', label: 'Watch on YouTube', url: 'https://youtu.be/7nuBW7HdLs4' }],
     accent: '#5b21b6',
     icon: { glyph: '🥽', color: '#5b21b6' },
   },
