@@ -13,10 +13,11 @@ const projectLaunchers = PROJECTS.map((p) => ({
 }));
 
 const APP_IDS = ['callitin', 'spoonable', 'paintsong', 'mystify'];
-const NON_APP_IDS = PROJECTS.map((p) => p.id).filter((id) => !APP_IDS.includes(id));
+// Projects folder holds only what has no desktop icon and isn't an app.
+const FOLDER_IDS = PROJECTS.filter((p) => p.hideFromRail && !APP_IDS.includes(p.id)).map((p) => p.id);
 
 export const LAUNCHERS = [
-  { id: 'finder', type: 'finder', title: 'Projects', glyph: '🗂️', color: '#FFD400', payload: NON_APP_IDS },
+  { id: 'finder', type: 'finder', title: 'Projects', glyph: '🗂️', color: '#FFD400', payload: FOLDER_IDS },
   { id: 'apps', type: 'finder', title: 'Apps', glyph: '📱', color: '#a855f7', payload: APP_IDS },
   ...projectLaunchers,
   { id: 'reels', type: 'reels', title: 'Reels', glyph: '🎬', color: '#ff3b00', payload: null },

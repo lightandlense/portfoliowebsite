@@ -26,7 +26,8 @@ describe('Apps folder', () => {
     for (const id of apps.payload) expect(LAUNCHERS.some((l) => l.id === `project:${id}`)).toBe(true);
     const projects = LAUNCHERS.find((l) => l.id === 'finder').payload;
     for (const id of apps.payload) expect(projects).not.toContain(id);
-    expect(projects).toContain('chromotion');
+    expect(projects).not.toContain('chromotion');
+    expect(projects).toContain('ad-variants');
   });
 });
 
