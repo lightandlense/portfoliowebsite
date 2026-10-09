@@ -697,6 +697,57 @@ export const PROJECTS = [
     accent: '#0f1b3d',
     icon: { glyph: '🎨', color: '#ff3d8b' },
   },
+  {
+    id: 'mystify',
+    slug: 'mystify',
+    title: 'Mystify Festival App',
+    hideFromRail: true,
+    category: 'Mobile App: Event Guide + Admin',
+    tags: ['React Native', 'Expo', 'Supabase', 'Next.js', 'Square'],
+    stats: [
+      { value: '2', label: 'Platforms: iOS + Android' },
+      { value: '134', label: 'Registrations Synced From RegFox' },
+      { value: '100%', label: 'Schedule + Map Work Offline' },
+    ],
+    hero: { type: 'image', src: '/work/mystify/images/hero.jpg' },
+    body: [
+      { type: 'p', text: 'The festival app for Mystify Magic Festival, three days of magic at Santa Fe Station in Las Vegas, March 1 to 3, 2027. Attendees get the schedule, performers, venue maps and their own tickets in one place. Festival staff run all of it from a web admin, so nobody has to call me to change a showtime.' },
+      { type: 'image-row', items: [
+        { src: '/work/mystify/images/home.jpg', alt: 'Mystify app home screen with upcoming sessions and featured performers', caption: 'Home: your sessions, featured performers, coaching' },
+        { src: '/work/mystify/images/schedule.jpg', alt: 'Mystify schedule screen with day tabs', caption: 'Schedule by day, bookmark what you want to see' },
+      ]},
+      { type: 'h', text: 'The Brief' },
+      { type: 'p', text: 'The organizers liked the big comic-con apps but run a festival of a few hundred people, not ninety thousand. So the job was to keep what actually helps (schedule, directory, maps, reminders) and skip the rest. It also had to be reusable: nothing about Mystify 2027 is hard-coded, so next year is a data change, not a rebuild.' },
+      { type: 'h', text: 'What It Does' },
+      { type: 'pillars', items: [
+        { title: 'Festival Guide', text: 'Schedule, performer bios with links, venue maps you can jump to from any session, favorites and reminders. Everything caches on the phone, so it still works in a casino ballroom with no signal.' },
+        { title: 'Tickets + Coaching', text: 'Brunch tickets and small-group coaching sessions are paid in the app through Square checkout. Seats are held while you pay, full classes get a waitlist, and an opening sends a push notification to the next person in line.' },
+        { title: 'Runs Itself', text: 'Website registrations from RegFox sync in automatically, so passes show up in the app. Staff can schedule announcements, refund payments, edit the lineup and read incident reports without touching code.' },
+      ]},
+      { type: 'image-row', items: [
+        { src: '/work/mystify/images/map.jpg', alt: 'Mystify venue map screen listing key areas', caption: 'Venue areas, linked from every session' },
+        { src: '/work/mystify/images/venue-meeting.jpg', alt: 'Night-style venue map of the meeting rooms', caption: 'Venue maps redrawn to match the festival look' },
+      ]},
+      { type: 'h', text: 'Build' },
+      { type: 'specs', items: [
+        { label: 'App', value: 'Expo + React Native, one codebase for iOS and Android' },
+        { label: 'Backend', value: 'Supabase: Postgres with row-level security, edge functions, scheduled jobs' },
+        { label: 'Admin', value: 'Next.js on Vercel: lineup, schedule, coaching seats, payments, announcements' },
+        { label: 'Payments', value: 'Square hosted checkout with webhook confirmation and admin refunds' },
+        { label: 'Integrations', value: 'RegFox registration sync, Expo push notifications, Resend email' },
+        { label: 'Status', value: 'iOS in TestFlight, Android built, launching ahead of the March 2027 festival' },
+      ]},
+      { type: 'h', text: 'What I Learned' },
+      { type: 'takeaways', items: [
+        { num: '01', title: 'Time Zones Bite', text: 'Sessions stored in Vegas time came back from the database in UTC, and every evening show landed on the wrong day tab. Now every date in the app is pinned to the venue clock, wherever your phone thinks you are.' },
+        { num: '02', title: 'Offline Is a Feature', text: 'Casino floors eat cell signal. Caching the schedule, maps and even performer photos on the phone mattered more than any screen design.' },
+        { num: '03', title: 'Build the Admin First', text: 'An event app is only as good as how fast staff can fix a typo at 9pm. A real admin panel made the app something the festival can run without me.' },
+      ]},
+    ],
+    links: [],
+    accent: '#0b1a4a',
+    icon: { glyph: '🎩', color: '#f5c542' },
+  },
 ];
 
 export const REELS = [
