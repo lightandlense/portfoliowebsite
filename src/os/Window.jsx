@@ -38,7 +38,8 @@ export function Window({ window: win, isFocused, onClose, onMinimize, onFocus, o
   return (
     <motion.section
       className={`os-window${isFocused ? ' is-focused' : ''}`}
-      style={{ zIndex: win.z, width: win.w, height: win.h, x, y }}
+      // windows always sit above the desktop icon rail (z-index 5 in launchers.css)
+      style={{ zIndex: 10 + win.z, width: win.w, height: win.h, x, y }}
       drag
       dragControls={controls}
       dragMomentum={!reducedMotion}
