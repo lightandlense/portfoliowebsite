@@ -641,6 +641,62 @@ export const PROJECTS = [
     accent: '#1f2a5c',
     icon: { glyph: '🎞️', color: '#1f2a5c' },
   },
+  {
+    id: 'paintsong',
+    slug: 'paintsong',
+    title: 'Paintsong',
+    hideFromRail: true,
+    category: 'Interactive Game: Projection Wall + iPhone',
+    tags: ['Projection', 'Computer Vision', 'Game Design', 'iOS', 'Generative Audio', 'JavaScript'],
+    stats: [
+      { value: '2', label: 'Versions: Wall + Phone' },
+      { value: '100', label: 'Phone Levels' },
+      { value: '1', label: 'USB Webcam, No Depth Sensor' },
+    ],
+    hero: { type: 'image', src: '/work/paintsong/images/wall-hero.jpg' },
+    body: [
+      { type: 'p', text: 'One idea, two screens. On a projection wall, your real shadow pushes a glowing ball toward a target and the ball paints the wall in neon as it goes. On an iPhone, you flick the ball through a level you cannot see, and everything it hits lights up in paint and plays a note.' },
+      { type: 'h', text: 'The Wall Version' },
+      { type: 'p', text: 'It started as Shadow Physics: a ball, walls and targets projected on a wall, and nothing to hold. A basic USB webcam watches the projection and reads your cast shadow, so a hand, an arm, a broom or a friend can bat the ball. In paint mode the ball leaves a permanent rainbow trail, so every round ends as a painting of how it was played.' },
+      { type: 'youtube', id: '_lleGGK2oTU', caption: 'Paintsong on the wall: playing with a hand shadow, paint mode on' },
+      { type: 'image-row', items: [
+        { src: '/work/paintsong/images/wall-start.jpg', alt: 'Player starting a level, ball beside the target', caption: 'Start: the ball waits near the target' },
+        { src: '/work/paintsong/images/wall-trail.jpg', alt: 'Shadow arm pushing the ball, rainbow trail behind it', caption: 'The shadow is the controller' },
+        { src: '/work/paintsong/images/wall-painted.jpg', alt: 'Wall covered in painted ball trails', caption: 'Every round ends as a painting' },
+      ]},
+      { type: 'pillars', items: [
+        { title: 'Shadow as Input', text: 'The camera sits high near the wall, off the projector axis, so a player never blocks their own shadow. Dark pixels against the lit wall are read as shadow and turned into a force on the ball.' },
+        { title: 'Self-Calibrating', text: 'Setup flashes the wall white, black and every game colour, learns a per-pixel white reference and finds the projection corners, so it adapts to the room light and the surface.' },
+        { title: 'Readable Light', text: 'Nothing in the game is drawn darker than mid grey, so the only dark thing on the wall is a shadow. Bricks, pipes, switches and bumpers reuse my Gizmo Factory sprite art.' },
+      ]},
+      { type: 'image', src: '/work/paintsong/images/wall-reach.jpg', alt: 'Player reaching across the projection with paint on the wall', caption: 'Paint mode on the wall: the ball carries a colour that flows along the hue wheel as it travels' },
+      { type: 'h', text: 'The Phone Version' },
+      { type: 'p', text: 'Paintsong turns the same ball and paint into a pocket puzzle. Every level starts invisible. Drag back and flick, and whatever the ball hits gets painted and plays a note in the level\'s key, so you find the room by sound and splash and then sink the ball in the hole.' },
+      { type: 'image', src: '/work/paintsong/images/store-sheet.jpg', alt: 'Six Paintsong App Store screenshots', caption: 'App Store screenshots: every bounce plays a note, colours open doors, finales paint pictures' },
+      { type: 'pillars', items: [
+        { title: 'Sound Design', text: 'Each wall owns one note from a minor pentatonic scale, so nothing sounds wrong. Walls, bumpers, small objects and the goal each have their own instrument, chosen to blend as one kit.' },
+        { title: '100 Levels', text: '10 worlds of 10, each adding one mechanic: one-way gates, moving walls, portals, glass, colour locks, spinners, switches, currents and note locks. Each world ends on a finale that paints a picture.' },
+        { title: 'Solver-Checked', text: 'A solver bot plays every level, proves it can be finished and sets the par for three stars. 167 automated checks run before any build.' },
+      ]},
+      { type: 'h', text: 'Build' },
+      { type: 'specs', items: [
+        { label: 'Wall', value: 'Browser game, USB webcam shadow reading, projector, 24 levels' },
+        { label: 'Phone', value: 'Same JavaScript physics and paint, in an Expo iOS shell with haptics' },
+        { label: 'Audio', value: 'Synthesized per-object instruments, level key, playable with sound off' },
+        { label: 'Access', value: 'Colour-blind modes with shape marks, calm tones, no ads, no data collected' },
+        { label: 'Status', value: 'iOS 1.0 submitted to App Store review, October 2026' },
+      ]},
+      { type: 'h', text: 'What I Learned' },
+      { type: 'takeaways', items: [
+        { num: '01', title: 'Light Is the Interface', text: 'On a projection wall the screen is also the sensor. Keeping every projected colour lighter than a shadow mattered more than any tracking code.' },
+        { num: '02', title: 'One Mechanic, Two Bodies', text: 'The wall is about your whole body and an audience watching. The phone is about precision and listening. Same ball, very different games.' },
+        { num: '03', title: 'Paint Is Memory', text: 'Permanent paint turned a physics toy into something people want to keep: a picture of the round they just played.' },
+      ]},
+    ],
+    links: [],
+    accent: '#0f1b3d',
+    icon: { glyph: '🎨', color: '#ff3d8b' },
+  },
 ];
 
 export const REELS = [

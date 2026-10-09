@@ -6,7 +6,7 @@ const REQUIRED = ['id', 'slug', 'title', 'category', 'tags', 'stats', 'hero', 'b
 describe('projects data', () => {
   it('has the phase-1 projects plus ported classic case studies', () => {
     expect(PROJECTS.map((p) => p.id).sort()).toEqual(
-      ['ad-variants', 'ai-email-creative', 'ai-hair-extensions', 'ai-voice-assistant', 'callitin', 'chromotion', 'gizmo-factory', 'real-time-experiments', 'spoonable', 'urban-projection', 'vr-synesthesia'],
+      ['ad-variants', 'ai-email-creative', 'ai-hair-extensions', 'ai-voice-assistant', 'callitin', 'chromotion', 'gizmo-factory', 'paintsong', 'real-time-experiments', 'spoonable', 'urban-projection', 'vr-synesthesia'],
     );
   });
   it('every project has all required fields', () => {
