@@ -24,6 +24,9 @@ describe('Apps folder', () => {
     expect(apps).toMatchObject({ type: 'finder' });
     expect(apps.payload).toEqual(['callitin', 'spoonable', 'paintsong', 'mystify']);
     for (const id of apps.payload) expect(LAUNCHERS.some((l) => l.id === `project:${id}`)).toBe(true);
+    const projects = LAUNCHERS.find((l) => l.id === 'finder').payload;
+    for (const id of apps.payload) expect(projects).not.toContain(id);
+    expect(projects).toContain('chromotion');
   });
 });
 

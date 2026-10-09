@@ -12,9 +12,12 @@ const projectLaunchers = PROJECTS.map((p) => ({
   h: 575,
 }));
 
+const APP_IDS = ['callitin', 'spoonable', 'paintsong', 'mystify'];
+const NON_APP_IDS = PROJECTS.map((p) => p.id).filter((id) => !APP_IDS.includes(id));
+
 export const LAUNCHERS = [
-  { id: 'finder', type: 'finder', title: 'Projects', glyph: '🗂️', color: '#FFD400', payload: null },
-  { id: 'apps', type: 'finder', title: 'Apps', glyph: '📱', color: '#a855f7', payload: ['callitin', 'spoonable', 'paintsong', 'mystify'] },
+  { id: 'finder', type: 'finder', title: 'Projects', glyph: '🗂️', color: '#FFD400', payload: NON_APP_IDS },
+  { id: 'apps', type: 'finder', title: 'Apps', glyph: '📱', color: '#a855f7', payload: APP_IDS },
   ...projectLaunchers,
   { id: 'reels', type: 'reels', title: 'Reels', glyph: '🎬', color: '#ff3b00', payload: null },
   { id: 'resume', type: 'resume', title: 'Resume', glyph: '📄', color: '#38bdf8', payload: null },
