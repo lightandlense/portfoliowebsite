@@ -672,7 +672,7 @@ export const PROJECTS = [
       ]},
       { type: 'image', src: '/work/paintsong/images/wall-reach.jpg', alt: 'Player reaching across the projection with paint on the wall', caption: 'Paint mode on the wall: the ball carries a colour that flows along the hue wheel as it travels' },
       { type: 'h', text: 'The Phone Version' },
-      { type: 'p', text: 'Paintsong turns the same ball and paint into a pocket puzzle. Every level starts invisible. Drag back and flick, and whatever the ball hits gets painted and plays a note in the level\'s key, so you find the room by sound and splash and then sink the ball in the hole.' },
+      { type: 'p', text: 'Paintsong Phone turns the same ball and paint into a pocket puzzle. Every level starts invisible. Drag back and flick, and whatever the ball hits gets painted and plays a note in the level\'s key, so you find the room by sound and splash and then sink the ball in the hole.' },
       { type: 'image', src: '/work/paintsong/images/store-sheet.jpg', alt: 'Six Paintsong App Store screenshots', caption: 'App Store screenshots: every bounce plays a note, colours open doors, finales paint pictures' },
       { type: 'pillars', items: [
         { title: 'Sound Design', text: 'Each wall owns one note from a minor pentatonic scale, so nothing sounds wrong. Walls, bumpers, small objects and the goal each have their own instrument, chosen to blend as one kit.' },

@@ -9,6 +9,7 @@ import Spoonable from './pages/work/Spoonable';
 import GizmoFactory from './pages/work/GizmoFactory';
 import Chromotion from './pages/work/Chromotion';
 import RealTimeExperiments from './pages/work/RealTimeExperiments';
+import ProjectPage from './pages/work/ProjectPage';
 import { OSApp } from './os/OSApp';
 import { ArtScene } from './pages/ArtScene';
 
@@ -27,6 +28,7 @@ export default function App() {
       <Route path="/classic/work/gizmo-factory" element={<GizmoFactory />} />
       <Route path="/classic/work/chromotion" element={<Chromotion />} />
       <Route path="/classic/work/real-time-experiments" element={<RealTimeExperiments />} />
+      <Route path="/classic/work/:slug" element={<ProjectPage />} />
     </Routes>
   );
 }

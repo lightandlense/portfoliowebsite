@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo:wght@600;700;800&display=swap');
+
+/* Same tokens as .os-root, without its fixed full-screen layout */
+.pp {
+  --os-base: #e9e6dd;
+  --os-ink: #111111;
+  --os-red: #E2243B;
+  --os-accent: var(--os-red);
+  --os-border: 3px solid #111111;
+  --os-shadow-sm: 3px 3px 0 var(--os-ink);
+  --os-mono: 'Space Mono', monospace;
+  --os-display: 'Archivo', sans-serif;
+  min-height: 100vh;
+  background: var(--os-base);
+  color: var(--os-ink);
+  font-family: var(--os-mono);
+  padding: 16px;
+  overflow-x: hidden;
+}
+.pp__back { display: inline-block; margin-bottom: 12px; font-weight: 700; color: var(--os-ink); text-decoration: none; }
+.pp__card { max-width: 820px; margin: 0 auto; background: #fff; border: var(--os-border); box-shadow: 5px 5px 0 var(--os-ink); }
+.pp img, .pp video { max-width: 100%; height: auto; }
+.pp .pw__hero img, .pp .pw__hero video { height: 220px; }
+.pp .pw__stats { flex-wrap: wrap; }
+@media (max-width: 600px) {
+  .pp .pw__image-row { grid-template-columns: 1fr; }
+}

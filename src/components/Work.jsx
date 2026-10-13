@@ -22,6 +22,15 @@ const projects = [
         slug: 'gizmo-factory',
     },
     {
+        id: 13,
+        category: 'Interactive Game — Projection Wall + iPhone',
+        title: 'Paintsong',
+        description: 'Your real shadow pushes a glowing ball across a projected wall, and the ball paints the wall in neon as it goes. The same ball and paint became Paintsong Phone, an iPhone puzzle game with 100 levels where every bounce plays a note.',
+        tags: ['Projection', 'Computer Vision', 'iOS'],
+        image: '/work/paintsong/images/wall-hero.jpg',
+        slug: 'paintsong',
+    },
+    {
         id: 9,
         category: 'Creative Technology — Interactive Installation',
         title: 'Chromotion',
