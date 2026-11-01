@@ -31,6 +31,15 @@ const projects = [
         slug: 'paintsong',
     },
     {
+        id: 14,
+        category: "Real-Time AI Character: Projection + Pepper's Ghost",
+        title: 'Conversational Avatar',
+        description: 'A face you can talk to out loud. It listens, answers live in its own voice and moves its mouth in sync, all on one local graphics card. Project it onto a tree, fit it onto a mannequin, or float it in glass from an iPhone.',
+        tags: ['Voice AI', 'Three.js', 'Local LLM'],
+        image: '/work/conversational-avatar/images/cast.jpg',
+        slug: 'conversational-avatar',
+    },
+    {
         id: 9,
         category: 'Creative Technology — Interactive Installation',
         title: 'Chromotion',
