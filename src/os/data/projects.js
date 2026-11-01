@@ -783,8 +783,17 @@ export const PROJECTS = [
         { title: 'On a Mannequin', text: 'Click the two eye sockets and the two lip corners on the projected image and the face snaps into place, so the projected mouth lands on the sculpted lips.' },
         { title: 'In Glass', text: 'An iPhone runs the face, mic and voice as a Home Screen app over a secure link, reflected in glass as a Pepper\'s Ghost with misty backgrounds behind it.' },
       ]},
+      { type: 'youtube-grid', portrait: true, items: [
+        { id: 'DMwuQ2fCNzE', label: 'The face projected onto a mannequin head, talking live' },
+      ]},
       { type: 'h', text: 'Built to Be Run by Someone Else' },
       { type: 'p', text: 'A control panel served by the character itself: a Character screen to pick the face, voice, personality and background with a live preview, and an Operator screen with big buttons for whoever runs the show that night. A watchdog restarts the voice if it crashes, and characters can fall asleep and wake up again between visitors.' },
+      { type: 'image', src: '/work/conversational-avatar/images/character-screen.jpg', alt: 'The Character screen: a live preview of a white ghost face on the left, a grid of characters to pick from on the right', caption: 'The Character screen: pick a head, then tune the effect, face, voice, persona, guardrails and background with a live preview' },
+      { type: 'image-row', cols: 3, items: [
+        { src: '/work/conversational-avatar/images/persona.png', alt: 'Persona tab: who the character is, its greeting, a never-say list and in-character refusal lines', caption: 'Persona: who it is, what it never talks about, and how it refuses in character' },
+        { src: '/work/conversational-avatar/images/persona-lines.png', alt: 'Persona tab: attract, returning visitor, tired and wake lines', caption: 'Lines for every moment: attracting a crowd, greeting a returning visitor by name, waking up' },
+        { src: '/work/conversational-avatar/images/guardrails.png', alt: 'Guardrails tab: safe words, slur blocklist, topic fence and troll damping, each with a checkbox', caption: 'Guardrails: safe words stop it in a quarter second, plus a blocklist, a topic fence and troll damping' },
+      ]},
       { type: 'h', text: 'Build' },
       { type: 'specs', items: [
         { label: 'Voice Loop', value: 'Pipecat, Silero VAD, Smart Turn, faster-whisper, Ollama (Llama 3.1 8B), Kokoro TTS' },

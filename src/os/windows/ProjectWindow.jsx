@@ -56,7 +56,7 @@ export function ProjectWindow({ projectId, dispatch }) {
             </figure>
           );
           if (b.type === 'image-row') return (
-            <div key={i} className="pw__image-row">
+            <div key={i} className="pw__image-row" style={b.cols ? { gridTemplateColumns: `repeat(${b.cols}, 1fr)` } : undefined}>
               {b.items.map((it, j) => (
                 <figure key={j} className="pw__figure">
                   <img src={it.src} alt={it.alt} loading="lazy" />
