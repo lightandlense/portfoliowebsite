@@ -33,7 +33,7 @@ export function ProjectWindow({ projectId, dispatch }) {
         ) : p.hero.type === 'iframe' ? (
           <iframe src={p.hero.src} title={p.title} allowFullScreen className="pw__iframe" />
         ) : (
-          <img src={p.hero.src} alt={p.title} loading="lazy" />
+          <img src={p.hero.src} alt={p.title} loading="lazy" style={{ objectPosition: p.hero.position }} />
         )}
       </div>
       <div className="pw__content">
