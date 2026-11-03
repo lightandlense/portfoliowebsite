@@ -813,6 +813,56 @@ export const PROJECTS = [
     accent: '#1d2b1a',
     icon: { glyph: '🗣️', color: '#5b8c3a' },
   },
+  {
+    id: 'tonightly',
+    slug: 'tonightly',
+    title: 'Tonightly',
+    category: 'TV Assistant on AWS Bedrock, with Evals',
+    tags: ['AWS Bedrock', 'Claude', 'LLM-as-Judge', 'React', 'Lambda', 'Evals'],
+    stats: [
+      { value: '4.24 → 4.53', label: 'Eval Score (1 to 5)' },
+      { value: '4 → 1', label: 'Failed Chats per Run' },
+      { value: '30', label: 'Golden Conversations' },
+    ],
+    hero: { type: 'image', src: '/work/tonightly/images/home.jpg', position: '50% 30%' },
+    body: [
+      { type: 'p', text: 'A TV-style "what should I watch tonight" app. You browse with the arrow keys like a remote, and ask an assistant for picks in plain language: "something funny but not dumb", "no, not a musical", "is Inception 2 on Netflix?". The assistant is Claude on AWS Bedrock, looking titles up in TMDB with tool calls.' },
+      { type: 'p', text: 'The real project is one question: how do you know an assistant like this is getting better, and not just different?' },
+      { type: 'image', src: '/work/tonightly/images/detail.jpg', alt: 'A title page: show name, season count, rating, synopsis, streaming services and Play trailer, My list and Back buttons', caption: 'Title page with where it streams, all driven by the arrow keys' },
+      { type: 'h', text: 'How It Works' },
+      { type: 'pillars', items: [
+        { title: 'Grounded in Code', text: 'The model can only put a title on screen if a TMDB lookup returned it. Anything else is dropped and logged, so it cannot show a movie it made up, however confident it sounds.' },
+        { title: 'Tools, Not Memory', text: 'Search, discover by genre, year and runtime, find similar titles, and look up runtime, seasons and where it streams. Facts come from a lookup, not from the model\'s memory.' },
+        { title: 'Safe to Leave Public', text: 'S3, CloudFront, Lambda and DynamoDB in one SAM template, with per-chat and daily turn caps and a kill switch so a public demo can\'t run up a bill.' },
+      ]},
+      { type: 'h', text: 'The Evals' },
+      { type: 'p', text: '30 golden conversations in 6 categories: clear requests, vague requests, corrections, hallucination bait, out of scope and multi-turn memory. A Claude Sonnet judge grades each one against a written rubric, with the full transcript and every fact the tools returned, so it can tell a checked fact from an invented one.' },
+      { type: 'quote', text: 'The first judge agreed with my own scores on 1 of 10 conversations. The fixed judge agrees on 5 of 10, and on 8 of 10 within a point.', sub: 'Fixing the judge came before fixing the assistant.' },
+      { type: 'p', text: 'Then the loop: fix the weakest area, run again, keep what helps. Single runs move about half a point per case, so the final comparison runs each version 3 times.' },
+      { type: 'h', text: 'Results, Averaged Over 3 Runs' },
+      { type: 'specs', items: [
+        { label: 'Overall', value: '4.24 → 4.53 (every new run beat every old run)' },
+        { label: 'Hallucination bait', value: '3.47 → 4.33' },
+        { label: 'Clear requests', value: '4.00 → 4.61' },
+        { label: 'Vague requests', value: '4.47 → 5.00' },
+        { label: 'Failed conversations', value: 'About 4 per run → about 1' },
+        { label: 'Corrections and memory', value: 'No real change (4.44 → 4.11, 4.25 → 4.14, within the noise)' },
+      ]},
+      { type: 'h', text: 'What I Learned' },
+      { type: 'takeaways', items: [
+        { num: '01', title: 'Check the Judge First', text: 'The first judge averaged its scores, so a reply like "Sorry, I lost my place" still passed on "invented nothing". An eval you haven\'t checked against a human is just another opinion.' },
+        { num: '02', title: 'Code Beats Prompts', text: 'When the prompt said "search again after a correction" and the model kept not doing it, the fix that stuck was in code. A runtime filter fixed the "under 90 minutes" misses that no prompt rule could.' },
+        { num: '03', title: 'Report What Didn\'t Move', text: 'One run said corrections improved. Three runs said they didn\'t, so I changed the write-up. Next: more correction cases, and blocking rejected titles in code.' },
+      ]},
+      { type: 'p', text: 'This product uses the TMDB API but is not endorsed or certified by TMDB. Streaming data from JustWatch via TMDB.' },
+    ],
+    links: [
+      { kind: 'live', label: 'Try it live', url: 'https://tonightly.lightandlense.com' },
+      { kind: 'source', label: 'Eval case study on GitHub', url: 'https://github.com/lightandlense/tonightly/blob/main/docs/case-study.md' },
+    ],
+    accent: '#f5a524',
+    icon: { glyph: '📺', color: '#f5a524' },
+  },
 ];
 
 export const REELS = [

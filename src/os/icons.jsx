@@ -66,6 +66,12 @@ const IconGoggles = (color) => sv(<>
   <path d="M10 17l2-3 2 3"/>
 </>);
 
+const IconTV = (color) => sv(<>
+  <rect x="2" y="6" width="20" height="13" fill={color}/>
+  <polyline points="8,2 12,6 16,2"/>
+  <line x1="7" y1="22" x2="17" y2="22"/>
+</>);
+
 // Each entry is a render function taking the launcher's accent color, so the
 // same bold-outline icon shape is reused across launchers but tinted to
 // match that launcher's color (see DesktopIcons.jsx).
@@ -78,6 +84,7 @@ export const ICONS = {
   'project:real-time-experiments': IconTarget,
   'project:ai-hair-extensions': IconScissors,
   'project:vr-synesthesia':    IconGoggles,
+  'project:tonightly':         IconTV,
   reels:                       IconPlay,
   resume:                      IconResume,
   about:                       IconPerson,
