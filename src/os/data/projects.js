@@ -828,6 +828,7 @@ export const PROJECTS = [
     body: [
       { type: 'p', text: 'A TV-style "what should I watch tonight" app. You browse with the arrow keys like a remote, and ask an assistant for picks in plain language: "something funny but not dumb", "no, not a musical", "is Inception 2 on Netflix?". The assistant is Claude on AWS Bedrock, looking titles up in TMDB with tool calls.' },
       { type: 'p', text: 'The real project is one question: how do you know an assistant like this is getting better, and not just different?' },
+      { type: 'youtube', id: 'JaqHzm6_Jd8', caption: 'Demo: browsing like a TV and asking the assistant for picks' },
       { type: 'image', src: '/work/tonightly/images/detail.jpg', alt: 'A title page: show name, season count, rating, synopsis, streaming services and Play trailer, My list and Back buttons', caption: 'Title page with where it streams, all driven by the arrow keys' },
       { type: 'h', text: 'How It Works' },
       { type: 'pillars', items: [
@@ -858,6 +859,7 @@ export const PROJECTS = [
     ],
     links: [
       { kind: 'live', label: 'Try it live', url: 'https://tonightly.lightandlense.com' },
+      { kind: 'watch', label: 'Watch the demo', url: 'https://youtu.be/JaqHzm6_Jd8' },
       { kind: 'source', label: 'Eval case study on GitHub', url: 'https://github.com/lightandlense/tonightly/blob/main/docs/case-study.md' },
     ],
     accent: '#f5a524',
