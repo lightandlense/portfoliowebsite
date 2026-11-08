@@ -12,7 +12,7 @@ describe('Glance', () => {
   });
 
   it('puts Result first and leaves out What broke when the case has none', () => {
-    const { container } = render(<Glance slug="gizmo-factory" />);
+    const { container } = render(<Glance slug="spoonable" />);
     expect(container.querySelector('dt').textContent).toBe('Result');
     expect(screen.queryByText('What broke')).toBeNull();
   });
