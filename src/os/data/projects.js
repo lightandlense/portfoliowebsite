@@ -180,8 +180,9 @@ export const PROJECTS = [
         { src: '/images/casestudyimages/Chromotion/plane-demo.mp4', label: 'Draw A Plane', caption: 'Scanned WWII fighters flying over a carrier.' },
       ]},
       { type: 'h', text: 'What Broke' },
-      { type: 'p', text: 'Getting a flat crayon drawing to walk and swim took more rounds than the scanning did.' },
+      { type: 'p', text: 'Getting a flat crayon drawing to drive, walk and swim took more rounds than the scanning did.' },
       { type: 'pillars', items: [
+        { title: 'Wheels Off the Car', text: 'In the original car version, once the wheels started rolling they would not stay lined up with the car bodies. The same kind of problem, moving parts drifting off the body, came back with the dinosaurs and the fish.' },
         { title: 'Stiff Dinosaur Legs', text: 'My first rig cut the legs into separate sprites that swung like paper dolls, and turning the head bent the tops of the legs. I switched to skeletal mesh skinning: the whole drawing is one image stretched over bones, and each leg only listens to its own bones.' },
         { title: 'Half-Moving Fins', text: 'Fins are cut out of the drawing so they can flap. When a cutout clipped a thin vein line, half the fin moved and half stayed frozen. Every fin outline now has to enclose every line of ink in that fin.' },
         { title: 'A Pixi.js Crash', text: 'Cleaning up an old mesh by destroying its texture broke the next mesh Pixi.js built, and it took three debugging rounds to find. The fix was to let Pixi handle the cleanup.' },
