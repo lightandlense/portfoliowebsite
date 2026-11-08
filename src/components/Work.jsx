@@ -36,7 +36,7 @@ const projects = [
         title: 'Conversational Avatar',
         description: 'A face you can talk to out loud. It listens, answers live in its own voice and moves its mouth in sync, all on one local graphics card. Project it onto a tree, fit it onto a mannequin, or float it in glass from an iPhone.',
         tags: ['Voice AI', 'Three.js', 'Local LLM'],
-        image: '/work/conversational-avatar/images/cast.jpg',
+        image: '/work/conversational-avatar/images/tree.jpg',
         slug: 'conversational-avatar',
     },
     {
