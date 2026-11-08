@@ -6,6 +6,7 @@ import './Work.css';
 const projects = [
     {
         id: 3,
+        filters: ['installations', 'projection'],
         category: 'Projection Mapping — Urban Activation',
         title: 'Urban Projection',
         description: 'Five projection mapping installations across downtown Colorado Springs murals — deployed by a 2-person team in a single 6-hour window. Zero structural modification. A feasibility study that built the proof of concept for city-scale programmable public art.',
@@ -15,6 +16,7 @@ const projects = [
     },
     {
         id: 8,
+        filters: ['installations', 'projection'],
         category: 'Creative Technology — Physical-Digital Installation',
         title: 'Gizmo Factory',
         description: 'A physical-digital puzzle wall where cardboard becomes physics. Players arrange real blocks in front of a projection. A camera reads each block. The simulation responds within one frame. Twenty-five mechanics, two block types, vanilla JavaScript.',
@@ -24,6 +26,7 @@ const projects = [
     },
     {
         id: 13,
+        filters: ['installations', 'projection', 'apps'],
         category: 'Interactive Game — Projection Wall + iPhone',
         title: 'Paintsong',
         description: 'Your real shadow pushes a glowing ball across a projected wall, and the ball paints the wall in neon as it goes. The same ball and paint became Paintsong Phone, an iPhone puzzle game with 100 levels where every bounce plays a note.',
@@ -33,6 +36,7 @@ const projects = [
     },
     {
         id: 14,
+        filters: ['installations', 'projection', 'ai'],
         category: "Real-Time AI Character: Projection + Pepper's Ghost",
         title: 'Conversational Avatar',
         description: 'A face you can talk to out loud. It listens, answers live in its own voice and moves its mouth in sync, all on one local graphics card. Project it onto a tree, fit it onto a mannequin, or float it in glass from an iPhone.',
@@ -42,6 +46,7 @@ const projects = [
     },
     {
         id: 9,
+        filters: ['installations'],
         category: 'Creative Technology — Interactive Installation',
         title: 'Chromotion',
         description: 'Color a printed template with crayons. Hold it up to the camera. A computer vision pipeline reads each region, extracts the exact crayon colors, and brings the subject to life on screen. The same pipeline now powers three more installations.',
@@ -51,6 +56,7 @@ const projects = [
     },
     {
         id: 10,
+        filters: ['installations'],
         category: 'Creative Technology — Real-Time & Interactive',
         title: 'Real-Time Experiments',
         description: 'A collection of camera-driven, hands-on browser experiences and real-time TouchDesigner interaction studies. Hand-tracking particle fields, an infinity mirror, gesture Tetris, generative weather, and more — all running live in the browser.',
@@ -60,6 +66,7 @@ const projects = [
     },
     {
         id: 1,
+        filters: ['ai'],
         category: 'Generative Art — AI Workflow',
         title: 'AI Hair Extensions',
         description: '10,000 commercial hair catalog assets produced in weeks — not months. A custom ComfyUI pipeline replaced a $150K+ photography workflow with AI-generated variations at 95% cost reduction.',
@@ -69,6 +76,7 @@ const projects = [
     },
     {
         id: 2,
+        filters: ['ai'],
         category: 'AI Automation — Voice Agent',
         title: 'AI Voice Assistant',
         description: 'A 24/7 AI voice agent with MCP and Google Calendar integration that eliminated after-hours owner burnout, lifted call capture rate to 100%, and books technicians in under 3 minutes.',
@@ -77,7 +85,18 @@ const projects = [
         slug: 'ai-voice-assistant',
     },
     {
+        id: 15,
+        filters: ['ai'],
+        category: 'AI Assistant — AWS Bedrock + Evals',
+        title: 'Tonightly',
+        description: 'A TV-style "what should I watch tonight" app with a Claude assistant on AWS Bedrock, plus the evals that prove it got better, not just different: score 4.24 to 4.53, failed chats 4 to 1.',
+        tags: ['AWS Bedrock', 'Claude', 'Evals'],
+        image: '/work/tonightly/images/home.jpg',
+        slug: 'tonightly',
+    },
+    {
         id: 4,
+        filters: ['ai'],
         category: 'AI Automation — Job Search',
         title: 'Job Hunter',
         description: 'A fully autonomous job search agent — configure your target roles once, then let it scrape boards, score matches, tailor your resume with Claude, and deliver a digest to your inbox overnight.',
@@ -87,6 +106,7 @@ const projects = [
     },
     {
         id: 5,
+        filters: ['apps'],
         category: 'Mobile App — Freelance Tools',
         title: 'Callitin',
         description: 'A mobile-first invoicing app for freelancers. Create professional PDF invoices with speech-to-text input, manage clients, and track payments — all from your phone in under a minute.',
@@ -96,6 +116,7 @@ const projects = [
     },
     {
         id: 6,
+        filters: ['apps'],
         category: 'Mobile App — Accessibility',
         title: 'Spoonable',
         description: 'A recipe app built for the chronic illness community. Every recipe is rated by real energy cost — spoon tiers based on active steps, pans to wash, and standing time. Offline-first. $4.99 lifetime.',
@@ -144,10 +165,19 @@ function WorkCard({ project, index }) {
     );
 }
 
-const MOBILE_FIRST = 6; // phones show the top installations first, rest behind a button
+const FILTERS = [
+    ['all', 'All'],
+    ['installations', 'Installations'],
+    ['projection', 'Projection'],
+    ['ai', 'AI'],
+    ['apps', 'Apps'],
+];
 
 export default function Work() {
     const [showAll, setShowAll] = useState(false);
+    const [filter, setFilter] = useState('all');
+    const visible = filter === 'all' ? projects : projects.filter((p) => p.filters.includes(filter));
+    const capped = filter === 'all' && !showAll; // phones: top 6, rest behind a button (CSS)
     return (
         <section className="work" id="work">
             <div className="work__inner">
@@ -163,15 +193,29 @@ export default function Work() {
                     <h2 className="work__title text-display">Case Studies</h2>
                 </motion.div>
 
-                <div className={`work__grid${showAll ? ' work__grid--all' : ''}`}>
-                    {projects.map((project, i) => (
+                <div className="work__filters" role="group" aria-label="Filter projects">
+                    {FILTERS.map(([key, label]) => (
+                        <button
+                            key={key}
+                            type="button"
+                            className={`work__chip${filter === key ? ' work__chip--on' : ''}`}
+                            aria-pressed={filter === key}
+                            onClick={() => setFilter(key)}
+                        >
+                            {label}
+                        </button>
+                    ))}
+                </div>
+
+                <div className={`work__grid${capped ? '' : ' work__grid--all'}`}>
+                    {visible.map((project, i) => (
                         <WorkCard key={project.id} project={project} index={i} />
                     ))}
                 </div>
 
-                {!showAll && (
+                {capped && visible.length > 6 && (
                     <button type="button" className="work__more" onClick={() => setShowAll(true)}>
-                        Show all {projects.length} projects ↓
+                        Show all {visible.length} projects ↓
                     </button>
                 )}
 

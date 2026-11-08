@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './AiHairExtensions.css';
 import './ProjectionMapping.css';
+import { Glance } from '../../os/windows/Glance';
 
 const additionalVideos = [
     { id: 'zUIReR9ckJ8', label: 'Site 02' },
@@ -75,6 +76,8 @@ export default function ProjectionMapping() {
                     </div>
                 </motion.div>
             </header>
+
+            <div className="cs__glance"><Glance slug="projection-mapping-colorado-springs" /></div>
 
             {/* ── Hero Video ── */}
             <motion.div

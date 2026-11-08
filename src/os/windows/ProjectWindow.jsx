@@ -1,5 +1,6 @@
 import { getProject } from '../data/projects';
 import { ParticleSketch } from './ParticleSketch';
+import { Glance } from './Glance';
 import { openWindow } from '../state/windowManager';
 import './ProjectWindow.css';
 
@@ -47,6 +48,7 @@ export function ProjectWindow({ projectId, dispatch }) {
             </div>
           ))}
         </div>
+        <Glance slug={p.slug} />
         {p.body.map((b, i) => {
           if (b.type === 'h') return <h3 key={i} className="pw__section-h">{b.text}</h3>;
           if (b.type === 'image') return (

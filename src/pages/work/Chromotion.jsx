@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './AiHairExtensions.css';
 import './Chromotion.css';
+import { Glance } from '../../os/windows/Glance';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -68,6 +69,8 @@ export default function Chromotion() {
                     </div>
                 </motion.div>
             </header>
+
+            <div className="cs__glance"><Glance slug="chromotion" /></div>
 
             {/* ── Hero image ── */}
             <motion.div

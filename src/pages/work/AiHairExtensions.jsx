@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './AiHairExtensions.css';
+import { Glance } from '../../os/windows/Glance';
 
 const metrics = [
     { label: 'Total Assets', traditional: '10,000', ai: '10,000', improvement: '—' },
@@ -89,6 +90,8 @@ export default function AiHairExtensions() {
                     </div>
                 </motion.div>
             </header>
+
+            <div className="cs__glance"><Glance slug="ai-hair-extensions" /></div>
 
             {/* ── Hero image — full bleed ── */}
             <CsImage

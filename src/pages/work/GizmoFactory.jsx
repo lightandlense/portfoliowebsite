@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './AiHairExtensions.css';
 import './GizmoFactory.css';
+import { Glance } from '../../os/windows/Glance';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -95,6 +96,8 @@ export default function GizmoFactory() {
                     </div>
                 </motion.div>
             </header>
+
+            <div className="cs__glance"><Glance slug="gizmo-factory" /></div>
 
             {/* ── Hero image ── */}
             <motion.div

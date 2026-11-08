@@ -173,6 +173,40 @@
     inset: 0;
 }
 
+/* Filter chips */
+.work__filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.work__filters::-webkit-scrollbar { display: none; }
+
+.work__chip {
+    flex: 0 0 auto;
+    padding: 0.55rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.work__chip:hover { border-color: rgba(0, 229, 255, 0.4); }
+
+.work__chip--on {
+    color: #000;
+    background: var(--color-cyan);
+    border-color: var(--color-cyan);
+}
+
 /* "Show all" button: phones only */
 .work__more {
     display: none;

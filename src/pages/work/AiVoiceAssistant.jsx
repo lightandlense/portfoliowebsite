@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './AiHairExtensions.css';
 import './AiVoiceAssistant.css';
+import { Glance } from '../../os/windows/Glance';
 
 const metrics = [
     { label: 'Call Capture Rate', before: '60% (Missed after-hours)', after: '100%', improvement: '+40% Lead Capture' },
@@ -76,6 +77,8 @@ export default function AiVoiceAssistant() {
                     </div>
                 </motion.div>
             </header>
+
+            <div className="cs__glance"><Glance slug="ai-voice-assistant" /></div>
 
             {/* ── Demo Video ── */}
             <motion.div
