@@ -75,6 +75,16 @@ const projects = [
         slug: 'ad-variants',
     },
     {
+        id: 17,
+        filters: ['ai'],
+        category: 'Generative AI — ComfyUI Brand Color Lock',
+        title: 'On-Brand AI Email',
+        description: 'Three lifecycle emails with AI fashion images held to one brand hex. My open-source ProductColorLock node in ComfyUI cut the worst color error from 20.1 to 4.6 ΔE, and a check blocks any image that drifts.',
+        tags: ['ComfyUI', 'SDXL', 'Open Source'],
+        image: '/work/ai-email/images/hero_strip.jpg',
+        slug: 'ai-email-creative',
+    },
+    {
         id: 3,
         filters: ['installations', 'projection'],
         category: 'Projection Mapping — Urban Activation',
