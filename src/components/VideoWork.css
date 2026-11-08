@@ -304,23 +304,38 @@
     }
 
     .video-work__stats {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 
+    .video-work__stat { padding: 1.1rem 1rem; }
+    .video-work__stat--highlight { grid-column: 1 / -1; }
+
+    /* Phones: sideways swipe row instead of a 9-screen stack */
     .video-work__grid {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        gap: 0.75rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        margin: 0 -1.5rem;
+        padding: 0 1.5rem 0.75rem;
+        scrollbar-width: none;
     }
+
+    .video-work__grid::-webkit-scrollbar { display: none; }
+
+    .video-work__grid > * {
+        flex: 0 0 72%;
+        scroll-snap-align: center;
+    }
+
+    .reel-card__stat-label { font-size: 0.7rem; }
+    .reel-card__client-badge { font-size: 0.7rem; }
 
     .reel-card__title {
         font-size: 1rem;
     }
 }
 
-@media (max-width: 420px) {
-    .video-work__grid {
-        grid-template-columns: 1fr;
-    }
-}
 
 /* ═══════════════════════════════════════════
    REEL LIGHTBOX (click-to-play overlay)

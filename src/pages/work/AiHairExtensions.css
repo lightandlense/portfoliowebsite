@@ -332,6 +332,21 @@
     white-space: nowrap;
 }
 
+/* Phones: each table row becomes a small stacked card */
+@media (max-width: 600px) {
+    .cs__table thead { display: none; }
+    .cs__table, .cs__table tbody, .cs__table tr, .cs__table td { display: block; width: 100%; }
+    .cs__table tr { padding: 0.9rem 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+    .cs__table tr:last-child { border-bottom: none; }
+    .cs__table td { padding: 0.2rem 0; border: none; display: flex; justify-content: space-between; gap: 1rem; white-space: normal; }
+    .cs__table td[data-label]::before {
+        content: attr(data-label);
+        font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+        color: var(--color-text-muted); font-weight: 400;
+    }
+    .cs__table .cs__table-metric { color: var(--color-text); font-weight: 500; margin-bottom: 0.3rem; }
+}
+
 /* ROI callouts */
 .cs__roi {
     display: grid;

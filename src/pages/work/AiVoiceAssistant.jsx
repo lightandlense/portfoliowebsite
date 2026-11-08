@@ -247,10 +247,10 @@ export default function AiVoiceAssistant() {
                             <tbody>
                                 {metrics.map(row => (
                                     <tr key={row.label}>
-                                        <td>{row.label}</td>
-                                        <td className="cs__table-trad">{row.before}</td>
-                                        <td className="cs__table-ai">{row.after}</td>
-                                        <td className="cs__table-gain">{row.improvement}</td>
+                                        <td className="cs__table-metric">{row.label}</td>
+                                        <td className="cs__table-trad" data-label="Before">{row.before}</td>
+                                        <td className="cs__table-ai" data-label="After">{row.after}</td>
+                                        <td className="cs__table-gain" data-label="Improvement">{row.improvement}</td>
                                     </tr>
                                 ))}
                             </tbody>

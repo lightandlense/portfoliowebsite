@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import './Hero.css';
 
 const textReveal = {
@@ -95,6 +96,20 @@ export default function Hero() {
                     the AI tools and automated workflows that make ambitious
                     creative work actually ship.
                 </p>
+            </motion.div>
+
+            {/* Phones: show real work on the first screen */}
+            <motion.div
+                className="hero__featured"
+                variants={fadeIn}
+                initial="hidden"
+                animate="visible"
+                custom={0.8}
+            >
+                <Link to="/classic/work/paintsong" className="hero__featured-link">
+                    <img src="/work/paintsong/images/wall-painted.jpg" alt="Russell's shadow painting a projected wall in neon light" />
+                    <span className="hero__featured-caption">Featured: Paintsong, a projected wall you play with your shadow ↗</span>
+                </Link>
             </motion.div>
         </section>
     );

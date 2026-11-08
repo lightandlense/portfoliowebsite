@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import './Work.css';
@@ -111,7 +112,7 @@ function WorkCard({ project, index }) {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: index * 0.15 }}
+            transition={{ duration: 0.7, delay: (index % 3) * 0.15 }}  // ponytail: stagger per row, not per card (card 11 waited 1.5s)
         >
             <div className="work-card__image">
                 {project.image ? (
@@ -143,7 +144,10 @@ function WorkCard({ project, index }) {
     );
 }
 
+const MOBILE_FIRST = 6; // phones show the top installations first, rest behind a button
+
 export default function Work() {
+    const [showAll, setShowAll] = useState(false);
     return (
         <section className="work" id="work">
             <div className="work__inner">
@@ -159,11 +163,17 @@ export default function Work() {
                     <h2 className="work__title text-display">Case Studies</h2>
                 </motion.div>
 
-                <div className="work__grid">
+                <div className={`work__grid${showAll ? ' work__grid--all' : ''}`}>
                     {projects.map((project, i) => (
                         <WorkCard key={project.id} project={project} index={i} />
                     ))}
                 </div>
+
+                {!showAll && (
+                    <button type="button" className="work__more" onClick={() => setShowAll(true)}>
+                        Show all {projects.length} projects ↓
+                    </button>
+                )}
 
             </div>
         </section>

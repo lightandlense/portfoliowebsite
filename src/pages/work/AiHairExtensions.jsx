@@ -252,10 +252,10 @@ export default function AiHairExtensions() {
                             <tbody>
                                 {metrics.map(row => (
                                     <tr key={row.label}>
-                                        <td>{row.label}</td>
-                                        <td className="cs__table-trad">{row.traditional}</td>
-                                        <td className="cs__table-ai">{row.ai}</td>
-                                        <td className="cs__table-gain">{row.improvement}</td>
+                                        <td className="cs__table-metric">{row.label}</td>
+                                        <td className="cs__table-trad" data-label="Traditional">{row.traditional}</td>
+                                        <td className="cs__table-ai" data-label="AI Workflow">{row.ai}</td>
+                                        <td className="cs__table-gain" data-label="Improvement">{row.improvement}</td>
                                     </tr>
                                 ))}
                             </tbody>
