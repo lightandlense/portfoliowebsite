@@ -1,3 +1,4 @@
+import { COOKIE_HEIST } from './cookieHeist';
 export const PROJECTS = [
   {
     id: 'urban-projection',
@@ -873,6 +874,7 @@ export const PROJECTS = [
     accent: '#f5a524',
     icon: { glyph: '📺', color: '#f5a524' },
   },
+  COOKIE_HEIST,
 ];
 
 export const REELS = [

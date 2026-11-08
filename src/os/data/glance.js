@@ -105,5 +105,12 @@ export const GLANCE = {
     tech: 'Python, FastAPI, Playwright, Claude API, SQLite, APScheduler',
     problem: 'Relevant postings are scattered across boards, and tailoring each application is a second full-time job.',
   },
+  'cookie-heist': {
+    result: 'Nine versions took one shot from striped walls and a warped floor to a stiff nutcracker eyeing the cookie jar in a 2 a.m. kitchen, on one local 4090.',
+    role: 'Solo: previz, ComfyUI workflow, prompts, comparisons',
+    tech: 'Wan 2.2 + VACE, ComfyUI, Seedance 2.5, Blender, Python',
+    problem: 'Keep stylized toy characters on-model across shots, with the camera and blocking under my control.',
+    broke: 'At full depth strength the depth bands turned into stripes on the cabinets, and the previz stand-in could not change shape, so I rebuilt it in Blender.',
+  },
 };
 export const getGlance = (slug) => GLANCE[slug];

@@ -85,6 +85,16 @@ const projects = [
         slug: 'ai-email-creative',
     },
     {
+        id: 18,
+        filters: ['ai'],
+        category: 'Gen-AI Animation R&D — Seedance vs Wan 2.2',
+        title: 'Cookie Heist',
+        description: 'One stylized shot made two ways: hosted Seedance, and Wan 2.2 + VACE on my own 4090 guided by a Blender previz. Nine versions, what broke in each, and which pipeline wins for what.',
+        tags: ['Wan 2.2', 'ComfyUI', 'Blender'],
+        image: '/work/cookie-heist/images/wan-v9-poster.jpg',
+        slug: 'cookie-heist',
+    },
+    {
         id: 3,
         filters: ['installations', 'projection'],
         category: 'Projection Mapping — Urban Activation',
