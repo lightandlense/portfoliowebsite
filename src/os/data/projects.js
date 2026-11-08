@@ -179,6 +179,13 @@ export const PROJECTS = [
         { src: '/images/casestudyimages/Chromotion/fish-demo.mp4', label: 'Draw A Fish', caption: 'Scanned sea creatures swimming a projected aquarium — synced globally, so fish scanned anywhere in the world swim in too.' },
         { src: '/images/casestudyimages/Chromotion/plane-demo.mp4', label: 'Draw A Plane', caption: 'Scanned WWII fighters flying over a carrier.' },
       ]},
+      { type: 'h', text: 'What Broke' },
+      { type: 'p', text: 'Getting a flat crayon drawing to walk and swim took more rounds than the scanning did.' },
+      { type: 'pillars', items: [
+        { title: 'Stiff Dinosaur Legs', text: 'My first rig cut the legs into separate sprites that swung like paper dolls, and turning the head bent the tops of the legs. I switched to skeletal mesh skinning: the whole drawing is one image stretched over bones, and each leg only listens to its own bones.' },
+        { title: 'Half-Moving Fins', text: 'Fins are cut out of the drawing so they can flap. When a cutout clipped a thin vein line, half the fin moved and half stayed frozen. Every fin outline now has to enclose every line of ink in that fin.' },
+        { title: 'A Pixi.js Crash', text: 'Cleaning up an old mesh by destroying its texture broke the next mesh Pixi.js built, and it took three debugging rounds to find. The fix was to let Pixi handle the cleanup.' },
+      ]},
       { type: 'h', text: 'Implementation' },
       { type: 'specs', items: [
         { label: 'Color Extraction', value: 'Python + OpenCV. Per-region sampling with percentile-based color selection to handle crayon texture and edge noise.' },

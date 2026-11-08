@@ -18,6 +18,7 @@ export const GLANCE = {
     role: 'Designed and built the pipeline',
     tech: 'Python, OpenCV, ArUco markers, Pixi.js, browser kiosk',
     problem: "Make a child's crayon colors on paper show up live on an animated subject, without asking them to do anything precise.",
+    broke: 'Sprite-cut dinosaur legs looked stiff and bent when the head turned, and fins half-froze. Skeletal mesh skinning with per-leg bones fixed both.',
   },
   'real-time-experiments': {
     result: 'A running series of live, runnable interactive sketches: hand tracking, particle systems, audio-reactive visuals and WebGL.',
