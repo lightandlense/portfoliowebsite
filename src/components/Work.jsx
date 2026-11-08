@@ -55,6 +55,16 @@ const projects = [
         slug: 'chromotion',
     },
     {
+        id: 15,
+        filters: ['ai'],
+        category: 'AI Assistant — AWS Bedrock + Evals',
+        title: 'Tonightly',
+        description: 'A TV-style "what should I watch tonight" app with a Claude assistant on AWS Bedrock, plus the evals that prove it got better, not just different: score 4.24 to 4.53, failed chats 4 to 1.',
+        tags: ['AWS Bedrock', 'Claude', 'Evals'],
+        image: '/work/tonightly/images/home.jpg',
+        slug: 'tonightly',
+    },
+    {
         id: 10,
         filters: ['installations'],
         category: 'Creative Technology — Real-Time & Interactive',
@@ -83,16 +93,6 @@ const projects = [
         tags: ['Voice AI', 'MCP', 'Automation'],
         image: '/images/casestudyimages/ai assistant.jpg',
         slug: 'ai-voice-assistant',
-    },
-    {
-        id: 15,
-        filters: ['ai'],
-        category: 'AI Assistant — AWS Bedrock + Evals',
-        title: 'Tonightly',
-        description: 'A TV-style "what should I watch tonight" app with a Claude assistant on AWS Bedrock, plus the evals that prove it got better, not just different: score 4.24 to 4.53, failed chats 4 to 1.',
-        tags: ['AWS Bedrock', 'Claude', 'Evals'],
-        image: '/work/tonightly/images/home.jpg',
-        slug: 'tonightly',
     },
     {
         id: 4,
