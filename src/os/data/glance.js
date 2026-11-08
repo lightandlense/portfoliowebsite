@@ -12,6 +12,7 @@ export const GLANCE = {
     role: 'Designed and built it, open source',
     tech: 'Vanilla JavaScript, Matter.js, js-aruco2, ArUco markers, projector, USB camera',
     problem: 'Physics puzzle games live behind glass, so the tactile, social part of play is missing.',
+    broke: 'The ArUco markers stopped tracking when the room light was too low, and blocks still do not always line up exactly with the projection.',
   },
   'chromotion': {
     result: 'A scan-to-life pipeline now powers four coloring installations: Draw A Dino, Draw A Fish, Draw A Plane, and the original.',
@@ -89,6 +90,7 @@ export const GLANCE = {
     role: 'Designed and built it',
     tech: 'Pipecat, Whisper, Llama 3.1 via Ollama, Kokoro TTS, Three.js, Blender',
     problem: "A client asked for a talking tree, and hosted avatar services charge by the minute and keep the character on their servers.",
+    broke: 'Getting it to run remotely from a laptop while my main tower does the heavy work, and tuning the lip movement until the mouth matched the words.',
   },
   'tonightly': {
     result: 'Eval score rose from 4.24 to 4.53 out of 5 over 3 runs, and failed conversations dropped from about 4 per run to about 1.',
