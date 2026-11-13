@@ -56,7 +56,7 @@ export default function Chromotion() {
                     variants={fadeUp} initial="hidden" animate="visible" custom={0.5}
                 >
                     <div className="cs__stat">
-                        <span className="cs__stat-value">4</span>
+                        <span className="cs__stat-value">3</span>
                         <span className="cs__stat-label">Installations</span>
                     </div>
                     <div className="cs__stat">
@@ -100,7 +100,7 @@ export default function Chromotion() {
                 >
                     <h2 className="cs__section-title">Project Overview</h2>
                     <p className="cs__text">
-                        Chromotion is the pipeline behind four coloring-to-life installations.
+                        Chromotion is the pipeline behind three coloring-to-life installations.
                         Visitors receive a printed template — ArUco registration markers in each
                         corner — and color it however they want. When they hold it up to the
                         camera, a computer vision pipeline reads the color of each region, maps
@@ -111,8 +111,10 @@ export default function Chromotion() {
                     <p className="cs__text">
                         The scanning pipeline auto-discovers new templates dropped into its
                         folder — adding a new subject requires no config changes. That same
-                        scan-to-life pipeline now powers three more installations: Draw A Dino,
-                        Draw A Fish, and Draw A Plane.
+                        Draw A Fish and Draw A Plane run the same scan-to-life pipeline. A third build, Dino Aqua, is a 3D take on the same idea (print, color, scan, it comes alive), made fresh as a concept for Adobe Aqua.
+                    </p>
+                    <p className="cs__text">
+                        Dino Aqua is a 3D paint-your-plush-dino app for kids, iPad first, made as a concept for Adobe Aqua. Pick a stego, triceratops or T-rex, rotate it and paint right on the 3D model (or a flat side view), press Done, and it hatches out of a stitched plush egg into a felt toy world with felt trees, a felt volcano, drifting clouds and twinkling stars at night. Tap the ground to drop food and the dinos walk over to eat. Or print a coloring page, color it with crayons, scan it with the iPad, and the colors land on the 3D dino.
                     </p>
                 </motion.section>
 
@@ -190,7 +192,7 @@ export default function Chromotion() {
                 >
                     <h2 className="cs__section-title">Color It Yourself</h2>
                     <p className="cs__text">
-                        The coloring page is the same idea across all three: pick a species,
+                        The coloring page is the same idea across all three builds: pick a species,
                         pick colors, no rules about staying inside the lines.
                     </p>
 
@@ -198,11 +200,11 @@ export default function Chromotion() {
                         <div className="chr__ba-item">
                             <div className="chr__ba-image">
                                 <img
-                                    src="/images/casestudyimages/Chromotion/dino-coloring.jpg"
-                                    alt="Draw A Dino online coloring page"
+                                    src="/images/casestudyimages/Chromotion/dino-aqua-paint.jpg"
+                                    alt="Dino Aqua painting a plush triceratops on the 3D model"
                                 />
                             </div>
-                            <p className="cs__image-caption"><strong>Draw A Dino</strong></p>
+                            <p className="cs__image-caption"><strong>Dino Aqua</strong></p>
                         </div>
                         <div className="chr__ba-item">
                             <div className="chr__ba-image">
@@ -240,11 +242,11 @@ export default function Chromotion() {
                         <div className="chr__ba-item">
                             <div className="chr__ba-image">
                                 <img
-                                    src="/images/casestudyimages/Chromotion/dino-printable.jpg"
-                                    alt="Draw A Dino printable coloring sheet with scan code"
+                                    src="/images/casestudyimages/Chromotion/dino-aqua-printable.jpg"
+                                    alt="Dino Aqua printable triceratops coloring page with corner markers and scan code"
                                 />
                             </div>
-                            <p className="cs__image-caption"><strong>Draw A Dino</strong></p>
+                            <p className="cs__image-caption"><strong>Dino Aqua</strong></p>
                         </div>
                         <div className="chr__ba-item">
                             <div className="chr__ba-image">
@@ -274,19 +276,19 @@ export default function Chromotion() {
                 >
                     <h2 className="cs__section-title">Where It Went Next</h2>
                     <p className="cs__text">
-                        Same registration + scan pipeline, different worlds: a prehistoric
-                        landscape, an aquarium, and a WWII carrier scene.
+                        Same registration + scan pipeline, different worlds: a felt toy
+                        world, an aquarium, and a WWII carrier scene.
                     </p>
 
                     <div className="chr__before-after">
                         <div className="chr__ba-item">
                             <div className="chr__ba-image">
                                 <img
-                                    src="/images/casestudyimages/Chromotion/dino-screenshot.jpg"
-                                    alt="Draw A Dino scene with scanned dinosaurs"
+                                    src="/images/casestudyimages/Chromotion/dino-aqua-habitat.jpg"
+                                    alt="Dino Aqua felt toy world with a plush stegosaurus"
                                 />
                             </div>
-                            <p className="cs__image-caption"><strong>Draw A Dino</strong></p>
+                            <p className="cs__image-caption"><strong>Dino Aqua</strong></p>
                         </div>
                         <div className="chr__ba-item">
                             <div className="chr__ba-image">
@@ -309,7 +311,7 @@ export default function Chromotion() {
                     </div>
 
                     <p className="cs__text">
-                        <a href="https://draw-a-dino.vercel.app/welcome.html" target="_blank" rel="noreferrer">Draw A Dino ↗</a>
+                        <a href="https://dino-aqua.vercel.app" target="_blank" rel="noreferrer">Dino Aqua ↗</a>
                         {' · '}
                         <a href="https://draw-a-fish-mu.vercel.app/welcome.html" target="_blank" rel="noreferrer">Draw A Fish ↗</a>
                         {' · '}
@@ -327,15 +329,16 @@ export default function Chromotion() {
                         <div className="chr__ba-item">
                             <div className="chr__ba-image">
                                 <video
-                                    src="/images/casestudyimages/Chromotion/dino-demo.mp4"
+                                    src="/images/casestudyimages/Chromotion/dino-aqua-demo.mp4"
+                                    poster="/images/casestudyimages/Chromotion/dino-aqua-habitat.jpg"
                                     autoPlay
                                     loop
                                     muted
                                     playsInline
-                                    aria-label="Draw A Dino demo — scanned dinosaurs walking a prehistoric scene"
+                                    aria-label="Dino Aqua demo: paint a plush dino, watch it hatch, then feed it"
                                 />
                             </div>
-                            <p className="cs__image-caption"><strong>Draw A Dino</strong> Scanned dinosaurs walking a prehistoric scene.</p>
+                            <p className="cs__image-caption"><strong>Dino Aqua</strong> Paint a plush dino, watch it hatch, then feed it.</p>
                         </div>
                         <div className="chr__ba-item">
                             <div className="chr__ba-image">
@@ -395,7 +398,7 @@ export default function Chromotion() {
                         </div>
                         <div className="cs__spec">
                             <span className="cs__spec-label">Sibling Builds</span>
-                            <span className="cs__spec-value">Draw A Dino, Draw A Fish, and Draw A Plane all run this exact pipeline — swap the template art, the pipeline doesn't change.</span>
+                            <span className="cs__spec-value">Draw A Fish and Draw A Plane both run this exact pipeline: swap the template art, the pipeline doesn't change. Dino Aqua is a 3D concept for Adobe Aqua built fresh on the same idea: Three.js + Vite, GPU paint projected into the model's UV texture, coloring pages scanned with corner markers + QR (jsQR), a homography and per-texel side-camera projection. The dinos are rigged Blender models with walk, idle, turn and hop clips.</span>
                         </div>
                     </div>
                 </motion.section>
@@ -436,8 +439,8 @@ export default function Chromotion() {
                                 <h3 className="cs__takeaway-title">Extensible by Design</h3>
                                 <p className="cs__takeaway-text">
                                     The pipeline discovers new templates by folder — dropping in
-                                    a new subject requires no config edits. Draw A Dino, Draw A
-                                    Fish, and Draw A Plane are proof: same scan-and-render core,
+                                    a new subject requires no config edits. Draw A Fish
+                                    and Draw A Plane are proof: same scan-and-render core,
                                     entirely different worlds.
                                 </p>
                             </div>

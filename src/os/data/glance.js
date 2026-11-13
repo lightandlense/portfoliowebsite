@@ -15,7 +15,7 @@ export const GLANCE = {
     broke: 'The ArUco markers stopped tracking when the room light was too low, and blocks still do not always line up exactly with the projection.',
   },
   'chromotion': {
-    result: 'A scan-to-life pipeline now powers four coloring installations: Draw A Dino, Draw A Fish, Draw A Plane, and the original.',
+    result: 'A scan-to-life pipeline now powers coloring installations like Draw A Fish and Draw A Plane. Dino Aqua is a 3D take on the same idea.',
     role: 'Designed and built the pipeline',
     tech: 'Python, OpenCV, ArUco markers, Pixi.js, browser kiosk',
     problem: "Make a child's crayon colors on paper show up live on an animated subject, without asking them to do anything precise.",
